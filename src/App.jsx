@@ -7,7 +7,7 @@ function App() {
     <div>
       <GlobalStyle />
       <GlobalFont />
-      안녕하세요 늦어서 죄송합니다.
+      실시간으로 제발 되라!! 제발!!
     </div>
   );
 }
