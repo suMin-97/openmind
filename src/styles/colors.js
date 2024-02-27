@@ -19,3 +19,5 @@ const colors = {
   yellow: "#FEE500",
   red: "#B93333",
 };
+
+export default colors;
