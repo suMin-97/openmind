@@ -7,17 +7,17 @@ const GlobalFont = createGlobalStyle`
   @font-face {
     font-family: "Pretendard";
     src: local("Pretendard"), url(${PretendardRegular}) format("woff2");
-    font-weight: regular;
+    font-weight: 400;
   }
   @font-face {
     font-family: "Pretendard";
     src: local("Pretendard"), url(${PretendardMedium}) format("woff2");
-    font-weight: medium;
+    font-weight: 500;
   }
   @font-face {
     font-family: "Pretendard";
     src: local("Pretendard"), url(${PretendardBold}) format("woff2");
-    font-weight: bold;
+    font-weight: 700;
   }
 `;
 
