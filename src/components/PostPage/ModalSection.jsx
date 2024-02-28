@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import styled from "styled-components";
 
 const ContainDiv = styled.div`
@@ -18,17 +18,56 @@ const ContentsBox = styled.div`
   width: 500px;
   height: 400px;
   border: 5px solid white;
-  color: white;
+  background-color: white;
 `;
 
 function Modal({ onClick }) {
+  const [isDisabled, setIsDisabled] = useState(true);
+  const ModalBg = useRef();
+
+  const handleBGCloseClick = (event) => {
+    if (event.target === ModalBg.current) {
+      onClick(false);
+    }
+  };
+
+  const handleBtnCloseClick = () => {
+    onClick(false);
+  };
+
+  const handleChange = (event) => {
+    if (event.target.value !== "") {
+      setIsDisabled(false);
+    }
+  };
+
+  const handleBlur = (event) => {
+    if (event.target.value === "") {
+      setIsDisabled(true);
+    }
+  };
+
   return (
-    <ContainDiv>
+    <ContainDiv ref={ModalBg} onClick={handleBGCloseClick}>
       <ContentsBox>
-        모달이당
-        <button onClick={onClick} type="button">
+        <button onClick={handleBtnCloseClick} type="button">
           X
         </button>
+        <form>
+          <h1>질문을 작성하세요</h1>
+          <label htmlFor="question">
+            To.아초 is cat <br />
+            <input
+              id="question"
+              type="text"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </label>
+          <button disabled={isDisabled} type="submit">
+            질문 보내렴
+          </button>
+        </form>
       </ContentsBox>
     </ContainDiv>
   );
@@ -37,16 +76,16 @@ function Modal({ onClick }) {
 function Modalsection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleButtonClick = () => {
-    setIsModalOpen(!isModalOpen);
+  const handleOpenClick = () => {
+    setIsModalOpen(true);
   };
 
   return (
     <>
-      <button onClick={handleButtonClick} type="button">
+      <button onClick={handleOpenClick} type="button">
         질문하실?
       </button>
-      {isModalOpen ? <Modal onClick={handleButtonClick} /> : null}
+      {isModalOpen ? <Modal onClick={setIsModalOpen} /> : null}
     </>
   );
 }

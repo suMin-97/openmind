@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Modalsection from "../../components/PostPage/ModalSection";
 
-const FeedPage = () => {
+function FeedPage() {
   return (
     <div>
       <h1>개인 피드 페이지</h1>
@@ -11,6 +11,6 @@ const FeedPage = () => {
       <Modalsection />
     </div>
   );
-};
+}
 
 export default FeedPage;
