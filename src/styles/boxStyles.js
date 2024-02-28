@@ -21,6 +21,14 @@ const boxStyles = {
   padding20: "padding: 20px",
   padding24: "padding: 24px",
   padding32: "padding: 32px",
+
+  /* flex */
+  flexRowCenter:
+    "display: flex; flex-direction: row; justify-content: center; align-items: center",
+  inlineFlexRowCenter:
+    "display: inline-flex; flex-direction: row; justify-content: center; align-items: center",
+  flexColumnCenter:
+    "display: flex; flex-direction: Column; justify-content: center;",
 };
 
 export default boxStyles;
