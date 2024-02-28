@@ -1,4 +1,5 @@
 import colors from "./colors";
-import fontSizes from "./fontSizes";
+import fontStyles from "./fontStyles";
+import boxStyles from "./boxStyles";
 
-export { colors, fontSizes };
+export { colors, fontStyles, boxStyles };
