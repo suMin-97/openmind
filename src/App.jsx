@@ -1,7 +1,5 @@
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
-import { Route } from "react-router-dom";
-import { Routes } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GlobalStyle from "./styles/GlobalStyle";
 import GlobalFont from "./styles/fonts/fonts";
 import MainPage from "./Pages/MainPage";
