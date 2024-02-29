@@ -28,7 +28,7 @@ const boxStyles = {
   inlineFlexRowCenter:
     "display: inline-flex; flex-direction: row; justify-content: center; align-items: center",
   flexColumnCenter:
-    "display: flex; flex-direction: Column; justify-content: center;",
+    "display: flex; flex-direction: Column; align-items: center;",
 };
 
 export default boxStyles;
