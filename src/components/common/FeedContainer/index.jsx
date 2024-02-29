@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import { boxStyles, colors, devices } from "@styles/styleVariables";
 import FeedCountMessage from "../FeedCountMessage";
+import NoFeedCard from "../NoFeedCard";
 
 const BasicFeedContainer = ({ className }) => {
   const {
@@ -32,7 +33,7 @@ const BasicFeedContainer = ({ className }) => {
 
     if (feedCardList?.length === 0) {
       // 추후 NoFeedCard 컴포넌트로 대체합니다.
-      return <div>빈칸</div>;
+      return <NoFeedCard />;
     }
 
     if (feedCardList?.length > 0) {
@@ -62,6 +63,7 @@ const FeedContainer = styled(BasicFeedContainer)`
   ${boxStyles.flexColumnCenter};
   gap: 1rem;
   width: 100%;
+  min-height: 330px;
   ${boxStyles.padding16};
   border: 1px solid ${colors.brown30};
   ${boxStyles.radius16};
