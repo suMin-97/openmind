@@ -3,9 +3,7 @@ import { colors, fontStyles, boxStyles } from "@styles/styleVariables";
 
 const BasicBadge = ({ className, isAnswered }) => {
   return (
-    <span className={className} isAnswered>
-      {isAnswered ? "답변 완료" : "미답변"}
-    </span>
+    <span className={className}>{isAnswered ? "답변 완료" : "미답변"}</span>
   );
 };
 

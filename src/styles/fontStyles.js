@@ -3,7 +3,6 @@ const fontStyles = {
   h2: "font-size: 2rem; line-height: 1.25",
   h3: "font-size: 1.5rem; line-height: 1.25",
   body1: "font-size: 1.25rem; line-height: 1.25",
-  body1: "font-size: 1.25rem; line-height: 1.25",
   body2: "font-size: 1.125rem; line-height: 1.333",
   body3: "font-size: 1rem; line-height: 1.375",
   caption: "font-size: 0.875rem; line-height: 1.285",

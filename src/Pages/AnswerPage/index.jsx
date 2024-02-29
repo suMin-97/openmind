@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Badge from "../../components/common/Badge";
+import Reaction from "../../components/common/Reaction";
 
 const AnswerPage = () => {
   return (
@@ -10,6 +11,8 @@ const AnswerPage = () => {
       <Link to="/post/1">피드 페이지</Link>
       <Badge isAnswered>가나다</Badge>
       <Badge>가나다</Badge>
+
+      <Reaction />
     </div>
   );
 };
