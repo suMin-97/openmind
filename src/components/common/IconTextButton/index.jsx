@@ -26,8 +26,6 @@ const IconTextButton = styled(basicIconTextButton)`
   color: ${(props) => (props.isClicked ? colors.blue : colors.gray40)};
   & svg {
     fill: ${(props) => (props.isClicked ? colors.blue : colors.gray40)};
-    width: 1rem;
-    height: 1rem;
   }
 
   &:hover {

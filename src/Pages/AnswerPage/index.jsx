@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import Badge from "../../components/common/Badge";
-import { ReactComponent as LikeIcon } from "../../assets/icons/Like.svg";
-import IconTextButton from "../../components/common/IconTextButton";
+import Reaction from "../../components/common/Reaction";
 
 const AnswerPage = () => {
   return (
@@ -13,8 +12,7 @@ const AnswerPage = () => {
       <Badge isAnswered>가나다</Badge>
       <Badge>가나다</Badge>
 
-      <IconTextButton imageSource={<LikeIcon />} text="붐업" />
-      <IconTextButton imageSource={<LikeIcon />} text="붐업" isClicked />
+      <Reaction />
     </div>
   );
 };
