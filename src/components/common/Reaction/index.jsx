@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import boxStyles from "@styles/boxStyles";
-import IconTextButton from "../IconTextButton";
 import { ReactComponent as LikeIcon } from "@icons/Like.svg";
 import { ReactComponent as DislikeIcon } from "@icons/Dislike.svg";
+import IconTextButton from "../IconTextButton";
 
 const reactionData = {
   like: 3,
@@ -19,7 +19,7 @@ const BasicReaction = ({ className }) => {
   useEffect(() => {
     setLike(reactionData?.like);
     setDislike(reactionData?.dislike);
-  }, [reactionData]);
+  }, []);
 
   return (
     <ul className={className}>
