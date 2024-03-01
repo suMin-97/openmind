@@ -4,4 +4,5 @@
 [![Deploy CI](https://github.com/suMin-97/openmind/actions/workflows/DeployCI.yml/badge.svg)](https://github.com/suMin-97/openmind/actions/workflows/DeployCI.yml)
 
 # Open mind project
-# https://openmind-life.vercel.app/
+
+# https://openmind-life.vercel.app
