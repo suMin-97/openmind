@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { BASIC_DEPLOY_URL } from "../../../constants/constants";
 
 const KakaoShareButton = ({ url }) => {
   useEffect(() => {

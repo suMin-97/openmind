@@ -1,6 +1,6 @@
 import { FacebookIcon, FacebookShareButton } from "react-share";
 import UrlShareButton from "./UrlShareButton";
-import KakaoShareButton from "./kakaoShareButton";
+import KakaoShareButton from "./KakaoShareButton";
 
 const ShareButtons = ({ url }) => {
   return (
