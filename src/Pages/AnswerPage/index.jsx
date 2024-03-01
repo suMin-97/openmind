@@ -1,16 +1,14 @@
-import { Link } from "react-router-dom";
-import Badge from "../../components/common/Badge";
-import Reaction from "../../components/common/Reaction";
-import FeedContainer from "../../components/common/FeedContainer";
-import BasicFloatingButton from "../../components/common/BasicFloatingButton";
-import DeleteFloatingButton from "../../components/AnswerPage/DeleteFloatingButton";
-import useRequest from "../../hooks/useRequest";
-import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import useRequest from "@hooks/useRequest";
+import Badge from "@components/common/Badge";
+import Reaction from "@components/common/Reaction";
+import FeedContainer from "@components/common/FeedContainer";
+import BasicFloatingButton from "@components/common/BasicFloatingButton";
+import DeleteFloatingButton from "@components/AnswerPage/DeleteFloatingButton";
 
 const AnswerPage = () => {
+  // 추후 삭제 확인 후 페이지 이동시 사용
   const navigate = useNavigate();
-  // const { id } = useParams();
   const { id } = useParams();
 
   const {

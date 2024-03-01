@@ -1,9 +1,9 @@
-import useRequest from "@hooks/useRequest";
 import { useEffect } from "react";
 import styled from "styled-components";
+import useRequest from "@hooks/useRequest";
 import { boxStyles, colors, devices } from "@styles/styleVariables";
-import FeedCountMessage from "../FeedCountMessage";
-import NoFeedCard from "../NoFeedCard";
+import FeedCountMessage from "@components/common/FeedCountMessage";
+import NoFeedCard from "@components/common/NoFeedCard";
 
 const BasicFeedContainer = ({ className }) => {
   const {

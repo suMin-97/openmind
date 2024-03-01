@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import BasicFloatingButton from "../../common/BasicFloatingButton";
 import { fontStyles, boxStyles, devices } from "@styles/styleVariables";
+import BasicFloatingButton from "@components/common/BasicFloatingButton";
 
 const BasicDeleteFloatingButton = ({ className, handleDelete }) => {
   return (

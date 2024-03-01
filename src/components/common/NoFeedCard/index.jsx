@@ -1,5 +1,5 @@
-import { ReactComponent as NoMessageIcon } from "@icons/No-message.svg";
 import styled from "styled-components";
+import { ReactComponent as NoMessageIcon } from "@icons/No-message.svg";
 import { devices, boxStyles } from "@styles/styleVariables";
 
 const BasicNoFeedCard = ({ className }) => {

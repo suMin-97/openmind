@@ -1,5 +1,5 @@
-import { ReactComponent as MessagesIcon } from "@icons/Messages.svg";
 import styled from "styled-components";
+import { ReactComponent as MessagesIcon } from "@icons/Messages.svg";
 import { fontStyles, boxStyles, colors, devices } from "@styles/styleVariables";
 
 const BasicFeedCountMessage = ({ className, count, isLoading, error }) => {
