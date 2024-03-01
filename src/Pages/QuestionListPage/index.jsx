@@ -3,6 +3,7 @@ import useRequest from "../../hooks/useRequest";
 import styled from "styled-components";
 import ListHeaderComponent from "../../components/QuestionListPage/ListHeaderComponent";
 import SortDropdownComponent from "../../components/QuestionListPage/SortDropdownComponent";
+import { Link } from "react-router-dom";
 
 const QuestionListPage = () => {
   const {
@@ -20,21 +21,21 @@ const QuestionListPage = () => {
   }, []);
 
   return (
-    <div>
+    <>
       <ListHeaderComponent />
       <MainText>누구에게 질문할까요?</MainText>
       <SortDropdownComponent />
       <ListArticle>
         {questionListData?.results?.map((e) => {
           return (
-            <>
+            <Link to={`/post/${e.id}`}>
               <img src={e.imageSource} />
-            </>
+            </Link>
           );
         })}
       </ListArticle>
       <button onClick={() => request()}>request</button>
-    </div>
+    </>
   );
 };
 
