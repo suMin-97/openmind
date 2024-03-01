@@ -21,17 +21,21 @@ const ContentsBox = styled.div`
   background-color: white;
 `;
 
-const Modal = ({ onClick }) => {
+const Modal = ({ onClick, searchParams, setSearchParams }) => {
   const [isDisabled, setIsDisabled] = useState(true);
   const ModalBg = useRef();
 
   const handleBGCloseClick = (event) => {
     if (event.target === ModalBg.current) {
+      searchParams.delete("isModal");
+      setSearchParams(searchParams);
       onClick(false);
     }
   };
 
   const handleBtnCloseClick = () => {
+    searchParams.delete("isModal");
+    setSearchParams(searchParams);
     onClick(false);
   };
 
@@ -84,17 +88,25 @@ const Modal = ({ onClick }) => {
   );
 };
 
-const Modalsection = () => {
+const Modalsection = ({ searchParams, setSearchParams }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenClick = () => {
+    searchParams.set("isModal", "open");
+    setSearchParams(searchParams);
     setIsModalOpen(true);
   };
 
   return (
     <>
       <button onClick={handleOpenClick}>질문하실?</button>
-      {isModalOpen && <Modal onClick={setIsModalOpen} />}
+      {isModalOpen && (
+        <Modal
+          searchParams={searchParams}
+          setSearchParams={setSearchParams}
+          onClick={setIsModalOpen}
+        />
+      )}
     </>
   );
 };
