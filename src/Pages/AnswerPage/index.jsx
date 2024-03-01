@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Badge from "../../components/common/Badge";
 import Reaction from "../../components/common/Reaction";
 import FeedContainer from "../../components/common/FeedContainer";
+import BasicFloatingButton from "../../components/common/BasicFloatingButton";
 
 const AnswerPage = () => {
   return (
@@ -14,6 +15,8 @@ const AnswerPage = () => {
       <Badge>가나다</Badge>
       <Reaction />
       <FeedContainer />
+      <BasicFloatingButton disabled>제출하기</BasicFloatingButton>
+      <BasicFloatingButton>제출하기</BasicFloatingButton>
     </div>
   );
 };
