@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
+import useRequest from "../../../hooks/useRequest";
 
 const ContainDiv = styled.div`
   width: 100vw;
@@ -21,8 +22,17 @@ const ContentsBox = styled.div`
   background-color: white;
 `;
 
-const Modal = ({ searchParams, setSearchParams }) => {
+const Modal = ({ subjectId, searchParams, setSearchParams }) => {
   const [isDisabled, setIsDisabled] = useState(true);
+  const {
+    data: profileData,
+    error,
+    isLoading,
+    request: getRequest,
+  } = useRequest({
+    url: `subjects/${subjectId}`,
+    method: "GET",
+  });
   const ModalBg = useRef();
 
   const handleBGCloseClick = (event) => {
@@ -50,6 +60,7 @@ const Modal = ({ searchParams, setSearchParams }) => {
   };
 
   useEffect(() => {
+    getRequest();
     document.body.style.cssText = `
       position: fixed; 
       top: -${window.scrollY}px;
@@ -69,7 +80,14 @@ const Modal = ({ searchParams, setSearchParams }) => {
         <form>
           <h1>질문을 작성하세요</h1>
           <label htmlFor="question">
-            To.아초 is cat <br />
+            {isLoading && <p>로딩중</p>}
+            {profileData && (
+              <>
+                <img src={profileData?.imageSource} />
+                <p>{profileData?.name}</p>
+              </>
+            )}
+            {error && <p>삐빅 에러 입니다</p>}
             <input
               id="question"
               type="text"
@@ -86,7 +104,7 @@ const Modal = ({ searchParams, setSearchParams }) => {
   );
 };
 
-const Modalsection = ({ searchParams, setSearchParams }) => {
+const Modalsection = ({ subjectId, searchParams, setSearchParams }) => {
   const isModalOpen = searchParams.get("isModal") === "open";
 
   const handleOpenClick = () => {
@@ -98,7 +116,11 @@ const Modalsection = ({ searchParams, setSearchParams }) => {
     <>
       <button onClick={handleOpenClick}>질문하실?</button>
       {isModalOpen && (
-        <Modal searchParams={searchParams} setSearchParams={setSearchParams} />
+        <Modal
+          subjectId={subjectId}
+          searchParams={searchParams}
+          setSearchParams={setSearchParams}
+        />
       )}
     </>
   );
