@@ -2,9 +2,11 @@ import styled from "styled-components";
 import BasicFloatingButton from "../../common/BasicFloatingButton";
 import { fontStyles, boxStyles, devices } from "@styles/styleVariables";
 
-const BasicDeleteFloatingButton = ({ className }) => {
+const BasicDeleteFloatingButton = ({ className, handleDelete }) => {
   return (
-    <BasicFloatingButton className={className}>삭제하기</BasicFloatingButton>
+    <BasicFloatingButton className={className} handleClick={handleDelete}>
+      삭제하기
+    </BasicFloatingButton>
   );
 };
 

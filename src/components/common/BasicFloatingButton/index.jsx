@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { colors, boxStyles, fontStyles } from "@styles/styleVariables";
 
-const BasicRoundedButton = ({ className, children, disabled }) => {
+const BasicRoundedButton = ({ className, children, disabled, handleClick }) => {
   return (
-    <button className={className} disabled={disabled}>
+    <button className={className} disabled={disabled} onClick={handleClick}>
       {children}
     </button>
   );
