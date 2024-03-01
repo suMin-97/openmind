@@ -6,7 +6,7 @@ const ShareButtons = ({ path }) => {
   return (
     <div>
       <UrlShareButton path={path} />
-      <KakaoShareButton />
+      <KakaoShareButton path={path} />
       <FacebookShareButton />
     </div>
   );
