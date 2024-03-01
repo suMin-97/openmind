@@ -5,8 +5,16 @@ import DropdownComponent from "../../common/DropdownComponent";
 import { colors, fontStyles } from "@styles/styleVariables";
 
 const SortDropdownComponent = () => {
+  // useDropdown hook 선언
+  // btnRef : dropdown open/close하기 위한 button의 ref
+  // isOpen : dropdown open/close state
+  // clickHandler: ref걸려있는 button의 event handler
   const { btnRef, isOpen, clickHandler } = useDropdown();
 
+  // dropdown 영역에 들어갈 option button info
+  // name: dropdown option의 이름 (string or ReactNode)
+  // event: 해당 option을 클릭했을 때 발생하는 event
+  // active(options): 선택된 개체 표출 시 사용 (true일 경우 active-파란색 표시)
   const sortOptions = [
     {
       name: "최신순",
