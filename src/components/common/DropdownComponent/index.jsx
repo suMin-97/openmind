@@ -10,7 +10,7 @@ const DropdownComponent = ({ options }) => {
             <DButton
               key={option.name + i}
               onClick={(e) => option.event(e)}
-              $active={option.active + ""}
+              $active={(option?.active ?? false) + ""}
             >
               {option.name}
             </DButton>
