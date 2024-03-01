@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import { BASIC_DEPLOY_URL } from "../../../constants/constants";
 
-const KakaoShareButton = ({ path }) => {
-  const currentUrl = `${BASIC_DEPLOY_URL}${path}`;
-
+const KakaoShareButton = ({ url }) => {
   useEffect(() => {
     Kakao.init("83c8ec896557d0007b7c120c91c368c8");
     console.log(Kakao.isInitialized());
@@ -18,16 +16,16 @@ const KakaoShareButton = ({ path }) => {
         imageUrl:
           "http://k.kakaocdn.net/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png",
         link: {
-          mobileWebUrl: currentUrl,
-          webUrl: currentUrl,
+          mobileWebUrl: url,
+          webUrl: url,
         },
       },
       buttons: [
         {
           title: "솔직하게 질문하러 가기",
           link: {
-            mobileWebUrl: currentUrl,
-            webUrl: currentUrl,
+            mobileWebUrl: url,
+            webUrl: url,
           },
         },
       ],
