@@ -81,7 +81,7 @@ const Modalsection = () => {
   return (
     <>
       <button onClick={handleOpenClick}>질문하실?</button>
-      {isModalOpen ? <Modal onClick={setIsModalOpen} /> : null}
+      {isModalOpen && <Modal onClick={setIsModalOpen} />}
     </>
   );
 };
