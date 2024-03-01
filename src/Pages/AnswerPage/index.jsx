@@ -3,6 +3,7 @@ import Badge from "../../components/common/Badge";
 import Reaction from "../../components/common/Reaction";
 import FeedContainer from "../../components/common/FeedContainer";
 import BasicFloatingButton from "../../components/common/BasicFloatingButton";
+import DeleteFloatingButton from "../../components/AnswerPage/DeleteFloatingButton";
 
 const AnswerPage = () => {
   return (
@@ -17,6 +18,7 @@ const AnswerPage = () => {
       <FeedContainer />
       <BasicFloatingButton disabled>제출하기</BasicFloatingButton>
       <BasicFloatingButton>제출하기</BasicFloatingButton>
+      <DeleteFloatingButton />
     </div>
   );
 };
