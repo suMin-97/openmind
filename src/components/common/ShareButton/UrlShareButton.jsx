@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { BASIC_DEPLOY_URL } from "../../../constants/constants";
 import Toast from "../Toast/Toast";
 
 const UrlShareButton = ({ url }) => {
