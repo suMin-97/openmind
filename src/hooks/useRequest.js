@@ -7,8 +7,8 @@ import { apiAxios } from "../constants/constants";
  */
 const useRequest = ({ url, method }) => {
   // state를 분리해야 각 상태별 사이드이펙트가 발동함
-  const [data, setData] = useState({}); // request후 data 상태 관리
-  const [error, setError] = useState({}); // request 후 error 상태 관리 - status, message ...
+  const [data, setData] = useState(null); // request후 data 상태 관리
+  const [error, setError] = useState(null); // request 후 error 상태 관리 - status, message ...
   const [isLoading, setIsLoading] = useState(false); // request 비동기 호출 관련 loading 상태 관리
 
   const request = useCallback(
