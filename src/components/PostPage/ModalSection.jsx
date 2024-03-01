@@ -21,7 +21,7 @@ const ContentsBox = styled.div`
   background-color: white;
 `;
 
-function Modal({ onClick }) {
+const Modal = ({ onClick }) => {
   const [isDisabled, setIsDisabled] = useState(true);
   const ModalBg = useRef();
 
@@ -50,9 +50,7 @@ function Modal({ onClick }) {
   return (
     <ContainDiv ref={ModalBg} onClick={handleBGCloseClick}>
       <ContentsBox>
-        <button onClick={handleBtnCloseClick} type="button">
-          X
-        </button>
+        <button onClick={handleBtnCloseClick}>X</button>
         <form>
           <h1>질문을 작성하세요</h1>
           <label htmlFor="question">
@@ -71,9 +69,9 @@ function Modal({ onClick }) {
       </ContentsBox>
     </ContainDiv>
   );
-}
+};
 
-function Modalsection() {
+const Modalsection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenClick = () => {
@@ -82,12 +80,10 @@ function Modalsection() {
 
   return (
     <>
-      <button onClick={handleOpenClick} type="button">
-        질문하실?
-      </button>
+      <button onClick={handleOpenClick}>질문하실?</button>
       {isModalOpen ? <Modal onClick={setIsModalOpen} /> : null}
     </>
   );
-}
+};
 
 export default Modalsection;

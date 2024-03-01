@@ -8,3 +8,5 @@ export const apiAxios = axios.create({
     Accept: "application/json; charset=UTF-8",
   },
 });
+
+export const BASIC_DEPLOY_URL = "https://openmind-life.vercel.app"; // 기본 배포 주소
