@@ -18,6 +18,7 @@ const BasicFloatingButton = styled(BasicRoundedButton)`
   border: none;
   ${boxStyles.radius200};
   ${boxStyles.shadow2};
+  white-space: nowrap;
 
   &:hover {
     /* 크기 지정해야 border가 생겼을 때 원래 버튼 크기와 차이가 나지 않습니다 */
