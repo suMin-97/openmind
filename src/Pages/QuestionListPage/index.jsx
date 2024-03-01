@@ -1,5 +1,8 @@
 import { useEffect } from "react";
 import useRequest from "../../hooks/useRequest";
+import styled from "styled-components";
+import ListHeaderComponent from "../../components/QuestionListPage/ListHeaderComponent";
+import SortDropdownComponent from "../../components/QuestionListPage/SortDropdownComponent";
 
 const QuestionListPage = () => {
   const {
@@ -11,41 +14,47 @@ const QuestionListPage = () => {
     method: "GET",
     url: "subjects",
   });
-  const {
-    data: postData,
-    error: postError,
-    request: postRequest,
-  } = useRequest({
-    method: "POST",
-    url: "subjects",
-  });
+
   useEffect(() => {
-    request({ limit: 10, offset: 0 });
+    request({ limit: 4, offset: 0 });
   }, []);
-
-  useEffect(() => {
-    console.log(error);
-  }, [error]);
-
-  useEffect(() => {
-    console.log("isLoading : " + isLoading);
-  }, [isLoading]);
 
   return (
     <div>
-      {questionListData?.results?.map((e) => {
-        return (
-          <>
-            <p>{e.name}</p>
-            <img src={e.imageSource} />
-          </>
-        );
-      })}
-      <button onClick={() => postRequest({ name: "1234", team: "4-19" })}>
-        request
-      </button>
+      <ListHeaderComponent />
+      <MainText>누구에게 질문할까요?</MainText>
+      <SortDropdownComponent />
+      <ListArticle>
+        {questionListData?.results?.map((e) => {
+          return (
+            <>
+              <img src={e.imageSource} />
+            </>
+          );
+        })}
+      </ListArticle>
+      <button onClick={() => request()}>request</button>
     </div>
   );
 };
 
 export default QuestionListPage;
+
+const ListArticle = styled.article`
+  display: flex;
+  gap: 40px;
+  margin: 0 auto;
+`;
+
+const MainText = styled.div`
+  color: var(--Grayscale-60, #000);
+  text-align: center;
+  font-feature-settings:
+    "clig" off,
+    "liga" off;
+  font-family: Pretendard;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
