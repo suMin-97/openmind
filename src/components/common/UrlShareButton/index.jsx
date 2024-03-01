@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Toast from "../Toast/Toast";
+import Toast from "../Toast";
 
 const UrlShareButton = ({ url }) => {
   const [copyUrlStatus, setCopyUrlStatus] = useState("idle"); // 분기 처리를 위해 idle, success, error로 상태를 구분함, 간단한 비동기 함수라 loading은 생략함, 필요시 도입 가능함

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Modalsection from "../../components/PostPage/ModalSection";
 import FeedPageProfile from "./FeedPageProfile";
-import ShareButtons from "../../components/common/ShareButton/ShareButtons";
+import ShareButtons from "../../components/common/ShareButtons";
 import { useLocation } from "react-router-dom";
 import { BASIC_DEPLOY_URL } from "../../constants/constants";
 
