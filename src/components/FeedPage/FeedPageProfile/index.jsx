@@ -1,6 +1,6 @@
-import useRequest from "../../hooks/useRequest";
+import useRequest from "../../../hooks/useRequest";
 import { useEffect } from "react";
-function FeedPageProfile() {
+function FeedPageProfile({ subjectId }) {
   const {
     data: feedProfileData,
     error,
@@ -8,20 +8,13 @@ function FeedPageProfile() {
     request,
   } = useRequest({
     method: "GET",
-    url: "subjects/3825",
+    url: `subjects/${subjectId}`,
   });
 
   useEffect(() => {
     request();
   }, []);
 
-  useEffect(() => {
-    console.log(error);
-  }, [error]);
-
-  useEffect(() => {
-    console.log("isLoading : " + isLoading);
-  }, [isLoading]);
   return (
     <div>
       <div>
