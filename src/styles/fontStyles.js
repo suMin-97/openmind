@@ -6,6 +6,8 @@ const fontStyles = {
   body2: "font-size: 1.125rem; line-height: 1.333",
   body3: "font-size: 1rem; line-height: 1.375",
   caption: "font-size: 0.875rem; line-height: 1.285",
+  deleteS: "font-size: 0.625rem; line-height: 2.5",
+  deleteM: "font-size: 0.937rem; line-height: 1.666",
 
   /* font-weight */
   bold: "font-weight: 700",

@@ -3,6 +3,7 @@ const boxStyles = {
   radius8: "border-radius: 8px",
   radius16: "border-radius: 16px",
   radius24: "border-radius: 24px",
+  radius200: "border-radius: 200px",
   radiusC: "border-radius: 50%",
 
   /* box-shadow */
