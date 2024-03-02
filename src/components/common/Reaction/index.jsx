@@ -3,7 +3,7 @@ import styled from "styled-components";
 import boxStyles from "@styles/boxStyles";
 import { ReactComponent as LikeIcon } from "@icons/Like.svg";
 import { ReactComponent as DislikeIcon } from "@icons/Dislike.svg";
-import IconTextButton from "../IconTextButton";
+import IconTextButton from "@components/common/IconTextButton";
 
 const reactionData = {
   like: 3,

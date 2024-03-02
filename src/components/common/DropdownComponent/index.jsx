@@ -29,7 +29,7 @@ const DropdownSort = styled.div`
 
 const DropdownAbsolute = styled.div`
   position: absolute;
-  bottom: -67px;
+  bottom: -72px;
   left: 0;
   background-color: ${colors.gray10};
   border-radius: 8px;
@@ -42,6 +42,7 @@ const DropdownAbsolute = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 10;
+  padding: 4px 0;
 `;
 const DButton = styled.button`
   display: flex;
@@ -52,7 +53,12 @@ const DButton = styled.button`
   align-self: stretch;
   background-color: transparent;
   border: none;
-  color: ${(props) => (props.$active === "true" ? "#1877F2" : "#515151")};
+  color: ${(props) => (props.$active === "true" ? colors.blue : colors.gray50)};
   ${fontStyles.medium};
   ${fontStyles.caption};
+  &:hover {
+    background-color: ${colors.gray20};
+    color: ${(props) =>
+      props.$active === "true" ? colors.blue : colors.gray60};
+  }
 `;
