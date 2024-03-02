@@ -26,17 +26,17 @@ const Modal = ({ subjectId, searchParams, setSearchParams }) => {
   const [isDisabled, setIsDisabled] = useState(true);
   const {
     data: profileData,
-    error,
-    isLoading,
+    error: profileError,
+    isLoading: profileIsLoading,
     request: getRequest,
   } = useRequest({
     url: `subjects/${subjectId}`,
     method: "GET",
   });
-  const ModalBg = useRef();
+  const modalBg = useRef();
 
   const handleBGCloseClick = (event) => {
-    if (event.target === ModalBg.current) {
+    if (event.target === modalBg.current) {
       searchParams.delete("isModal");
       setSearchParams(searchParams);
     }
@@ -74,20 +74,20 @@ const Modal = ({ subjectId, searchParams, setSearchParams }) => {
   }, []);
 
   return (
-    <ContainDiv ref={ModalBg} onClick={handleBGCloseClick}>
+    <ContainDiv ref={modalBg} onClick={handleBGCloseClick}>
       <ContentsBox>
         <button onClick={handleBtnCloseClick}>X</button>
         <form>
           <h1>질문을 작성하세요</h1>
           <label htmlFor="question">
-            {isLoading && <p>로딩중</p>}
+            {profileIsLoading && <p>로딩중</p>}
             {profileData && (
               <>
                 <img src={profileData?.imageSource} />
                 <p>{profileData?.name}</p>
               </>
             )}
-            {error && <p>삐빅 에러 입니다</p>}
+            {profileError && <p>삐빅 에러 입니다</p>}
             <input
               id="question"
               type="text"
