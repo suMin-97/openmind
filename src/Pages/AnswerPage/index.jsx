@@ -6,6 +6,7 @@ import FeedContainer from "@components/common/FeedContainer";
 import BasicFloatingButton from "@components/common/BasicFloatingButton";
 import DeleteFloatingButton from "@components/AnswerPage/DeleteFloatingButton";
 import InputTextareaForm from "@components/common/InputTextareaForm";
+import MoreDropdown from "../../components/AnswerPage/MoreDropdown";
 
 const AnswerPage = () => {
   // 추후 삭제 확인 후 페이지 이동시 사용
@@ -38,8 +39,9 @@ const AnswerPage = () => {
       <Badge isAnswered>가나다</Badge>
       <Badge>가나다</Badge>
       <Reaction />
+      <MoreDropdown />
       <InputTextareaForm formType="answer" />
-      <FeedContainer />
+      <FeedContainer subjectId={id} />
       <BasicFloatingButton disabled>제출하기</BasicFloatingButton>
       <BasicFloatingButton>제출하기</BasicFloatingButton>
       <DeleteFloatingButton handleDelete={handleFeedDelete} />
