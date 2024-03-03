@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { BASIC_DEPLOY_URL } from "../../../constants/constants";
 
 const KakaoShareButton = ({ url }) => {
   useEffect(() => {
@@ -25,6 +26,13 @@ const KakaoShareButton = ({ url }) => {
           link: {
             mobileWebUrl: url,
             webUrl: url,
+          },
+        },
+        {
+          title: "솔직하게 질문 받기",
+          link: {
+            mobileWebUrl: BASIC_DEPLOY_URL,
+            webUrl: BASIC_DEPLOY_URL,
           },
         },
       ],

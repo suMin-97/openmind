@@ -1,8 +1,11 @@
 import { FacebookIcon, FacebookShareButton } from "react-share";
 import UrlShareButton from "../UrlShareButton";
 import KakaoShareButton from "../KakaoShareButton";
+import { BASIC_DEPLOY_URL } from "../../../constants/constants";
 
-const ShareButtons = ({ url }) => {
+const ShareButtons = ({ id }) => {
+  const url = `${BASIC_DEPLOY_URL}/post/${id}`;
+
   return (
     <div>
       <UrlShareButton url={url} />
