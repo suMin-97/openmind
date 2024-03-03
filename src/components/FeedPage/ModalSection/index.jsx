@@ -22,7 +22,7 @@ const ContentsBox = styled.div`
   background-color: white;
 `;
 
-const Modal = ({ subjectId, searchParams, setSearchParams }) => {
+const Modal = ({ subjectId, setIsModalOpen }) => {
   const [isDisabled, setIsDisabled] = useState(true);
   const {
     data: profileData,
@@ -37,14 +37,12 @@ const Modal = ({ subjectId, searchParams, setSearchParams }) => {
 
   const handleBGCloseClick = (event) => {
     if (event.target === modalBg.current) {
-      searchParams.delete("isModal");
-      setSearchParams(searchParams);
+      setIsModalOpen(false);
     }
   };
 
   const handleBtnCloseClick = () => {
-    searchParams.delete("isModal");
-    setSearchParams(searchParams);
+    setIsModalOpen(false);
   };
 
   const handleChange = (event) => {
@@ -104,23 +102,18 @@ const Modal = ({ subjectId, searchParams, setSearchParams }) => {
   );
 };
 
-const Modalsection = ({ subjectId, searchParams, setSearchParams }) => {
-  const isModalOpen = searchParams.get("isModal") === "open";
+const Modalsection = ({ subjectId }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenClick = () => {
-    searchParams.set("isModal", "open");
-    setSearchParams(searchParams);
+    setIsModalOpen(true);
   };
 
   return (
     <>
       <button onClick={handleOpenClick}>질문하실?</button>
       {isModalOpen && (
-        <Modal
-          subjectId={subjectId}
-          searchParams={searchParams}
-          setSearchParams={setSearchParams}
-        />
+        <Modal setIsModalOpen={setIsModalOpen} subjectId={subjectId} />
       )}
     </>
   );

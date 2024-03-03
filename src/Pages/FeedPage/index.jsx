@@ -2,13 +2,11 @@ import { Link } from "react-router-dom";
 import Modalsection from "../../components/FeedPage/ModalSection";
 import FeedPageProfile from "../../components/FeedPage/FeedPageProfile";
 import ShareButtons from "../../components/common/ShareButtons";
-import { useSearchParams } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import FeedCardList from "../../components/common/FeedCardList.jsx/index.jsx";
 
 const FeedPage = () => {
   const { id } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
 
   return (
     <div>
@@ -18,11 +16,7 @@ const FeedPage = () => {
       <FeedPageProfile subjectId={id} />
       <ShareButtons id={id} />
       <FeedCardList subjectId={id} />
-      <Modalsection
-        subjectId={id}
-        searchParams={searchParams}
-        setSearchParams={setSearchParams}
-      />
+      <Modalsection subjectId={id} />
     </div>
   );
 };
