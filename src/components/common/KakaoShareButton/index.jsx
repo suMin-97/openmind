@@ -3,7 +3,7 @@ import { useEffect } from "react";
 const KakaoShareButton = ({ url }) => {
   useEffect(() => {
     Kakao.init("83c8ec896557d0007b7c120c91c368c8");
-    console.log(Kakao.isInitialized());
+    // console.log(Kakao.isInitialized());
   }, []);
 
   const handlebuttonClick = () => {
