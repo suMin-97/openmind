@@ -1,18 +1,19 @@
 import useRequest from "../../hooks/useRequest";
 import { useEffect } from "react";
-function FeedPageProfile() {
+
+const FeedSection = () => {
   const {
-    data: feedProfileData,
+    data: feedSubjectQuestion,
     error,
     isLoading,
     request,
   } = useRequest({
     method: "GET",
-    url: "subjects/3825",
+    url: "subjects/3825/questions",
   });
 
   useEffect(() => {
-    request();
+    request({ limit: 10, offset: 0 });
   }, []);
 
   useEffect(() => {
@@ -24,12 +25,9 @@ function FeedPageProfile() {
   }, [isLoading]);
   return (
     <div>
-      <div>
-        <img src={feedProfileData?.imageSource} />
-        <p>{feedProfileData?.name}</p>
-      </div>
+      <h1>{feedSubjectQuestion?.count}개의 질문이 있습니다.</h1>
     </div>
   );
-}
+};
 
-export default FeedPageProfile;
+export default FeedSection;
