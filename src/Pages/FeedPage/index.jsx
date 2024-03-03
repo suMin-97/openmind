@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import { BASIC_DEPLOY_URL } from "../../constants/constants";
 import { useSearchParams } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import FeedCardList from "../../components/common/FeedCardList.jsx/index.jsx";
 
 const FeedPage = () => {
   const { id } = useParams();
@@ -21,6 +22,7 @@ const FeedPage = () => {
       <Link to="/list">리스트 페이지</Link>
       <Link to={`/post/${id}/answer`}>답변 페이지</Link>
       <ShareButtons url={currentUrl} />
+      <FeedCardList subjectId={id} />
       <Modalsection
         subjectId={id}
         searchParams={searchParams}
