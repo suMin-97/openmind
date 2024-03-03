@@ -21,7 +21,12 @@ const FeedCardList = ({ subjectId }) => {
         <li>
           {feedCards &&
             feedCards?.results.map((feedCard) => (
-              <FeedCard key={feedCard?.id} feedCard={feedCard} />
+              <FeedCard
+                key={feedCard?.id}
+                feedCard={feedCard}
+                error={error}
+                isLoading={isLoading}
+              />
             ))}
         </li>
       </ul>

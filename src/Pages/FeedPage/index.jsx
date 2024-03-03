@@ -17,10 +17,10 @@ const FeedPage = () => {
 
   return (
     <div>
-      <FeedPageProfile subjectId={id} />
       <Link to="/">메인 페이지</Link>
       <Link to="/list">리스트 페이지</Link>
       <Link to={`/post/${id}/answer`}>답변 페이지</Link>
+      <FeedPageProfile subjectId={id} />
       <ShareButtons url={currentUrl} />
       <FeedCardList subjectId={id} />
       <Modalsection
