@@ -6,6 +6,7 @@ const ListHeaderComponent = () => {
   return (
     <ListHeader>
       <img className="logo_image" src={logo} />
+
       <button className="go_answer_button">답변하러 가기</button>
     </ListHeader>
   );
