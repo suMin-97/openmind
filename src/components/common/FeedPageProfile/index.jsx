@@ -1,6 +1,10 @@
+import { useParams } from "react-router-dom";
 import useRequest from "../../../hooks/useRequest";
 import { useEffect } from "react";
-function FeedPageProfile({ subjectId }) {
+
+const FeedPageProfile = () => {
+  const { id } = useParams();
+
   const {
     data: feedProfileData,
     error,
@@ -8,7 +12,7 @@ function FeedPageProfile({ subjectId }) {
     request,
   } = useRequest({
     method: "GET",
-    url: `subjects/${subjectId}`,
+    url: `subjects/${id}`,
   });
 
   useEffect(() => {
@@ -18,11 +22,13 @@ function FeedPageProfile({ subjectId }) {
   return (
     <div>
       <div>
-        <img src={feedProfileData?.imageSource} />
-        <p>{feedProfileData?.name}</p>
+        {feedProfileData?.imageSource && (
+          <img src={feedProfileData?.imageSource} />
+        )}
+        {feedProfileData?.name ?? error}
       </div>
     </div>
   );
-}
+};
 
 export default FeedPageProfile;

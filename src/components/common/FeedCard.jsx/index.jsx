@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import styled from "styled-components";
-import FeedPageProfile from "../../FeedPage/FeedPageProfile";
+import FeedPageProfile from "../../common/FeedPageProfile";
 import Reaction from "../Reaction";
 
 function dateDiff(createdAt) {
