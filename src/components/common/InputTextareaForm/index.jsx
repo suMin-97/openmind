@@ -32,7 +32,7 @@ const BasicInputTextareaForm = ({ className, formType, handleSubmit, id }) => {
         onChange={handleChange}
         value={value}
         name="content"
-        placeholder={inputText[formType]?.placehodler}
+        placeholder={inputText[formType]?.placeholder}
       ></textarea>
       <SubmitButton isDisabled={isDisabled}>
         {inputText[formType]?.button}
