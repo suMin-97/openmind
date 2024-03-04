@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import FeedPageProfile from "../../FeedPage/FeedPageProfile";
+import FeedPageProfile from "@components/common/FeedPageProfile";
 import Reaction from "@components/common/Reaction";
 import getTimeDiff from "@components/common/FeedCard/getTimeDiff";
 import Badge from "../../common/Badge";
