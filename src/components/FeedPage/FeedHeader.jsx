@@ -3,7 +3,7 @@ import * as styled from "../../styles/StyleFeedHeader";
 import logoImg from "../../assets/images/logo.svg";
 import FeedPageProfile from "../common/FeedPageProfile";
 
-function FeedHeader() {
+const FeedHeader = () => {
   return (
     <>
       <styled.Header>
@@ -16,6 +16,6 @@ function FeedHeader() {
       </styled.Header>
     </>
   );
-}
+};
 
 export default FeedHeader;

@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import useRequest from "../../../hooks/useRequest";
 import { useEffect } from "react";
 
-function FeedPageProfile() {
+const FeedPageProfile = () => {
   const { id } = useParams();
 
   const {
@@ -29,6 +29,6 @@ function FeedPageProfile() {
       </div>
     </div>
   );
-}
+};
 
 export default FeedPageProfile;
