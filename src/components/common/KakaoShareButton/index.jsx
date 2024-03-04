@@ -22,7 +22,7 @@ const KakaoShareButton = ({ url }) => {
       },
       buttons: [
         {
-          title: "솔직하게 질문하러 가기",
+          title: "솔직하게 질문 하기",
           link: {
             mobileWebUrl: url,
             webUrl: url,

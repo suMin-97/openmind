@@ -4,19 +4,26 @@ import useRequest from "@hooks/useRequest";
 import { boxStyles, colors, devices } from "@styles/styleVariables";
 import FeedCountMessage from "@components/common/FeedCountMessage";
 import NoFeedCard from "@components/common/NoFeedCard";
+import AnswerFeedCard from "@components/AnswerPage/AnswerFeedCard";
+import FeedCard from "../FeedCard";
 
-const BasicFeedContainer = ({ className }) => {
+const BasicFeedContainer = ({
+  className,
+  subjectId,
+  cardType = "basicFeed",
+}) => {
   const {
-    data: feedData,
+    data: feedCardData,
     isLoading,
     error,
-    request,
-  } = useRequest({ method: "GET", url: "subjects/3859/questions" });
+    request: getFeedCardData,
+  } = useRequest({ method: "GET", url: `subjects/${subjectId}/questions` });
 
   useEffect(() => {
-    request();
+    getFeedCardData();
   }, []);
-  const feedCardList = feedData?.results;
+
+  const { count, results: feedCardList } = feedCardData ?? {};
 
   const feedContent = () => {
     // 상태 관리 정리 필요합니다!!
@@ -31,7 +38,7 @@ const BasicFeedContainer = ({ className }) => {
       return <div>error</div>;
     }
 
-    if (feedCardList?.length === 0) {
+    if (count === 0) {
       // 추후 NoFeedCard 컴포넌트로 대체합니다.
       return <NoFeedCard />;
     }
@@ -39,21 +46,25 @@ const BasicFeedContainer = ({ className }) => {
     if (feedCardList?.length > 0) {
       return (
         // 추후 FeedCardList 컴포넌트로 대체합니다.
-        <div>
-          {feedCardList?.map(({ id, content }) => (
-            <li key={id}>{content}</li>
+        <ul>
+          {feedCardList?.map((data) => (
+            <li key={data?.id}>
+              {cardType === "basicFeed" ? (
+                <FeedCard />
+              ) : (
+                <AnswerFeedCard feedCardData={data} isLoading={isLoading} />
+              )}
+              {/* <FeedCard feedCardData={data} isLoading={isLoading} /> */}
+            </li>
           ))}
-        </div>
+        </ul>
       );
     }
   };
 
   return (
     <div className={className}>
-      <FeedCountMessage
-        count={feedCardList?.count ?? 0}
-        isLoading={isLoading}
-      />
+      <FeedCountMessage count={count ?? 0} isLoading={isLoading} />
       {feedContent()}
     </div>
   );

@@ -1,40 +1,37 @@
 import { useState } from "react";
-import { inputText } from "./constant";
 import styled from "styled-components";
-import boxStyles from "@styles/boxStyles";
-import colors from "@styles/colors";
-import fontStyles from "@styles/fontStyles";
+import { inputText } from "./constant";
+import { boxStyles, colors, fontStyles } from "@styles/styleVariables";
 import SubmitButton from "../SubmitButton";
 
-const BasicInputTextareaForm = ({ className, formType, handleSubmit }) => {
+const BasicInputTextareaForm = ({ className, formType, handleSubmit, id }) => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [value, setValue] = useState("");
+  const regex = /^.*\S.*$/; // 스페이스,엔터만 입력한 경우 같이 값은 있지만 사실상 내용이 없는 공란을 검사하는 정규식, false이면 공란임
 
   const handleChange = ({ target }) => {
     setValue(target.value);
-    if (target.value.length === 0) {
-      setIsDisabled(true);
-    } else {
+    if (regex.test(target.value)) {
       setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
     }
   };
 
   const onFormSubmit = (event) => {
     event.preventDefault();
-    // handleSubmit();
-    // 부모 컴포넌트에서 받아온 handleSubmit prop을 통해 리퀘스트 제어
-    // console.log는 나중에 삭제해주세요!
+    handleSubmit(value);
     console.log(value);
     setValue("");
   };
 
   return (
-    <form onSubmit={onFormSubmit} className={className}>
+    <form onSubmit={onFormSubmit} className={className} name="content">
       <textarea
         onChange={handleChange}
         value={value}
         name="content"
-        placeholder={inputText[formType]?.placehodler}
+        placeholder={inputText[formType]?.placeholder}
       ></textarea>
       <SubmitButton isDisabled={isDisabled}>
         {inputText[formType]?.button}

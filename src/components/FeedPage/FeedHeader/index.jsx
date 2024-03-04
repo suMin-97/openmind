@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import logoImg from "../../assets/images/logo.svg";
-import FeedPageProfile from "../common/FeedPageProfile";
-import HeaderImg from "../../assets/images/header-image.png";
+import HeaderImg from "../../../assets/images/header-image.png";
+import logoImg from "../../../assets/images/logo.svg";
+import FeedPageProfile from "../../common/FeedPageProfile";
 
 const FeedHeader = () => {
   return (

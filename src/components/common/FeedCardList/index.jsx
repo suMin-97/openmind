@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import useRequest from "../../../hooks/useRequest.js";
-import FeedCard from "../FeedCard.jsx/index.jsx";
-import NoFeedCard from "../NoFeedCard/index.jsx";
+import FeedCard from "../FeedCard";
+import NoFeedCard from "../NoFeedCard";
 
 const FeedCardList = ({ subjectId }) => {
   const FeedCardsUrl = `subjects/${subjectId}/questions`;
