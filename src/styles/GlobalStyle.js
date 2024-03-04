@@ -50,9 +50,14 @@ table {
 	border-spacing: 0;
 }
 
+/* box-sizing */
+* {
+	box-sizing: border-box;
+}
+
 /* font */
 #root {
-	font-family: "Pretendard"
+	font-family: "Pretendard";
 }
 `;
 
