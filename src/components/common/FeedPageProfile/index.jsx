@@ -25,7 +25,7 @@ const FeedPageProfile = () => {
         {feedProfileData?.imageSource && (
           <img src={feedProfileData?.imageSource} />
         )}
-        {feedProfileData?.name ?? error}
+        {feedProfileData?.name ?? <span>정보를 불러오는데 실패했습니다.</span>}
       </div>
     </div>
   );
