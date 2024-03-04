@@ -3,7 +3,7 @@ import FeedPageProfile from "@components/common/FeedPageProfile";
 import Reaction from "@components/common/Reaction";
 import getTimeDiff from "@components/common/FeedCard/getTimeDiff";
 import Badge from "../../common/Badge";
-import InputTextareaForm from "@components/common/InputTextAreaForm";
+// import InputTextareaForm from "@components/common/InputTextAreaForm";
 import useRequest from "@hooks/useRequest";
 import MoreDropdown from "../MoreDropdown";
 
@@ -64,12 +64,11 @@ const FeedCard = ({ feedCardData, isLoading }) => {
             <p>{answer?.content}</p>
           )}
         </div>
-      ) : (
-        <InputTextareaForm
-          formType="answer"
-          handleSubmit={handleSubmitAnswer}
-        />
-      )}
+      ) : // <InputTextareaForm
+      //   formType="answer"
+      //   handleSubmit={handleSubmitAnswer}
+      // />
+      null}
       <Reaction
         questionId={feedCardData?.id}
         like={feedCardData?.like}
