@@ -5,7 +5,6 @@ import Reaction from "@components/common/Reaction";
 import FeedContainer from "@components/common/FeedContainer";
 import BasicFloatingButton from "@components/common/BasicFloatingButton";
 import DeleteFloatingButton from "@components/AnswerPage/DeleteFloatingButton";
-import InputTextareaForm from "@components/common/InputTextareaForm";
 import MoreDropdown from "../../components/AnswerPage/MoreDropdown";
 
 const AnswerPage = () => {

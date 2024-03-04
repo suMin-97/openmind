@@ -3,8 +3,8 @@ import FeedPageProfile from "@components/common/FeedPageProfile";
 import Reaction from "@components/common/Reaction";
 import getTimeDiff from "@components/common/FeedCard/getTimeDiff";
 import Badge from "../../common/Badge";
-import InputTextareaForm from "../../common/InputTextAreaForm";
-import useRequest from "../../../hooks/useRequest";
+import InputTextareaForm from "@components/common/InputTextAreaForm";
+import useRequest from "@hooks/useRequest";
 import MoreDropdown from "../MoreDropdown";
 
 const ContainDiv = styled.div`
