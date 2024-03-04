@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import * as styled from "../../styles/StyleFeedHeader";
-import logoImg from "../../assets/images/logo.svg";
-import FeedPageProfile from "../common/FeedPageProfile";
+import * as styled from "../../../styles/StyleFeedHeader";
+import logoImg from "../../../assets/images/logo.svg";
+import FeedPageProfile from "../../common/FeedPageProfile";
 
 const FeedHeader = () => {
   return (
