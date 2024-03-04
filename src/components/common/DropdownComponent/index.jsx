@@ -5,7 +5,7 @@ import { colors, fontStyles } from "@styles/styleVariables";
 const DropdownComponent = ({ options, type = "select" }) => {
   return (
     <DropdownSort type={type}>
-      <DropdownAbsolute type={type}>
+      <DropdownAbsolute>
         {options?.map((option, i) => {
           return (
             <DButton
@@ -31,7 +31,7 @@ const DropdownSort = styled.div`
 
 const DropdownAbsolute = styled.div`
   position: absolute;
-  bottom: ${(props) => (props.type === "select" ? "-30px" : "-72px")};
+  top: 0px;
   left: 0;
   background-color: ${colors.gray10};
   border-radius: 8px;
