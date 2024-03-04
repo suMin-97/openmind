@@ -8,6 +8,7 @@ import { useSearchParams } from "react-router-dom";
 import { colors, fontStyles } from "@styles/styleVariables";
 import { SUBJECT_PAGE_LIMIT } from "../../constants/constants";
 import ListPagination from "../../components/QuestionListPage/ListPagination";
+import UserCardComponent from "../../components/QuestionListPage/UserCardComponent";
 
 const QuestionListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -38,15 +39,7 @@ const QuestionListPage = () => {
       <ListHeaderComponent />
       <MainText>누구에게 질문할까요?</MainText>
       <SortDropdownComponent />
-      <ListArticle>
-        {questionListData?.results?.map((e) => {
-          return (
-            <Link to={`/post/${e.id}`}>
-              <img src={e.imageSource} />
-            </Link>
-          );
-        })}
-      </ListArticle>
+      <UserCardComponent list={questionListData} />
       <ListPagination totalCount={questionListData?.count ?? 0} />
       <button onClick={() => request()}>request</button>
     </>
@@ -54,16 +47,6 @@ const QuestionListPage = () => {
 };
 
 export default QuestionListPage;
-
-const ListArticle = styled.article`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  row-gap: 20px;
-  column-gap: 20px;
-  margin: 0 auto;
-  width: 940px;
-  height: fit-content;
-`;
 
 const MainText = styled.div`
   color: ${colors.gray60};
