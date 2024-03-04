@@ -40,7 +40,6 @@ const AnswerPage = () => {
       <Badge>가나다</Badge>
       <Reaction />
       <MoreDropdown />
-      <InputTextareaForm formType="answer" />
       <FeedContainer subjectId={id} />
       <BasicFloatingButton disabled>제출하기</BasicFloatingButton>
       <BasicFloatingButton>제출하기</BasicFloatingButton>
