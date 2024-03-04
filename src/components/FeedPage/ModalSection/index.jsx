@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
-import useRequest from "../../../hooks/useRequest";
+import ModalForm from "../ModalForm";
 
 const ContainDiv = styled.div`
   width: 100vw;
@@ -23,16 +23,6 @@ const ContentsBox = styled.div`
 `;
 
 const Modal = ({ subjectId, setIsModalOpen }) => {
-  const [isDisabled, setIsDisabled] = useState(true);
-  const {
-    data: profileData,
-    error: profileError,
-    isLoading: profileIsLoading,
-    request: getRequest,
-  } = useRequest({
-    url: `subjects/${subjectId}`,
-    method: "GET",
-  });
   const modalBg = useRef();
 
   const handleBGCloseClick = (event) => {
@@ -45,26 +35,21 @@ const Modal = ({ subjectId, setIsModalOpen }) => {
     setIsModalOpen(false);
   };
 
-  const handleChange = (event) => {
-    if (event.target.value !== "") {
-      setIsDisabled(false);
-    }
-  };
-
-  const handleBlur = (event) => {
-    if (event.target.value === "") {
-      setIsDisabled(true);
+  const handleKeyDown = (event) => {
+    if (event.key === "Escape") {
+      setIsModalOpen(false);
     }
   };
 
   useEffect(() => {
-    getRequest();
+    document.addEventListener("keydown", handleKeyDown);
     document.body.style.cssText = `
       position: fixed; 
       top: -${window.scrollY}px;
       overflow-y: scroll;
       width: 100%;`;
     return () => {
+      document.removeEventListener("keydown", handleKeyDown);
       const scrollY = document.body.style.top;
       document.body.style.cssText = "";
       window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
@@ -75,28 +60,8 @@ const Modal = ({ subjectId, setIsModalOpen }) => {
     <ContainDiv ref={modalBg} onClick={handleBGCloseClick}>
       <ContentsBox>
         <button onClick={handleBtnCloseClick}>X</button>
-        <form>
-          <h1>질문을 작성하세요</h1>
-          <label htmlFor="question">
-            {profileIsLoading && <p>로딩중</p>}
-            {profileData && (
-              <>
-                <img src={profileData?.imageSource} />
-                <p>{profileData?.name}</p>
-              </>
-            )}
-            {profileError && <p>삐빅 에러 입니다</p>}
-            <input
-              id="question"
-              type="text"
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </label>
-          <button disabled={isDisabled} type="submit">
-            질문 보내렴
-          </button>
-        </form>
+        <h1>질문을 작성하세요</h1>
+        <ModalForm setIsModalOpen={setIsModalOpen} subjectId={subjectId} />
       </ContentsBox>
     </ContainDiv>
   );

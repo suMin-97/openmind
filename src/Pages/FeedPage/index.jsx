@@ -3,7 +3,7 @@ import Modalsection from "../../components/FeedPage/ModalSection";
 import ShareButtons from "../../components/common/ShareButtons";
 import { useParams } from "react-router-dom";
 import FeedCardList from "../../components/common/FeedCardList";
-import FeedHeader from "../../components/FeedPage/FeedHeader.jsx";
+import FeedHeader from "../../components/FeedPage/FeedHeader";
 
 const FeedPage = () => {
   const { id } = useParams();

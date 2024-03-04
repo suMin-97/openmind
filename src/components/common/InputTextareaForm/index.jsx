@@ -7,13 +7,14 @@ import SubmitButton from "../SubmitButton";
 const BasicInputTextareaForm = ({ className, formType, handleSubmit, id }) => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [value, setValue] = useState("");
+  const regex = /^.*\S.*$/; // 스페이스,엔터만 입력한 경우 같이 값은 있지만 사실상 내용이 없는 공란을 검사하는 정규식, false이면 공란임
 
   const handleChange = ({ target }) => {
     setValue(target.value);
-    if (target.value.length === 0) {
-      setIsDisabled(true);
-    } else {
+    if (regex.test(target.value)) {
       setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
     }
   };
 
