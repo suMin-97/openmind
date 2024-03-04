@@ -6,7 +6,7 @@ import colors from "@styles/colors";
 import fontStyles from "@styles/fontStyles";
 import SubmitButton from "../SubmitButton";
 
-const BasicInputTextareaForm = ({ className, formType, handleSubmit }) => {
+const BasicInputTextareaForm = ({ className, formType, handleSubmit, id }) => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [value, setValue] = useState("");
 
@@ -21,9 +21,7 @@ const BasicInputTextareaForm = ({ className, formType, handleSubmit }) => {
 
   const onFormSubmit = (event) => {
     event.preventDefault();
-    // handleSubmit();
-    // 부모 컴포넌트에서 받아온 handleSubmit prop을 통해 리퀘스트 제어
-    // console.log는 나중에 삭제해주세요!
+    handleSubmit(value);
     console.log(value);
     setValue("");
   };
