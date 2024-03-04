@@ -6,9 +6,17 @@ import { ReactComponent as DeleteIcon } from "@icons/Close.svg";
 import { ReactComponent as RejectionIcon } from "@icons/Rejection.svg";
 import IconTextButton from "../../common/IconTextButton";
 import styled from "styled-components";
+import useRequest from "@hooks/useRequest";
 
 const BasicMoreDropdown = ({ className, id, isAnswered, answerId }) => {
   const { btnRef, isOpen, clickHandler } = useDropdown();
+
+  const {
+    data: deleteResponse,
+    isLoading,
+    error,
+    request: useDeleteAnswer,
+  } = useRequest({ url: `answers/${answerId}`, method: "DELETE" });
 
   const moreEditableOptions = [
     {
@@ -32,6 +40,7 @@ const BasicMoreDropdown = ({ className, id, isAnswered, answerId }) => {
       ),
       event: (e) => {
         console.log("삭제하기");
+        useDeleteAnswer();
       },
       active: false,
     },

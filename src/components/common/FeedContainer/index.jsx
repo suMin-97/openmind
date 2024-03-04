@@ -4,9 +4,14 @@ import useRequest from "@hooks/useRequest";
 import { boxStyles, colors, devices } from "@styles/styleVariables";
 import FeedCountMessage from "@components/common/FeedCountMessage";
 import NoFeedCard from "@components/common/NoFeedCard";
-import FeedCard from "../../AnswerPage/AnswerFeedCard";
+import AnswerFeedCard from "@components/AnswerPage/AnswerFeedCard";
+import FeedCard from "../FeedCard";
 
-const BasicFeedContainer = ({ className, subjectId }) => {
+const BasicFeedContainer = ({
+  className,
+  subjectId,
+  cardType = "basicFeed",
+}) => {
   const {
     data: feedCardData,
     isLoading,
@@ -44,7 +49,12 @@ const BasicFeedContainer = ({ className, subjectId }) => {
         <ul>
           {feedCardList?.map((data) => (
             <li key={data?.id}>
-              <FeedCard feedCardData={data} isLoading={isLoading} />
+              {cardType === "basicFeed" ? (
+                <FeedCard />
+              ) : (
+                <AnswerFeedCard feedCardData={data} isLoading={isLoading} />
+              )}
+              {/* <FeedCard feedCardData={data} isLoading={isLoading} /> */}
             </li>
           ))}
         </ul>

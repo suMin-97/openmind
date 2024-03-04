@@ -1,10 +1,11 @@
+import { useState, useEffect } from "react";
 import styled from "styled-components";
+import useRequest from "@hooks/useRequest";
 import FeedPageProfile from "@components/common/FeedPageProfile";
 import Reaction from "@components/common/Reaction";
 import getTimeDiff from "@components/common/FeedCard/getTimeDiff";
 import Badge from "../../common/Badge";
-// import InputTextareaForm from "@components/common/InputTextAreaForm";
-import useRequest from "@hooks/useRequest";
+import InputTextareaForm from "@components/common/InputTextareaForm";
 import MoreDropdown from "../MoreDropdown";
 
 const ContainDiv = styled.div`
@@ -15,6 +16,8 @@ const ContainDiv = styled.div`
 `;
 
 const FeedCard = ({ feedCardData, isLoading }) => {
+  const [answerContent, setAnswerContent] = useState(null);
+
   const {
     id: questionId,
     content: questionContent,
@@ -39,12 +42,19 @@ const FeedCard = ({ feedCardData, isLoading }) => {
     useSubmitAnswer({ content: value, isRejected: false });
   };
 
+  useEffect(() => {
+    setAnswerContent(answer);
+    if (submitAnswerResponse) {
+      setAnswerContent(submitAnswerResponse);
+    }
+  }, [submitAnswerResponse]);
+
   return (
     <ContainDiv>
       {/* 답변완료 */}
       <div>
-        {feedCardData && answer ? <Badge isAnswered /> : <Badge />}
-        <MoreDropdown isAnswered={answer} />
+        {feedCardData && answerContent ? <Badge isAnswered /> : <Badge />}
+        <MoreDropdown isAnswered={answerContent} answerId={answerContent?.id} />
       </div>
 
       {/* 질문 */}
@@ -55,20 +65,21 @@ const FeedCard = ({ feedCardData, isLoading }) => {
         </div>
       )}
       {/* 답변 */}
-      {feedCardData && answer ? (
+      {feedCardData && answerContent ? (
         <div>
           <FeedPageProfile subjectId={subjectId} />
-          {answer?.isRejected ? (
+          {answerContent?.isRejected ? (
             <p style={{ color: "red" }}>답변거절</p>
           ) : (
-            <p>{answer?.content}</p>
+            <p>{answerContent && answerContent?.content}</p>
           )}
         </div>
-      ) : // <InputTextareaForm
-      //   formType="answer"
-      //   handleSubmit={handleSubmitAnswer}
-      // />
-      null}
+      ) : (
+        <InputTextareaForm
+          formType="answer"
+          handleSubmit={handleSubmitAnswer}
+        />
+      )}
       <Reaction
         questionId={feedCardData?.id}
         like={feedCardData?.like}
