@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import * as styled from "../../styles/StyleFeedHeader";
+import * as styled from "./StyleFeedHeader";
 import logoImg from "../../assets/images/logo.svg";
 import FeedPageProfile from "../common/FeedPageProfile";
 

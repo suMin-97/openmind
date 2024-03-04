@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import HeaderImg from "../assets/images/header-image.png";
+import HeaderImg from "../../assets/images/header-image.png";
 
 export const Header = styled.div`
   display: block;
