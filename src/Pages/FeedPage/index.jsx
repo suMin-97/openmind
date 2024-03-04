@@ -13,7 +13,6 @@ const FeedPage = () => {
       <Link to="/">메인 페이지</Link>
       <Link to="/list">리스트 페이지</Link>
       <Link to={`/post/${id}/answer`}>답변 페이지</Link>
-      {/* <FeedPageProfile subjectId={id} /> */}
       <FeedHeader />
       <ShareButtons id={id} />
       <FeedCardList subjectId={id} />
