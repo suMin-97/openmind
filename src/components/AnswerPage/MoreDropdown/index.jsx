@@ -76,6 +76,8 @@ const BasicMoreDropdown = ({ className, id, isAnswered, answerId }) => {
 };
 
 const MoreDropdown = styled(BasicMoreDropdown)`
+  width: 26px;
+  height: 26px;
   & button {
     background-color: transparent;
     border: none;
