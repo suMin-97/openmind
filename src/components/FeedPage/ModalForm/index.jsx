@@ -32,12 +32,23 @@ const BasicModalForm = ({ className, subjectId, setIsModalOpen }) => {
     postRequest(BASIC_QUESTION);
   };
 
-  const onFormSubmit = (event) => {
+  const handleFormSubmit = (event) => {
     event.preventDefault();
     if (regex.test(value)) {
       handleSubmit(value);
       setValue("");
       setIsModalOpen(false);
+    }
+  };
+
+  const handleEnterKeyDown = (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      if (regex.test(event.target.value)) {
+        handleSubmit(value);
+        setValue("");
+        setIsModalOpen(false);
+      }
     }
   };
 
@@ -55,7 +66,7 @@ const BasicModalForm = ({ className, subjectId, setIsModalOpen }) => {
   }, []);
 
   return (
-    <form onSubmit={onFormSubmit} className={className}>
+    <form onSubmit={handleFormSubmit} className={className}>
       <label htmlFor="question">
         {profileIsLoading && <p>로딩중</p>}
         {profileData && (
@@ -66,9 +77,10 @@ const BasicModalForm = ({ className, subjectId, setIsModalOpen }) => {
         )}
         {profileError && <p>삐빅 에러 입니다</p>}
       </label>
-      <input
+      <textarea
         id="question"
         onChange={handleChange}
+        onKeyDown={handleEnterKeyDown}
         value={value}
         name="content"
         placeholder="질문을 입력해주세요"
@@ -84,7 +96,7 @@ const ModalForm = styled(BasicModalForm)`
   ${boxStyles.flexColumnCenter};
   gap: 0.5rem;
 
-  & input {
+  & textarea {
     ${boxStyles.flexRowCenter};
     ${boxStyles.paddingInput};
     outline: none;
