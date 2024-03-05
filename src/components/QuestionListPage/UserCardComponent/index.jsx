@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { colors, fontStyles } from "@styles/styleVariables";
-import message from "@icons/Messages.svg";
+import { ReactComponent as MessageIcon } from "@icons/Messages.svg";
 
 const UserCardComponent = ({ list }) => {
   return (
@@ -15,7 +15,7 @@ const UserCardComponent = ({ list }) => {
               <h2 className="cardName">{e.name}</h2>
               <div className="cardInfo">
                 <p className="qCountText">
-                  <img src={message} />
+                  <MessageIcon fill={colors.gray40} width="18" height="18" />
                   받은 질문
                 </p>
                 <p className="qCount">{`${e.questionCount}개`}</p>
@@ -83,11 +83,6 @@ const UserCard = styled.div`
       display: flex;
       gap: 4px;
       align-items: center;
-      img {
-        opacity: 0.6;
-        width: 18px;
-        height: 18px;
-      }
     }
   }
 `;
