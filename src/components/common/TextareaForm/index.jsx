@@ -5,7 +5,7 @@ import { boxStyles, colors, fontStyles } from "@styles/styleVariables";
 import SubmitButton from "../SubmitButton";
 import { useEffect } from "react";
 
-const BasicInputTextareaForm = ({
+const BasicTextareaForm = ({
   className,
   formType,
   handleSubmit,
@@ -53,7 +53,7 @@ const BasicInputTextareaForm = ({
   );
 };
 
-const InputTextareaForm = styled(BasicInputTextareaForm)`
+const TextareaForm = styled(BasicTextareaForm)`
   ${boxStyles.flexColumnCenter};
   gap: 0.5rem;
 
@@ -81,4 +81,4 @@ const InputTextareaForm = styled(BasicInputTextareaForm)`
   }
 `;
 
-export default InputTextareaForm;
+export default TextareaForm;

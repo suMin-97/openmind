@@ -5,7 +5,7 @@ import FeedPageProfile from "@components/common/FeedPageProfile";
 import Reaction from "@components/common/Reaction";
 import getTimeDiff from "@components/common/FeedCard/getTimeDiff";
 import Badge from "../../common/Badge";
-import InputTextareaForm from "@components/common/InputTextareaForm";
+import TextareaForm from "@components/common/TextareaForm";
 import MoreDropdown from "../MoreDropdown";
 
 const ContainDiv = styled.div`
@@ -74,7 +74,7 @@ const FeedCard = ({ feedCardData, isLoading }) => {
   if (isModify) {
     console.log(answerContent);
     feedAnswer = (
-      <InputTextareaForm
+      <TextareaForm
         formType="modify"
         handleSubmit={handleModifyAnswer}
         prevValue={`${answerContent?.content}`}
@@ -116,10 +116,7 @@ const FeedCard = ({ feedCardData, isLoading }) => {
           )}
         </div>
       ) : (
-        <InputTextareaForm
-          formType="answer"
-          handleSubmit={handleSubmitAnswer}
-        />
+        <TextareaForm formType="answer" handleSubmit={handleSubmitAnswer} />
       )}
       <Reaction
         questionId={feedCardData?.id}
