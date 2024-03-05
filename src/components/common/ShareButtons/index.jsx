@@ -4,6 +4,7 @@ import KakaoShareButton from "../KakaoShareButton";
 import { BASIC_DEPLOY_URL } from "../../../constants/constants";
 import styled from "styled-components";
 import FacebookIcon from "../../../assets/icons/Facebook.svg";
+import { colors } from "../../../styles/styleVariables";
 
 const ShareButtons = ({ id }) => {
   const url = `${BASIC_DEPLOY_URL}/post/${id}`;
@@ -51,7 +52,7 @@ const StyledDiv = styled.div`
   flex-shrink: 0;
   border: none;
   border-radius: 200px;
-  background: #1877f2;
+  background: ${colors.blue};
 
   img {
     width: 18px;

@@ -2,6 +2,7 @@ import { useState } from "react";
 import Toast from "../Toast";
 import styled from "styled-components";
 import LinkIcon from "../../../assets/icons/Link.svg";
+import { colors } from "../../../styles/styleVariables";
 
 const UrlShareButton = ({ url }) => {
   const [copyUrlStatus, setCopyUrlStatus] = useState("idle"); // 분기 처리를 위해 idle, success, error로 상태를 구분함, 간단한 비동기 함수라 loading은 생략함, 필요시 도입 가능함
@@ -29,8 +30,8 @@ const UrlShareButton = ({ url }) => {
       >
         <img src={LinkIcon} />
       </StyledButton>
-      {copyUrlStatus === "success" && <Toast>클립보드 복사 성공</Toast>}
-      {copyUrlStatus === "error" && <Toast>클립보드 복사 실패</Toast>}
+      {copyUrlStatus === "success" && <Toast>URL이 복사되었습니다</Toast>}
+      {copyUrlStatus === "error" && <Toast>URL 복사에 실패했습니다</Toast>}
     </>
   );
 };
@@ -46,7 +47,7 @@ const StyledButton = styled.button`
   flex-shrink: 0;
   border: none;
   border-radius: 200px;
-  background: #542f1a;
+  background: ${colors.brown50};
 
   img {
     width: 18px;

@@ -1,6 +1,7 @@
 import { BASIC_DEPLOY_URL } from "../../../constants/constants";
 import styled from "styled-components";
 import Kakaotalk from "../../../assets/icons/Kakaotalk.svg";
+import { colors } from "../../../styles/styleVariables";
 
 const KakaoShareButton = ({ url }) => {
   const handlebuttonClick = () => {
@@ -56,7 +57,7 @@ const StyledButton = styled.button`
   flex-shrink: 0;
   border: none;
   border-radius: 200px;
-  background: #fee500;
+  background: ${colors.yellow};
 
   img {
     width: 18px;
