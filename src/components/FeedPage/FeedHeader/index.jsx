@@ -2,9 +2,28 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import HeaderImg from "../../../assets/images/header-image.png";
 import logoImg from "../../../assets/images/logo.svg";
-import FeedPageProfile from "../../common/FeedPageProfile";
+import { useParams } from "react-router-dom";
+import useRequest from "../../../hooks/useRequest";
+import { useEffect } from "react";
+import ProfileImage from "../../common/ProfileImage";
 
 const FeedHeader = () => {
+  const { id } = useParams();
+
+  const {
+    data: ProfileData,
+    error,
+    isLoading,
+    request,
+  } = useRequest({
+    method: "GET",
+    url: `subjects/${id}`,
+  });
+
+  useEffect(() => {
+    request();
+  }, []);
+
   return (
     <>
       <Header>
@@ -12,7 +31,10 @@ const FeedHeader = () => {
           <Link to={"/"}>
             <Logo src={logoImg} />
           </Link>
-          <FeedPageProfile />
+          <ProfileImage src={ProfileData?.imageSource} size="xxLarge" />
+          <Name>
+            {ProfileData?.name ?? <span>정보를 불러오는데 실패했습니다.</span>}
+          </Name>
         </Container>
       </Header>
     </>
