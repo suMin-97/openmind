@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { inputText } from "./constant";
 import styled from "styled-components";
-import boxStyles from "@styles/boxStyles";
-import colors from "@styles/colors";
-import fontStyles from "@styles/fontStyles";
+import { inputText } from "./constant";
+import { boxStyles, colors, fontStyles } from "@styles/styleVariables";
 import SubmitButton from "../SubmitButton";
 
 const BasicInputTextareaForm = ({ className, formType, handleSubmit, id }) => {
@@ -28,7 +26,7 @@ const BasicInputTextareaForm = ({ className, formType, handleSubmit, id }) => {
   };
 
   return (
-    <form onSubmit={onFormSubmit} className={className}>
+    <form onSubmit={onFormSubmit} className={className} name="content">
       <textarea
         onChange={handleChange}
         value={value}

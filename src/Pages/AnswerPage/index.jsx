@@ -39,7 +39,7 @@ const AnswerPage = () => {
       <Badge>가나다</Badge>
       <Reaction />
       <MoreDropdown />
-      <FeedContainer subjectId={id} />
+      <FeedContainer subjectId={id} cardType="answerFeed" />
       <BasicFloatingButton disabled>제출하기</BasicFloatingButton>
       <BasicFloatingButton>제출하기</BasicFloatingButton>
       <DeleteFloatingButton handleDelete={handleFeedDelete} />
