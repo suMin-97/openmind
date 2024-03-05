@@ -43,7 +43,6 @@ const BasicModalForm = ({ className, subjectId, setIsModalOpen }) => {
 
   const handleChange = (event) => {
     setValue(event.target.value);
-    console.log(value);
     if (regex.test(event.target.value)) {
       setIsDisabled(false);
     } else {
