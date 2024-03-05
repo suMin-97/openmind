@@ -58,6 +58,7 @@ const DButton = styled.button`
   color: ${(props) => (props.$active === "true" ? colors.blue : colors.gray50)};
   ${fontStyles.medium};
   ${fontStyles.caption};
+  white-space: nowrap;
   &:hover {
     background-color: ${colors.gray20};
     color: ${(props) =>

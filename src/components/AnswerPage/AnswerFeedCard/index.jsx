@@ -5,7 +5,7 @@ import FeedPageProfile from "@components/common/FeedPageProfile";
 import Reaction from "@components/common/Reaction";
 import getTimeDiff from "@components/common/FeedCard/getTimeDiff";
 import Badge from "../../common/Badge";
-import InputTextareaForm from "@components/common/InputTextareaForm";
+import TextareaForm from "@components/common/TextareaForm";
 import MoreDropdown from "../MoreDropdown";
 
 const ContainDiv = styled.div`
@@ -17,6 +17,7 @@ const ContainDiv = styled.div`
 
 const FeedCard = ({ feedCardData, isLoading }) => {
   const [answerContent, setAnswerContent] = useState(null);
+  const [isModify, setIsModify] = useState(false);
 
   const {
     id: questionId,
@@ -38,8 +39,22 @@ const FeedCard = ({ feedCardData, isLoading }) => {
     method: "POST",
   });
 
+  const {
+    data: modifyAnswerResponse,
+    isLoading: modifyAnswerLoading,
+    request: useModifyAnswer,
+  } = useRequest({
+    url: `answers/${answerContent?.id}`,
+    method: "PATCH",
+  });
+
   const handleSubmitAnswer = (value) => {
     useSubmitAnswer({ content: value, isRejected: false });
+  };
+
+  const handleModifyAnswer = (value) => {
+    useModifyAnswer({ content: value, isRejected: false });
+    setIsModify((prevState) => !prevState);
   };
 
   useEffect(() => {
@@ -49,12 +64,38 @@ const FeedCard = ({ feedCardData, isLoading }) => {
     }
   }, [submitAnswerResponse]);
 
+  useEffect(() => {
+    if (modifyAnswerResponse) {
+      setAnswerContent(modifyAnswerResponse);
+    }
+  }, [modifyAnswerResponse]);
+
+  let feedAnswer;
+  if (isModify) {
+    console.log(answerContent);
+    feedAnswer = (
+      <TextareaForm
+        formType="modify"
+        handleSubmit={handleModifyAnswer}
+        prevValue={`${answerContent?.content}`}
+      />
+    );
+  } else {
+    feedAnswer = <p>{answerContent && answerContent?.content}</p>;
+  }
+
   return (
     <ContainDiv>
       {/* 답변완료 */}
       <div>
         {feedCardData && answerContent ? <Badge isAnswered /> : <Badge />}
-        <MoreDropdown isAnswered={answerContent} answerId={answerContent?.id} />
+        <MoreDropdown
+          isAnswered={answerContent}
+          answerId={answerContent?.id}
+          questionId={questionId}
+          setIsModify={setIsModify}
+          setAnswerContent={setAnswerContent}
+        />
       </div>
 
       {/* 질문 */}
@@ -71,14 +112,11 @@ const FeedCard = ({ feedCardData, isLoading }) => {
           {answerContent?.isRejected ? (
             <p style={{ color: "red" }}>답변거절</p>
           ) : (
-            <p>{answerContent && answerContent?.content}</p>
+            feedAnswer
           )}
         </div>
       ) : (
-        <InputTextareaForm
-          formType="answer"
-          handleSubmit={handleSubmitAnswer}
-        />
+        <TextareaForm formType="answer" handleSubmit={handleSubmitAnswer} />
       )}
       <Reaction
         questionId={feedCardData?.id}

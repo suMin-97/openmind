@@ -3,11 +3,18 @@ import styled from "styled-components";
 import { inputText } from "./constant";
 import { boxStyles, colors, fontStyles } from "@styles/styleVariables";
 import SubmitButton from "../SubmitButton";
+import { useEffect } from "react";
 
-const BasicInputTextareaForm = ({ className, formType, handleSubmit, id }) => {
+const BasicTextareaForm = ({
+  className,
+  formType,
+  handleSubmit,
+  id,
+  prevValue,
+}) => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [value, setValue] = useState("");
-  const regex = /^.*\S.*$/; // 스페이스,엔터만 입력한 경우 같이 값은 있지만 사실상 내용이 없는 공란을 검사하는 정규식, false이면 공란임
+  const regex = /^[\s\S]*\S[\s\S]*$/; // 스페이스,엔터만 입력한 경우 같이 값은 있지만 사실상 내용이 없는 공란을 검사하는 정규식, false이면 공란임
 
   const handleChange = ({ target }) => {
     setValue(target.value);
@@ -25,6 +32,12 @@ const BasicInputTextareaForm = ({ className, formType, handleSubmit, id }) => {
     setValue("");
   };
 
+  useEffect(() => {
+    if (prevValue) {
+      setValue(prevValue);
+    }
+  }, [prevValue]);
+
   return (
     <form onSubmit={onFormSubmit} className={className} name="content">
       <textarea
@@ -40,7 +53,7 @@ const BasicInputTextareaForm = ({ className, formType, handleSubmit, id }) => {
   );
 };
 
-const InputTextareaForm = styled(BasicInputTextareaForm)`
+const TextareaForm = styled(BasicTextareaForm)`
   ${boxStyles.flexColumnCenter};
   gap: 0.5rem;
 
@@ -68,4 +81,4 @@ const InputTextareaForm = styled(BasicInputTextareaForm)`
   }
 `;
 
-export default InputTextareaForm;
+export default TextareaForm;
