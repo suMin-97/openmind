@@ -50,7 +50,12 @@ const BasicFeedContainer = ({
           {feedCardList?.map((data) => (
             <li key={data?.id}>
               {cardType === "basicFeed" ? (
-                <FeedCard />
+                <FeedCard
+                  key={data?.id}
+                  feedCard={data}
+                  error={error}
+                  isLoading={isLoading}
+                />
               ) : (
                 <AnswerFeedCard feedCardData={data} isLoading={isLoading} />
               )}
