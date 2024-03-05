@@ -18,6 +18,9 @@ const colors = {
   blue: "#1877F2",
   yellow: "#FEE500",
   red: "#B93333",
+
+  /* Dim */
+  Dim: "rgba(0, 0, 0, 0.56)",
 };
 
 export default colors;

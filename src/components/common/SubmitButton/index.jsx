@@ -23,6 +23,7 @@ const SubmitButton = styled(BasicSubmitButton)`
   ${fontStyles.body3};
   ${fontStyles.regular};
   width: 100%;
+  height: 46px;
 
   &:disabled {
     border-color: ${colors.brown30};
