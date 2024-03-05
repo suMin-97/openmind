@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import Modalsection from "../../components/FeedPage/ModalSection";
 import ShareButtons from "../../components/common/ShareButtons";
 import { useParams } from "react-router-dom";
-import FeedCardList from "../../components/common/FeedCardList";
 import FeedHeader from "../../components/FeedPage/FeedHeader";
 import FeedContainer from "../../components/common/FeedContainer";
 
@@ -16,7 +15,6 @@ const FeedPage = () => {
       <Link to={`/post/${id}/answer`}>답변 페이지</Link>
       <FeedHeader />
       <ShareButtons id={id} />
-      {/* <FeedCardList subjectId={id} /> */}
       <FeedContainer subjectId={id} />
       <Modalsection subjectId={id} />
     </div>

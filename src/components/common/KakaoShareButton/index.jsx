@@ -1,13 +1,12 @@
-import { useEffect } from "react";
 import { BASIC_DEPLOY_URL } from "../../../constants/constants";
+import styled from "styled-components";
+import Kakaotalk from "../../../assets/icons/Kakaotalk.svg";
 
 const KakaoShareButton = ({ url }) => {
-  useEffect(() => {
-    Kakao.init("83c8ec896557d0007b7c120c91c368c8");
-    // console.log(Kakao.isInitialized());
-  }, []);
-
   const handlebuttonClick = () => {
+    Kakao.init("83c8ec896557d0007b7c120c91c368c8");
+    console.log(Kakao.isInitialized());
+
     Kakao.Share.sendDefault({
       objectType: "feed",
       content: {
@@ -39,7 +38,31 @@ const KakaoShareButton = ({ url }) => {
     });
   };
 
-  return <button onClick={handlebuttonClick}>kakao</button>;
+  return (
+    <StyledButton onClick={handlebuttonClick}>
+      <img src={Kakaotalk} />
+    </StyledButton>
+  );
 };
+
+const StyledButton = styled.button`
+  display: flex;
+  width: 40px;
+  height: 40px;
+  padding: 12px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 200px;
+  background: #fee500;
+
+  img {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+`;
 
 export default KakaoShareButton;
