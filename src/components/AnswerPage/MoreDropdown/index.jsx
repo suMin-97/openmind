@@ -7,16 +7,27 @@ import { ReactComponent as RejectionIcon } from "@icons/Rejection.svg";
 import IconTextButton from "../../common/IconTextButton";
 import styled from "styled-components";
 import useRequest from "@hooks/useRequest";
+import { useEffect } from "react";
+import useDelete from "./useDelete";
 
-const BasicMoreDropdown = ({ className, id, isAnswered, answerId }) => {
+const BasicMoreDropdown = ({
+  className,
+  questionId,
+  isAnswered,
+  answerId,
+  setIsModify,
+  setAnswerContent,
+}) => {
   const { btnRef, isOpen, clickHandler } = useDropdown();
 
-  const {
-    data: deleteResponse,
-    isLoading,
-    error,
-    request: useDeleteAnswer,
-  } = useRequest({ url: `answers/${answerId}`, method: "DELETE" });
+  const { data: rejectResponse, request: useRejectAnswer } = useRequest({
+    url: `questions/${questionId}/answers`,
+    method: "POST",
+  });
+
+  const { data: deleteResponse, request: useDeleteAnswer } = useDelete({
+    url: `answers/${answerId}`,
+  });
 
   const moreEditableOptions = [
     {
@@ -26,8 +37,8 @@ const BasicMoreDropdown = ({ className, id, isAnswered, answerId }) => {
           text="수정하기"
         />
       ),
-      event: (e) => {
-        console.log("수정하기");
+      event: () => {
+        setIsModify((prevState) => !prevState);
       },
       active: false,
     },
@@ -38,8 +49,7 @@ const BasicMoreDropdown = ({ className, id, isAnswered, answerId }) => {
           text="삭제하기"
         />
       ),
-      event: (e) => {
-        console.log("삭제하기");
+      event: () => {
         useDeleteAnswer();
       },
       active: false,
@@ -54,12 +64,26 @@ const BasicMoreDropdown = ({ className, id, isAnswered, answerId }) => {
           text="거절하기"
         />
       ),
-      event: (e) => {
-        console.log("답변 거절");
+      event: () => {
+        useRejectAnswer({ content: "string", isRejected: true });
       },
       active: false,
     },
   ];
+
+  useEffect(() => {
+    const status = deleteResponse?.status;
+    if (status >= 200 && status < 300) {
+      setAnswerContent(null);
+    }
+  }, [deleteResponse]);
+
+  useEffect(() => {
+    if (rejectResponse) {
+      console.log(rejectResponse);
+      setAnswerContent(rejectResponse);
+    }
+  }, [rejectResponse]);
 
   return (
     <div className={className}>
