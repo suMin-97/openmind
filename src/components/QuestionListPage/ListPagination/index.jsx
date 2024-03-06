@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
-import { SUBJECT_PAGE_LIMIT } from "../../../constants/constants";
 import { colors, fontStyles } from "@styles/styleVariables";
 
-const ListPagination = ({ totalCount }) => {
+const ListPagination = ({ totalCount, pageLimit }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [curPage, setCurPage] = useState({ page: 1, size: 0 });
   const [pageList, setPageList] = useState([]);
@@ -20,9 +19,9 @@ const ListPagination = ({ totalCount }) => {
   useEffect(() => {
     setCurPage({
       ...curPage,
-      size: Math.ceil(totalCount / SUBJECT_PAGE_LIMIT),
+      size: Math.ceil(totalCount / pageLimit),
     });
-  }, [totalCount]);
+  }, [totalCount, pageLimit]);
 
   useEffect(() => {
     setCurPage({
@@ -43,7 +42,7 @@ const ListPagination = ({ totalCount }) => {
 
   const setPage = (num) => {
     searchParams.set("page", num);
-    setSearchParams(searchParams);
+    setSearchParams(searchParams, { replace: true });
   };
 
   return (
