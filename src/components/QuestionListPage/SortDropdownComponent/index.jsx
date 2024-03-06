@@ -15,6 +15,12 @@ const SortDropdownComponent = () => {
   const { btnRef, isOpen, clickHandler } = useDropdown();
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const setSort = (type) => {
+    searchParams.set("sort", type);
+    searchParams.set("page", 1);
+    setSearchParams(searchParams, { replace: true });
+  };
+
   // dropdown 영역에 들어갈 option button info
   // name: dropdown option의 이름 (string or ReactNode)
   // event: 해당 option을 클릭했을 때 발생하는 event
@@ -23,16 +29,14 @@ const SortDropdownComponent = () => {
     {
       name: <p style={{ marginRight: "8px" }}>최신순</p>,
       event: () => {
-        searchParams.set("sort", "time");
-        setSearchParams(searchParams);
+        setSort("time");
       },
       active: searchParams.get("sort") === "time",
     },
     {
       name: <p style={{ marginRight: "8px" }}>이름순</p>,
       event: () => {
-        searchParams.set("sort", "name");
-        setSearchParams(searchParams);
+        setSort("name");
       },
       active: searchParams.get("sort") === "name",
     },
@@ -41,7 +45,8 @@ const SortDropdownComponent = () => {
   useEffect(() => {
     if (!searchParams.get("sort")) {
       searchParams.set("sort", "time");
-      setSearchParams(searchParams);
+      searchParams.set("page", 1);
+      setSearchParams(searchParams, { replace: true });
     }
   }, []);
 
@@ -57,7 +62,7 @@ const SortDropdownComponent = () => {
         {searchParams.get("sort") === "name" && "이름순"}{" "}
         <img src={isOpen ? up : down} />
       </button>
-      {isOpen && <DropdownComponent options={sortOptions} />}
+      {isOpen && <DropdownComponent options={sortOptions} type="sort" />}
     </SortDiv>
   );
 };
