@@ -84,7 +84,6 @@ const Footer = styled.div`
   width: 100%;
   height: 126px;
   background: ${colors.gray20};
-  position: relative;
 
   @media ${devices.tablet} {
     height: 136px;
@@ -109,7 +108,7 @@ const MobileButton = styled.button`
   ${fontStyles.regular};
   ${fontStyles.body1};
 
-  position: absolute;
+  position: fixed;
   right: 24px;
   bottom: 24px;
 
@@ -141,7 +140,7 @@ const TabletButton = styled.button`
   ${fontStyles.regular};
   ${fontStyles.body1};
 
-  position: absolute;
+  position: fixed;
   right: 24px;
   bottom: 24px;
 
