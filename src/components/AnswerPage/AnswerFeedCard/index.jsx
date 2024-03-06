@@ -7,15 +7,13 @@ import getTimeDiff from "@components/common/FeedCard/getTimeDiff";
 import Badge from "../../common/Badge";
 import TextareaForm from "@components/common/TextareaForm";
 import MoreDropdown from "../MoreDropdown";
+import fontStyles from "@styles/fontStyles";
+import boxStyles from "@styles/boxStyles";
+import colors from "@styles/colors";
+import devices from "@styles/devices";
+import ProfileImage from "../../common/ProfileImage";
 
-const ContainDiv = styled.div`
-  width: 600px;
-  height: 500px;
-  margin: 10px;
-  border: 3px solid black;
-`;
-
-const FeedCard = ({ feedCardData, isLoading }) => {
+const BasicAnswerFeedCard = ({ feedCardData, isLoading, className }) => {
   const [answerContent, setAnswerContent] = useState(null);
   const [isModify, setIsModify] = useState(false);
 
@@ -28,6 +26,12 @@ const FeedCard = ({ feedCardData, isLoading }) => {
     createdAt,
     answer,
   } = feedCardData ?? {};
+
+  const { data: subjectData, request: getSubjectData } = useRequest({
+    url: `subjects/${subjectId}`,
+  });
+
+  const { imageSource, name } = subjectData ?? {};
 
   const {
     data: submitAnswerResponse,
@@ -58,6 +62,10 @@ const FeedCard = ({ feedCardData, isLoading }) => {
   };
 
   useEffect(() => {
+    getSubjectData();
+  }, []);
+
+  useEffect(() => {
     setAnswerContent(answer);
     if (submitAnswerResponse) {
       setAnswerContent(submitAnswerResponse);
@@ -81,13 +89,17 @@ const FeedCard = ({ feedCardData, isLoading }) => {
       />
     );
   } else {
-    feedAnswer = <p>{answerContent && answerContent?.content}</p>;
+    feedAnswer = (
+      <>
+        <p>{answerContent && answerContent?.content}</p>
+      </>
+    );
   }
 
   return (
-    <ContainDiv>
+    <div className={className}>
       {/* 답변완료 */}
-      <div>
+      <div className="cardHeader">
         {feedCardData && answerContent ? <Badge isAnswered /> : <Badge />}
         <MoreDropdown
           isAnswered={answerContent}
@@ -100,21 +112,29 @@ const FeedCard = ({ feedCardData, isLoading }) => {
 
       {/* 질문 */}
       {feedCardData && (
-        <div>
-          <p>{getTimeDiff(createdAt)}</p>
+        <div className="card_question">
+          <span className="span_gray">질문 · {getTimeDiff(createdAt)}</span>
           <p>{questionContent}</p>
         </div>
       )}
       {/* 답변 */}
       {feedCardData && answerContent ? (
-        <div>
-          <FeedPageProfile subjectId={subjectId} />
-          {answerContent?.isRejected ? (
-            <p style={{ color: "red" }}>답변거절</p>
-          ) : (
-            feedAnswer
-          )}
-        </div>
+        <ContentDiv>
+          {subjectData && <ProfileImage src={imageSource} size="medium" />}
+          <AnswerTextDiv>
+            <AnswerDescDiv>
+              <p>{name}</p>
+              <span className="span_gray">
+                {getTimeDiff(answerContent?.createdAt)}
+              </span>
+            </AnswerDescDiv>
+            {answerContent?.isRejected ? (
+              <p style={{ color: `${colors.red}` }}>답변거절</p>
+            ) : (
+              feedAnswer
+            )}
+          </AnswerTextDiv>
+        </ContentDiv>
       ) : (
         <TextareaForm formType="answer" handleSubmit={handleSubmitAnswer} />
       )}
@@ -123,8 +143,88 @@ const FeedCard = ({ feedCardData, isLoading }) => {
         like={feedCardData?.like}
         dislike={feedCardData?.dislike}
       />
-    </ContainDiv>
+    </div>
   );
 };
 
-export default FeedCard;
+const ContentDiv = styled.div`
+  display: flex;
+  gap: 12px;
+`;
+
+const AnswerTextDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+
+  & > p {
+    ${fontStyles.body3};
+  }
+`;
+
+const AnswerDescDiv = styled.div`
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+
+  & > p {
+    ${fontStyles.body3};
+    ${fontStyles.regular};
+
+    @media ${devices.tablet} {
+      ${fontStyles.body2};
+    }
+  }
+`;
+
+const AnswerFeedCard = styled(BasicAnswerFeedCard)`
+  width: 100%;
+  ${boxStyles.padding24};
+  ${boxStyles.shadow1};
+  background-color: ${colors.gray10};
+  ${boxStyles.radius16};
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  & .cardHeader {
+    display: flex;
+    justify-content: space-between;
+
+    & ${MoreDropdown} > div {
+      width: 31px;
+      & > div {
+        left: auto;
+        right: 0;
+      }
+    }
+  }
+
+  & .span_gray {
+    color: ${colors.gray40};
+    ${fontStyles.caption};
+  }
+
+  & .card_question {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    & p {
+      ${fontStyles.body3};
+      color: ${colors.gray60};
+
+      @media ${devices.tablet} {
+        ${fontStyles.body2};
+      }
+    }
+  }
+
+  & ${Reaction} {
+    border-top: 1px solid ${colors.gray30};
+    padding-top: 24px;
+  }
+`;
+
+export default AnswerFeedCard;
