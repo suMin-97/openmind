@@ -1,26 +1,14 @@
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
+import {
+  colors,
+  boxStyles,
+  fontStyles,
+  devices,
+} from "../../../styles/styleVariables";
 import ModalForm from "../ModalForm";
-
-const ContainDiv = styled.div`
-  width: 100vw;
-  height: 100vh;
-  flex-shrink: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: var(--Dim, rgba(0, 0, 0, 0.5));
-  position: fixed;
-  top: 0;
-  left: 0;
-`;
-
-const ContentsBox = styled.div`
-  width: 500px;
-  height: 400px;
-  border: 5px solid white;
-  background-color: white;
-`;
+import closeIcon from "../../../assets/icons/Close.svg";
+import messageIcon from "../../../assets/icons/Messages.svg";
 
 const Modal = ({ subjectId, setIsModalOpen }) => {
   const modalBg = useRef();
@@ -57,13 +45,20 @@ const Modal = ({ subjectId, setIsModalOpen }) => {
   }, []);
 
   return (
-    <ContainDiv ref={modalBg} onClick={handleBGCloseClick}>
+    <DimDiv ref={modalBg} onClick={handleBGCloseClick}>
       <ContentsBox>
-        <button onClick={handleBtnCloseClick}>X</button>
-        <h1>질문을 작성하세요</h1>
+        <FlexDiv>
+          <FlexMessageDiv>
+            <img src={messageIcon} />
+            <p>질문을 작성하세요</p>
+          </FlexMessageDiv>
+          <CloseButton onClick={handleBtnCloseClick}>
+            <img src={closeIcon} />
+          </CloseButton>
+        </FlexDiv>
         <ModalForm setIsModalOpen={setIsModalOpen} subjectId={subjectId} />
       </ContentsBox>
-    </ContainDiv>
+    </DimDiv>
   );
 };
 
@@ -75,13 +70,178 @@ const Modalsection = ({ subjectId }) => {
   };
 
   return (
-    <>
-      <button onClick={handleOpenClick}>질문하실?</button>
+    <Footer>
+      <MobileButton onClick={handleOpenClick}>질문 작성</MobileButton>
+      <TabletButton onClick={handleOpenClick}>질문 작성하기</TabletButton>
       {isModalOpen && (
         <Modal setIsModalOpen={setIsModalOpen} subjectId={subjectId} />
       )}
-    </>
+    </Footer>
   );
 };
+
+const Footer = styled.div`
+  width: 100%;
+  height: 126px;
+  background: ${colors.gray20};
+  position: relative;
+
+  @media ${devices.tablet} {
+    height: 136px;
+  }
+`;
+
+const MobileButton = styled.button`
+  display: inline-flex;
+  height: 54px;
+  padding: 12px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+
+  border: none;
+  ${boxStyles.radius200};
+  background-color: ${colors.brown40};
+  ${boxStyles.shadow2};
+
+  color: ${colors.gray10};
+  ${fontStyles.regular};
+  ${fontStyles.body1};
+
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+
+  &: hover {
+    cursor: pointer;
+  }
+
+  @media ${devices.tablet} {
+    display: none;
+  }
+`;
+
+const TabletButton = styled.button`
+  display: none;
+  width: 208px;
+  height: 54px;
+  padding: 12px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+
+  border: none;
+  ${boxStyles.radius200};
+  background-color: ${colors.brown40};
+  ${boxStyles.shadow2};
+
+  color: ${colors.gray10};
+  ${fontStyles.regular};
+  ${fontStyles.body1};
+
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+
+  &: hover {
+    cursor: pointer;
+  }
+
+  @media ${devices.tablet} {
+    display: flex;
+  }
+`;
+
+const DimDiv = styled.div`
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: ${colors.Dim};
+  position: fixed;
+  top: 0;
+  left: 0;
+`;
+
+const ContentsBox = styled.div`
+  padding: 24px;
+  width: 327px;
+  height: 568px;
+  flex-shrink: 0;
+
+  border: none;
+  ${boxStyles.radius24};
+  background: ${colors.gray10};
+  ${boxStyles.shadow3};
+
+  @media ${devices.tablet} {
+    padding: 40px;
+    width: 612px;
+    height: 454px;
+  }
+`;
+
+const CloseButton = styled.button`
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  border: none;
+  background: ${colors.gray10};
+
+  img {
+    width: 22px;
+    height: 22px;
+  }
+
+  &: hover {
+    cursor: pointer;
+  }
+
+  @media ${devices.tablet} {
+    width: 28px;
+    height: 28px;
+
+    img {
+      width: 28px;
+      height: 28px;
+    }
+  }
+`;
+
+const FlexDiv = styled.div`
+  display: flex;
+  width: 279px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+
+  @media ${devices.tablet} {
+    width: 532px;
+  }
+`;
+
+const FlexMessageDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  color: ${colors.gray60};
+  ${fontStyles.regular};
+  ${fontStyles.body1};
+
+  img {
+    width: 28px;
+    height: 28px;
+  }
+
+  @media ${devices.tablet} {
+    ${fontStyles.h3};
+  }
+`;
 
 export default Modalsection;

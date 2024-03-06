@@ -1,12 +1,15 @@
 import { useState } from "react";
 import styled from "styled-components";
-import boxStyles from "@styles/boxStyles";
-import colors from "@styles/colors";
-import fontStyles from "@styles/fontStyles";
 import SubmitButton from "../../common/SubmitButton";
 import useRequest from "../../../hooks/useRequest";
 import { useEffect } from "react";
 import BASIC_QUESTION from "./constant";
+import {
+  colors,
+  boxStyles,
+  fontStyles,
+  devices,
+} from "../../../styles/styleVariables";
 
 const BasicModalForm = ({ className, subjectId, setIsModalOpen }) => {
   const {
@@ -32,12 +35,23 @@ const BasicModalForm = ({ className, subjectId, setIsModalOpen }) => {
     postRequest(BASIC_QUESTION);
   };
 
-  const onFormSubmit = (event) => {
+  const handleFormSubmit = (event) => {
     event.preventDefault();
     if (regex.test(value)) {
       handleSubmit(value);
       setValue("");
       setIsModalOpen(false);
+    }
+  };
+
+  const handleEnterKeyDown = (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      if (regex.test(event.target.value)) {
+        handleSubmit(value);
+        setValue("");
+        setIsModalOpen(false);
+      }
     }
   };
 
@@ -55,20 +69,32 @@ const BasicModalForm = ({ className, subjectId, setIsModalOpen }) => {
   }, []);
 
   return (
-    <form onSubmit={onFormSubmit} className={className}>
+    <form onSubmit={handleFormSubmit} className={className}>
       <label htmlFor="question">
-        {profileIsLoading && <p>로딩중</p>}
+        {profileIsLoading && (
+          <ProfileDiv>
+            <P>To.</P>
+            <p>로딩중</p>
+          </ProfileDiv>
+        )}
         {profileData && (
-          <>
+          <ProfileDiv>
+            <P>To.</P>
             <img src={profileData?.imageSource} />
             <p>{profileData?.name}</p>
-          </>
+          </ProfileDiv>
         )}
-        {profileError && <p>삐빅 에러 입니다</p>}
+        {profileError && (
+          <ProfileDiv>
+            <P>To.</P>
+            <p>삐빅 에러입니다</p>
+          </ProfileDiv>
+        )}
       </label>
-      <input
+      <textarea
         id="question"
         onChange={handleChange}
+        onKeyDown={handleEnterKeyDown}
         value={value}
         name="content"
         placeholder="질문을 입력해주세요"
@@ -82,9 +108,10 @@ const BasicModalForm = ({ className, subjectId, setIsModalOpen }) => {
 
 const ModalForm = styled(BasicModalForm)`
   ${boxStyles.flexColumnCenter};
+  align-items: start;
   gap: 0.5rem;
 
-  & input {
+  & textarea {
     ${boxStyles.flexRowCenter};
     ${boxStyles.paddingInput};
     outline: none;
@@ -97,6 +124,7 @@ const ModalForm = styled(BasicModalForm)`
     ${fontStyles.regular};
     ${boxStyles.radius8};
     width: 100%;
+    height: 358px;
 
     &::placeholder {
       color: ${colors.gray40};
@@ -105,7 +133,36 @@ const ModalForm = styled(BasicModalForm)`
     &:focus {
       border: 1px solid ${colors.brown40};
     }
+
+    @media ${devices.tablet} {
+      height: 180px;
+    }
   }
+`;
+
+const ProfileDiv = styled.div`
+  height: 28px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 4px;
+
+  color: ${colors.gray60};
+  ${fontStyles.regular};
+  ${fontStyles.body3};
+
+  img {
+    width: 28px;
+    height: 28px;
+    ${boxStyles.radius200};
+  }
+`;
+
+const P = styled.p`
+  color: ${colors.gray60};
+  ${fontStyles.regular};
+  ${fontStyles.body2};
 `;
 
 export default ModalForm;
