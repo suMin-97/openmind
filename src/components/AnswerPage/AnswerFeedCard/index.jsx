@@ -94,7 +94,6 @@ const BasicAnswerFeedCard = ({ feedCardData, isLoading, className }) => {
 
   return (
     <div className={className}>
-      {/* 답변완료 */}
       <CardHeader>
         {feedCardData?.answer ? <Badge isAnswered /> : <Badge />}
         <MoreDropdown
@@ -106,14 +105,13 @@ const BasicAnswerFeedCard = ({ feedCardData, isLoading, className }) => {
         />
       </CardHeader>
 
-      {/* 질문 */}
       {feedCardData && (
         <CardQuestion>
           <span className="span_gray">질문 · {getTimeDiff(createdAt)}</span>
           <p>{questionContent}</p>
         </CardQuestion>
       )}
-      {/* 답변 */}
+
       {feedCardData && answerContent ? (
         <ContentDiv>
           {subjectData && <ProfileImage src={imageSource} size="medium" />}
