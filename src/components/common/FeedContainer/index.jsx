@@ -6,6 +6,7 @@ import FeedCountMessage from "@components/common/FeedCountMessage";
 import NoFeedCard from "@components/common/NoFeedCard";
 import AnswerFeedCard from "@components/AnswerPage/AnswerFeedCard";
 import FeedCard from "../FeedCard";
+import LoadingFeedCard from "../LoadingFeedCard";
 
 const BasicFeedContainer = ({
   className,
@@ -30,7 +31,14 @@ const BasicFeedContainer = ({
     // 일단 이렇게 만들어두었어요
     if (isLoading) {
       // 로딩중일 때 노출될 컴포넌트 (추후 수정)
-      return <div>로딩중</div>;
+      return (
+        <>
+          <LoadingFeedCard />
+          <LoadingFeedCard />
+          <LoadingFeedCard />
+          <LoadingFeedCard />
+        </>
+      );
     }
 
     if (error) {

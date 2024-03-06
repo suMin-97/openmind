@@ -14,6 +14,9 @@ const colors = {
   brown40: "#542F1A",
   brown50: "#341909",
 
+  /* Loading */
+  loading: "#E7E7E7",
+
   /* Font */
   blue: "#1877F2",
   yellow: "#FEE500",
