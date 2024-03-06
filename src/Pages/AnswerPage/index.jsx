@@ -1,11 +1,10 @@
+import { useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import useRequest from "@hooks/useRequest";
-import Badge from "@components/common/Badge";
-import Reaction from "@components/common/Reaction";
+import styled from "styled-components";
+import boxStyles from "../../styles/boxStyles";
+import useDelete from "../../components/AnswerPage/MoreDropdown/useDelete";
 import FeedContainer from "@components/common/FeedContainer";
-import BasicFloatingButton from "@components/common/BasicFloatingButton";
 import DeleteFloatingButton from "@components/AnswerPage/DeleteFloatingButton";
-import MoreDropdown from "../../components/AnswerPage/MoreDropdown";
 
 const AnswerPage = () => {
   // 추후 삭제 확인 후 페이지 이동시 사용
@@ -13,38 +12,43 @@ const AnswerPage = () => {
   const { id } = useParams();
 
   const {
-    data,
+    data: FeedDeleteResponse,
     error,
     isLoading,
     request: useFeedDelete,
-  } = useRequest({
-    method: "DELETE",
+  } = useDelete({
     url: `subjects/${id}`,
   });
 
-  const handleFeedDelete = async () => {
+  const handleFeedDelete = () => {
     const remove = window.confirm("피드를 삭제할까요?");
     if (remove) {
-      await useFeedDelete();
+      useFeedDelete();
     }
   };
 
+  useEffect(() => {
+    const status = FeedDeleteResponse?.status;
+    if (status && status >= 200 && status < 300) {
+      navigate("/");
+    }
+    // 로컬스토리지에 저장되어있던 Id 생성 정보를 삭제하는 로직 추가 필요
+  }, [FeedDeleteResponse]);
+
   return (
-    <div>
+    <Container>
       <h1>답변 페이지</h1>
       <Link to="/">메인 페이지</Link>
       <Link to="/list">리스트 페이지</Link>
       <Link to={`/post/${id}`}>피드 페이지</Link>
-      <Badge isAnswered>가나다</Badge>
-      <Badge>가나다</Badge>
-      <Reaction />
-      <MoreDropdown />
-      <FeedContainer subjectId={id} cardType="answerFeed" />
-      <BasicFloatingButton disabled>제출하기</BasicFloatingButton>
-      <BasicFloatingButton>제출하기</BasicFloatingButton>
       <DeleteFloatingButton handleDelete={handleFeedDelete} />
-    </div>
+      <FeedContainer subjectId={id} cardType="answerFeed" />
+    </Container>
   );
 };
+
+const Container = styled.div`
+  ${boxStyles.flexColumnCenter};
+`;
 
 export default AnswerPage;
