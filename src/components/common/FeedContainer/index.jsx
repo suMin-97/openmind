@@ -85,6 +85,16 @@ const FeedContainer = styled(BasicFeedContainer)`
   ${boxStyles.radius16};
   background-color: ${colors.brown10};
 
+  & > ul {
+    ${boxStyles.flexColumnCenter};
+    gap: 1rem;
+    width: 100%;
+
+    & > li {
+      width: 100%;
+    }
+  }
+
   @media ${devices.tablet} {
     max-width: 716px;
   }

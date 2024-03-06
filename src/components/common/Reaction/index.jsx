@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import boxStyles from "@styles/boxStyles";
+import colors from "@styles/colors";
 import { ReactComponent as LikeIcon } from "@icons/Like.svg";
 import { ReactComponent as DislikeIcon } from "@icons/Dislike.svg";
 import IconTextButton from "@components/common/IconTextButton";
@@ -72,8 +73,10 @@ const BasicReaction = ({ className, like = 0, dislike = 0, questionId }) => {
 };
 
 const Reaction = styled(BasicReaction)`
-  ${boxStyles.inlineFlexRowCenter};
+  display: flex;
+  flex-flow: row;
   gap: 2rem;
+  white-space: nowrap;
 `;
 
 export default Reaction;
