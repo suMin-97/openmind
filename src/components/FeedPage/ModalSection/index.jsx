@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { colors, boxStyles, fontStyles, devices } from "@styles/styleVariables";
 import ModalForm from "../ModalForm";
-import closeIcon from "@/icons/Close.svg";
+import closeIcon from "@icons/Close.svg";
 import messageIcon from "@icons/Messages.svg";
 
 const Modal = ({ subjectId, setIsModalOpen }) => {

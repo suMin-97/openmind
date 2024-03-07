@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { devices, boxStyles } from "@styled/styleVariables";
+import { devices, boxStyles } from "@styles/styleVariables";
 
 // 프로필이미지 사용하고싶은 곳에 api 호출을 하고
 
