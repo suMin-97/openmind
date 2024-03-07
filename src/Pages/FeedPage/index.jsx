@@ -1,23 +1,16 @@
-import { Link } from "react-router-dom";
-import Modalsection from "../../components/FeedPage/ModalSection";
-import ShareButtons from "../../components/common/ShareButtons";
 import { useParams } from "react-router-dom";
-import FeedHeader from "../../components/FeedPage/FeedHeader";
-import FeedContainer from "../../components/common/FeedContainer";
+import Modalsection from "@components/FeedPage/ModalSection";
+import FeedContainer from "@components/common/FeedContainer";
+import FeedLayout from "@layout/FeedLayout";
 
 const FeedPage = () => {
   const { id } = useParams();
 
   return (
-    <div>
-      <Link to="/">메인 페이지</Link>
-      <Link to="/list">리스트 페이지</Link>
-      <Link to={`/post/${id}/answer`}>답변 페이지</Link>
-      <FeedHeader />
-      <ShareButtons id={id} />
+    <FeedLayout id={id} feedType="question">
       <FeedContainer subjectId={id} />
       <Modalsection subjectId={id} />
-    </div>
+    </FeedLayout>
   );
 };
 
