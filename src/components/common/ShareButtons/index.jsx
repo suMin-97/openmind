@@ -28,14 +28,12 @@ const WrappedDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 12px auto 54px;
 `;
 
 const ContainDiv = styled.div`
   display: inline-flex;
   align-items: flex-start;
   gap: 12px;
-
   button:hover {
     cursor: pointer;
   }

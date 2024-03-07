@@ -1,14 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
-import {
-  colors,
-  boxStyles,
-  fontStyles,
-  devices,
-} from "../../../styles/styleVariables";
+import { colors, boxStyles, fontStyles, devices } from "@styles/styleVariables";
 import ModalForm from "../ModalForm";
-import closeIcon from "../../../assets/icons/Close.svg";
-import messageIcon from "../../../assets/icons/Messages.svg";
+import closeIcon from "@icons/Close.svg";
+import messageIcon from "@icons/Messages.svg";
 
 const Modal = ({ subjectId, setIsModalOpen }) => {
   const modalBg = useRef();
@@ -82,12 +77,6 @@ const Modalsection = ({ subjectId }) => {
 
 const Footer = styled.div`
   width: 100%;
-  height: 126px;
-  background: ${colors.gray20};
-
-  @media ${devices.tablet} {
-    height: 136px;
-  }
 `;
 
 const MobileButton = styled.button`

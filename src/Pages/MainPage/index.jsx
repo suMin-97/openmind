@@ -1,21 +1,14 @@
-import { Link } from "react-router-dom";
-import SubmitButton from "../../components/common/SubmitButton";
-import logo from "../../assets/images/logo.svg";
-import backgroundImg from "../../assets/images/background-image.png";
-import useRequest from "../../hooks/useRequest";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { BASIC_SUBJECT, POST_URL } from "./constants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import {
-  colors,
-  boxStyles,
-  fontStyles,
-  devices,
-} from "../../styles/styleVariables";
-import personIcon from "../../assets/icons/Person.svg";
-import arrowRightBrown from "../../assets/icons/arrow-right-brown.svg";
+import { colors, boxStyles, fontStyles, devices } from "@styles/styleVariables";
+import useRequest from "@hooks/useRequest";
+import logo from "@images/logo.svg";
+import backgroundImg from "@images/background-image.png";
+import personIcon from "@icons/Person.svg";
+import arrowRightBrown from "@icons/arrow-right-brown.svg";
+import SubmitButton from "@components/common/SubmitButton";
+import { BASIC_SUBJECT, POST_URL } from "./constants";
 
 const MainPage = () => {
   const [value, setValue] = useState("");
@@ -64,46 +57,60 @@ const MainPage = () => {
 
   return (
     <ContainDiv>
-      <Header>
-        <img src={logo} />
-        <Link to="/list">
-          <button>
-            <p>질문하러 가기</p>
-            <img src={arrowRightBrown} />
-          </button>
-        </Link>
-      </Header>
-      <StyledDiv>
-        <StyledForm onSubmit={handleSubmitClick}>
-          <InputDiv>
-            <label htmlFor="name">
-              <img src={personIcon} />
-            </label>
-            <input
-              id="name"
-              placeholder="이름을 입력하세요"
-              onChange={handleChange}
-            />
-          </InputDiv>
-          <SubmitButton>질문 받기</SubmitButton>
-        </StyledForm>
-      </StyledDiv>
-      <Footer>
-        <img src={backgroundImg} />
-      </Footer>
+      <Container>
+        <Header>
+          <img src={logo} />
+          <Link to="/list">
+            <button>
+              <p>질문하러 가기</p>
+              <img src={arrowRightBrown} />
+            </button>
+          </Link>
+        </Header>
+        <StyledDiv>
+          <StyledForm onSubmit={handleSubmitClick}>
+            <InputDiv>
+              <label htmlFor="name">
+                <img src={personIcon} />
+              </label>
+              <input
+                id="name"
+                placeholder="이름을 입력하세요"
+                onChange={handleChange}
+              />
+            </InputDiv>
+            <SubmitButton>질문 받기</SubmitButton>
+          </StyledForm>
+        </StyledDiv>
+      </Container>
     </ContainDiv>
   );
 };
 
 const ContainDiv = styled.div`
   background: ${colors.gray20};
+  width: 100%;
   height: 100vh;
+  ${boxStyles.flexColumnCenter};
+`;
+
+const Container = styled.div`
+  background-image: url(${backgroundImg});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  width: 100%;
+  height: 100vh;
+  ${boxStyles.flexColumnCenter};
+  justify-content: center;
+  @media ${devices.desktop} {
+    max-width: 1200px;
+  }
 `;
 
 const Header = styled.div`
   ${boxStyles.flexColumnCenter}
   margin-bottom: 24px;
-  padding-top: 80px;
   gap: 24px;
   background: ${colors.gray20};
 
@@ -168,40 +175,13 @@ const Header = styled.div`
   }
 `;
 
-const Footer = styled.div`
-  width: 100%;
-  height: 195px;
-  background: ${colors.gray20};
-  overflow: hidden;
-  position: relative;
-
-  img {
-    width: 100%;
-    height: 239px;
-    object-fit: contain;
-    object-position: center bottom;
-    position: absolute;
-    bottom: 0px;
-  }
-
-  @media ${devices.tablet} {
-    height: 296px;
-
-    img {
-      height: 401px;
-    }
-  }
-
-  @media ${devices.desktop} {
-    img {
-      height: 627px;
-    }
-  }
-`;
-
 const StyledDiv = styled.div`
   ${boxStyles.flexRowCenter};
-  background: ${colors.gray20};
+  padding-bottom: 64px;
+
+  @media ${devices.tablet} {
+    padding-bottom: 100px;
+  }
 `;
 
 const StyledForm = styled.form`
