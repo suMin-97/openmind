@@ -19,6 +19,7 @@ function App() {
           <Route index element={<FeedPage />} />
           <Route path="answer" element={<AnswerPage />} />
         </Route>
+        <Route path="*" element={<MainPage />} />
       </Routes>
     </BrowserRouter>
   );
