@@ -28,6 +28,7 @@ const AnswerPage = () => {
   useEffect(() => {
     const status = FeedDeleteResponse?.status;
     if (status && status >= 200 && status < 300) {
+      localStorage.removeItem("id");
       navigate("/");
     }
     // 로컬스토리지에 저장되어있던 Id 생성 정보를 삭제하는 로직 추가 필요
