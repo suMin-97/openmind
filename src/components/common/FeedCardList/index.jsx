@@ -3,7 +3,7 @@ import useRequest from "../../../hooks/useRequest.js";
 import FeedCard from "../FeedCard";
 import NoFeedCard from "../NoFeedCard";
 
-const FeedCardList = ({ feedCards, isLoading, error, total }) => {
+const FeedCardList = ({ feedCards, isLoading, error, count }) => {
   // const FeedCardsUrl = `subjects/${subjectId}/questions`;
   // const {
   //   data: feedCards,
@@ -21,7 +21,7 @@ const FeedCardList = ({ feedCards, isLoading, error, total }) => {
       {isLoading && <p>로딩중</p>}
       {feedCards && feedCards?.count ? (
         <>
-          <h1>{`${total}개의 질문이 있습니다`}</h1>
+          <h1>{`${count}개의 질문이 있습니다`}</h1>
           <ul>
             <li>
               {feedCards &&

@@ -10,7 +10,7 @@ import ModalForm from "../ModalForm";
 import closeIcon from "../../../assets/icons/Close.svg";
 import messageIcon from "../../../assets/icons/Messages.svg";
 
-const Modal = ({ subjectId, setIsModalOpen }) => {
+const Modal = ({ subjectId, setIsModalOpen, handleSubmitSuccess }) => {
   const modalBg = useRef();
 
   const handleBGCloseClick = (event) => {
@@ -56,13 +56,17 @@ const Modal = ({ subjectId, setIsModalOpen }) => {
             <img src={closeIcon} />
           </CloseButton>
         </FlexDiv>
-        <ModalForm setIsModalOpen={setIsModalOpen} subjectId={subjectId} />
+        <ModalForm
+          setIsModalOpen={setIsModalOpen}
+          subjectId={subjectId}
+          onSubmitSuccess={onSubmitSuccess}
+        />
       </ContentsBox>
     </DimDiv>
   );
 };
 
-const Modalsection = ({ subjectId }) => {
+const Modalsection = ({ subjectId, onSubmitSuccess }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenClick = () => {
@@ -74,7 +78,11 @@ const Modalsection = ({ subjectId }) => {
       <MobileButton onClick={handleOpenClick}>질문 작성</MobileButton>
       <TabletButton onClick={handleOpenClick}>질문 작성하기</TabletButton>
       {isModalOpen && (
-        <Modal setIsModalOpen={setIsModalOpen} subjectId={subjectId} />
+        <Modal
+          setIsModalOpen={setIsModalOpen}
+          subjectId={subjectId}
+          onSubmitSuccess={onSubmitSuccess}
+        />
       )}
     </Footer>
   );

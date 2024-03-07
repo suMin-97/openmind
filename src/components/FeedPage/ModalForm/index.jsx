@@ -8,7 +8,12 @@ import useRequest from "../../../hooks/useRequest";
 import { useEffect } from "react";
 import BASIC_QUESTION from "./constant";
 
-const BasicModalForm = ({ className, subjectId, setIsModalOpen }) => {
+const BasicModalForm = ({
+  className,
+  subjectId,
+  setIsModalOpen,
+  onSubmitSuccess,
+}) => {
   const {
     data: profileData,
     error: profileError,
@@ -30,6 +35,7 @@ const BasicModalForm = ({ className, subjectId, setIsModalOpen }) => {
     BASIC_QUESTION.subjectId = subjectId;
     BASIC_QUESTION.content = value;
     postRequest(BASIC_QUESTION);
+    onSubmitSuccess(value);
   };
 
   const onFormSubmit = (event) => {
