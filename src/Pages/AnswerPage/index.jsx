@@ -34,7 +34,7 @@ const AnswerPage = () => {
   }, [FeedDeleteResponse]);
 
   return (
-    <FeedLayout id={id} feedType="answer">
+    <FeedLayout id={id} $feedType="answer">
       <DeleteFloatingButton handleDelete={handleFeedDelete} />
       <FeedContainer subjectId={id} cardType="answerFeed" />
     </FeedLayout>

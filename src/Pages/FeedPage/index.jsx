@@ -7,7 +7,7 @@ const FeedPage = () => {
   const { id } = useParams();
 
   return (
-    <FeedLayout id={id} feedType="question">
+    <FeedLayout id={id} $feedType="question">
       <FeedContainer subjectId={id} />
       <Modalsection subjectId={id} />
     </FeedLayout>

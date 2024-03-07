@@ -3,9 +3,9 @@ import { colors, devices, boxStyles } from "@styles/styleVariables";
 import FeedHeader from "@components/FeedPage/FeedHeader";
 import ShareButtons from "@components/common/ShareButtons";
 
-const FeedBasicLayout = ({ children, id, className, feedType }) => {
+const FeedBasicLayout = ({ children, id, className, $feedType }) => {
   return (
-    <Container className={className} feedType={feedType}>
+    <Container className={className} $feedType={$feedType}>
       <FeedHeader id={id} />
       <ShareButtons id={id} />
       <ContainerWrap>{children}</ContainerWrap>
@@ -36,7 +36,8 @@ const ContainerWrap = styled.div`
 
 const FeedLayout = styled(FeedBasicLayout)`
   & ${ContainerWrap} {
-    margin-top: ${({ feedType }) => (feedType === "question" ? "42px" : "0px")};
+    margin-top: ${({ $feedType }) =>
+      $feedType === "question" ? "42px" : "0px"};
   }
 `;
 
