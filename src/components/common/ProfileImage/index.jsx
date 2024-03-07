@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { devices, boxStyles } from "@styled/styleVariables";
 
 // 프로필이미지 사용하고싶은 곳에 api 호출을 하고
 
@@ -26,10 +27,27 @@ const SIZES = {
 const Container = styled.div`
   width: ${({ $size }) => ($size ? SIZES[$size] : SIZES["Large"])}px;
   height: ${({ $size }) => ($size ? SIZES[$size] : SIZES["Large"])}px;
-  border-radius: 136px;
+  ${boxStyles.radiusC};
   overflow: hidden;
   flex-shrink: 0;
   text-align: center;
+
+  @media ${devices.tablet} {
+    width: ${({ $size }) => {
+      if ($size === "xLarge") {
+        return SIZES["xxLarge"];
+      } else {
+        return SIZES[$size];
+      }
+    }}px;
+    height: ${({ $size }) => {
+      if ($size === "xLarge") {
+        return SIZES["xxLarge"];
+      } else {
+        return SIZES[$size];
+      }
+    }}px;
+  }
 `;
 
 const Img = styled.img`

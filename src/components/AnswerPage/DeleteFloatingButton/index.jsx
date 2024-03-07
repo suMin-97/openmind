@@ -13,6 +13,7 @@ const BasicDeleteFloatingButton = ({ className, handleDelete }) => {
 const DeleteFloatingButton = styled(BasicDeleteFloatingButton)`
   ${boxStyles.paddingButtonS};
   ${boxStyles.inlineFlexRowCenter};
+  align-self: flex-end;
   ${fontStyles.deleteS};
   width: 70px;
   height: 25px;

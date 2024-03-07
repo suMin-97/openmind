@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import styled from "styled-components";
 import useRequest from "@hooks/useRequest";
-import { boxStyles, colors, devices } from "@styles/styleVariables";
+import { boxStyles, colors } from "@styles/styleVariables";
 import FeedCountMessage from "@components/common/FeedCountMessage";
 import NoFeedCard from "@components/common/NoFeedCard";
 import AnswerFeedCard from "@components/AnswerPage/AnswerFeedCard";
-import FeedCard from "../FeedCard";
-import LoadingFeedCard from "../LoadingFeedCard";
+import FeedCard from "@components/common/FeedCard";
+import LoadingFeedCard from "@components/common/LoadingFeedCard";
 
 const BasicFeedContainer = ({
   className,
@@ -101,10 +101,6 @@ const FeedContainer = styled(BasicFeedContainer)`
     & > li {
       width: 100%;
     }
-  }
-
-  @media ${devices.tablet} {
-    max-width: 716px;
   }
 `;
 
