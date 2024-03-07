@@ -97,6 +97,7 @@ const MainPage = () => {
 
 const ContainDiv = styled.div`
   background: ${colors.gray20};
+  height: 100vh;
 `;
 
 const Header = styled.div`
