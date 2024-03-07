@@ -10,5 +10,3 @@ export const apiAxios = axios.create({
 });
 
 export const BASIC_DEPLOY_URL = "https://openmind-life.vercel.app"; // 기본 배포 주소
-
-export const SUBJECT_PAGE_LIMIT = 8;

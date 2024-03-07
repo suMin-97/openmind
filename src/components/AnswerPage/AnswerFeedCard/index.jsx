@@ -1,17 +1,13 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
+import { fontStyles, boxStyles, colors, devices } from "@styles/styleVariables";
 import useRequest from "@hooks/useRequest";
-import FeedPageProfile from "@components/common/FeedPageProfile";
 import Reaction from "@components/common/Reaction";
 import getTimeDiff from "@components/common/FeedCard/getTimeDiff";
-import Badge from "../../common/Badge";
+import Badge from "@components/common/Badge";
 import TextareaForm from "@components/common/TextareaForm";
-import MoreDropdown from "../MoreDropdown";
-import fontStyles from "@styles/fontStyles";
-import boxStyles from "@styles/boxStyles";
-import colors from "@styles/colors";
-import devices from "@styles/devices";
-import ProfileImage from "../../common/ProfileImage";
+import MoreDropdown from "@components/AnswerPage/MoreDropdown";
+import ProfileImage from "@components/common/ProfileImage";
 
 const BasicAnswerFeedCard = ({ feedCardData, isLoading, className }) => {
   const [answerContent, setAnswerContent] = useState(null);
@@ -25,7 +21,7 @@ const BasicAnswerFeedCard = ({ feedCardData, isLoading, className }) => {
     dislike,
     createdAt,
     answer,
-  } = feedCardData ?? {};
+  } = feedCardData ?? null;
 
   const { data: subjectData, request: getSubjectData } = useRequest({
     url: `subjects/${subjectId}`,
@@ -98,9 +94,8 @@ const BasicAnswerFeedCard = ({ feedCardData, isLoading, className }) => {
 
   return (
     <div className={className}>
-      {/* 답변완료 */}
-      <div className="cardHeader">
-        {feedCardData && answerContent ? <Badge isAnswered /> : <Badge />}
+      <CardHeader>
+        {feedCardData?.answer ? <Badge isAnswered /> : <Badge />}
         <MoreDropdown
           isAnswered={answerContent}
           answerId={answerContent?.id}
@@ -108,16 +103,15 @@ const BasicAnswerFeedCard = ({ feedCardData, isLoading, className }) => {
           setIsModify={setIsModify}
           setAnswerContent={setAnswerContent}
         />
-      </div>
+      </CardHeader>
 
-      {/* 질문 */}
       {feedCardData && (
-        <div className="card_question">
+        <CardQuestion>
           <span className="span_gray">질문 · {getTimeDiff(createdAt)}</span>
           <p>{questionContent}</p>
-        </div>
+        </CardQuestion>
       )}
-      {/* 답변 */}
+
       {feedCardData && answerContent ? (
         <ContentDiv>
           {subjectData && <ProfileImage src={imageSource} size="medium" />}
@@ -138,11 +132,9 @@ const BasicAnswerFeedCard = ({ feedCardData, isLoading, className }) => {
       ) : (
         <TextareaForm formType="answer" handleSubmit={handleSubmitAnswer} />
       )}
-      <Reaction
-        questionId={feedCardData?.id}
-        like={feedCardData?.like}
-        dislike={feedCardData?.dislike}
-      />
+      {feedCardData && (
+        <Reaction questionId={questionId} like={like} dislike={dislike} />
+      )}
     </div>
   );
 };
@@ -178,6 +170,32 @@ const AnswerDescDiv = styled.div`
   }
 `;
 
+const CardHeader = styled.div`
+display: flex;
+    justify-content: space-between;
+    & ${MoreDropdown} > div {
+      width: 31px;
+      & > div {
+        left: auto;
+        right: 0;
+      }
+`;
+
+const CardQuestion = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  & p {
+    ${fontStyles.body3};
+    color: ${colors.gray60};
+
+    @media ${devices.tablet} {
+      ${fontStyles.body2};
+    }
+  }
+`;
+
 const AnswerFeedCard = styled(BasicAnswerFeedCard)`
   width: 100%;
   ${boxStyles.padding24};
@@ -188,37 +206,9 @@ const AnswerFeedCard = styled(BasicAnswerFeedCard)`
   flex-direction: column;
   gap: 24px;
 
-  & .cardHeader {
-    display: flex;
-    justify-content: space-between;
-
-    & ${MoreDropdown} > div {
-      width: 31px;
-      & > div {
-        left: auto;
-        right: 0;
-      }
-    }
-  }
-
   & .span_gray {
     color: ${colors.gray40};
     ${fontStyles.caption};
-  }
-
-  & .card_question {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-
-    & p {
-      ${fontStyles.body3};
-      color: ${colors.gray60};
-
-      @media ${devices.tablet} {
-        ${fontStyles.body2};
-      }
-    }
   }
 
   & ${Reaction} {

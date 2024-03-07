@@ -20,6 +20,8 @@ const BasicMoreDropdown = ({
 }) => {
   const { btnRef, isOpen, clickHandler } = useDropdown();
 
+  const { isRejected } = isAnswered ?? {};
+
   const { data: rejectResponse, request: useRejectAnswer } = useRequest({
     url: `questions/${questionId}/answers`,
     method: "POST",
@@ -28,6 +30,21 @@ const BasicMoreDropdown = ({
   const { data: deleteResponse, request: useDeleteAnswer } = useDelete({
     url: `answers/${answerId}`,
   });
+
+  const moreDeleteOptions = [
+    {
+      name: (
+        <IconTextButton
+          imageSource={<DeleteIcon width="16" height="16" />}
+          text="삭제하기"
+        />
+      ),
+      event: () => {
+        useDeleteAnswer();
+      },
+      active: false,
+    },
+  ];
 
   const moreEditableOptions = [
     {
@@ -92,7 +109,13 @@ const BasicMoreDropdown = ({
       </button>
       {isOpen && (
         <DropdownComponent
-          options={isAnswered ? moreEditableOptions : moreDefaultOptions}
+          options={
+            isAnswered
+              ? isRejected
+                ? moreDeleteOptions
+                : moreEditableOptions
+              : moreDefaultOptions
+          }
         />
       )}
     </div>
