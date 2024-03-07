@@ -3,25 +3,25 @@ import useRequest from "../../../hooks/useRequest.js";
 import FeedCard from "../FeedCard";
 import NoFeedCard from "../NoFeedCard";
 
-const FeedCardList = ({ subjectId }) => {
-  const FeedCardsUrl = `subjects/${subjectId}/questions`;
-  const {
-    data: feedCards,
-    error,
-    isLoading,
-    request: getFeedCardsRequest,
-  } = useRequest({ url: FeedCardsUrl, method: "GET" });
+const FeedCardList = ({ feedCards, isLoading, error, total }) => {
+  // const FeedCardsUrl = `subjects/${subjectId}/questions`;
+  // const {
+  //   data: feedCards,
+  //   error,
+  //   isLoading,
+  //   request: getFeedCardsRequest,
+  // } = useRequest({ url: FeedCardsUrl, method: "GET" });
 
-  useEffect(() => {
-    getFeedCardsRequest();
-  }, []);
+  // useEffect(() => {
+  //   getFeedCardsRequest();
+  // }, []);
 
   return (
     <div>
       {isLoading && <p>로딩중</p>}
       {feedCards && feedCards?.count ? (
         <>
-          <h1>{`${feedCards?.count}개의 질문이 있습니다`}</h1>
+          <h1>{`${total}개의 질문이 있습니다`}</h1>
           <ul>
             <li>
               {feedCards &&

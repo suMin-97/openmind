@@ -5,7 +5,7 @@ import logoImg from "../../../assets/images/logo.svg";
 import { useParams } from "react-router-dom";
 import useRequest from "../../../hooks/useRequest";
 import { useEffect } from "react";
-import ProfileImage from "../../common/ProfileImage";
+import ProfileImage from "../../common/ProfileImg";
 
 const FeedHeader = () => {
   const { id } = useParams();
