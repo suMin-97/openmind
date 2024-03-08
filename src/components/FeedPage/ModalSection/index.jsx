@@ -10,7 +10,7 @@ import ModalForm from "../ModalForm";
 import closeIcon from "../../../assets/icons/Close.svg";
 import messageIcon from "../../../assets/icons/Messages.svg";
 
-const Modal = ({ subjectId, setIsModalOpen, handleSubmitSuccess, data }) => {
+const Modal = ({ subjectId, setIsModalOpen }) => {
   const modalBg = useRef();
 
   const handleBGCloseClick = (event) => {
@@ -29,11 +29,11 @@ const Modal = ({ subjectId, setIsModalOpen, handleSubmitSuccess, data }) => {
     }
   };
 
-  const handleSubmitSuccess = (value) => {
-    setQuestionData((prevData) => ({
-      data: [value, ...prevData.data],
-    }));
-  };
+  // const handleSubmitSuccess = (value) => {
+  //   setQuestionData((prevData) => ({
+  //     data: [value, ...prevData.data],
+  //   }));
+  // };
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);

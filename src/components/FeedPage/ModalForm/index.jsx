@@ -8,12 +8,7 @@ import useRequest from "../../../hooks/useRequest";
 import { useEffect } from "react";
 import BASIC_QUESTION from "./constant";
 
-const BasicModalForm = ({
-  className,
-  subjectId,
-  setIsModalOpen,
-  onSubmitSuccess,
-}) => {
+const BasicModalForm = ({ className, subjectId, setIsModalOpen }) => {
   const {
     data: profileData,
     error: profileError,
@@ -27,6 +22,11 @@ const BasicModalForm = ({
     url: `subjects/${subjectId}/questions`,
     method: "POST",
   });
+  const { request: getFeed } = useRequest({
+    url: `subjects/${subjectId}/questions`,
+    method: "GET",
+  });
+
   const [isDisabled, setIsDisabled] = useState(true);
   const [value, setValue] = useState("");
   const regex = /^.*\S.*$/; // 스페이스,엔터만 입력한 경우 같이 값은 있지만 사실상 내용이 없는 공란을 검사하는 정규식, false이면 공란임
@@ -43,6 +43,7 @@ const BasicModalForm = ({
       handleSubmit(value);
       setValue("");
       setIsModalOpen(false);
+      getFeed();
     }
   };
 
@@ -63,7 +64,7 @@ const BasicModalForm = ({
   return (
     <form onSubmit={onFormSubmit} className={className}>
       <label htmlFor="question">
-        {profileIsLoading && <p>로딩중</p>}
+        {profileIsLoading && <p>로딩중</p>} //스켈레톤
         {profileData && (
           <>
             <img src={profileData?.imageSource} />
