@@ -89,6 +89,7 @@ const SortDiv = styled.div`
     height: 36px;
     ${fontStyles.medium};
     ${fontStyles.caption};
+    white-space: nowrap;
     img {
       width: 14px;
       height: 14px;

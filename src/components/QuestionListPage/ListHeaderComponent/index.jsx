@@ -72,6 +72,9 @@ const ListHeader = styled.header`
       width: 18px;
       height: 18px;
     }
+    p {
+      white-space: nowrap;
+    }
     @media ${devices.mobile} {
       width: 128px;
       height: 34px;
