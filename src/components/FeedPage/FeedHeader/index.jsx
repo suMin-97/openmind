@@ -29,7 +29,7 @@ const FeedHeader = ({ id }) => {
           <ImageContainer />
           <HeaderContent>
             <Link to={"/"}>
-              <Logo src={logoImg} />
+              <Logo src={logoImg} draggable="false" />
             </Link>
             <ProfileImage src={ProfileData?.imageSource} size="xLarge" />
             <Name>

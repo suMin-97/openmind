@@ -59,7 +59,7 @@ const MainPage = () => {
     <ContainDiv>
       <Container>
         <Header>
-          <img src={logo} />
+          <img src={logo} draggable="false" />
           <Link to="/list">
             <button>
               <p>질문하러 가기</p>
