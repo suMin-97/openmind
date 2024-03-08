@@ -10,7 +10,7 @@ import ModalForm from "../ModalForm";
 import closeIcon from "../../../assets/icons/Close.svg";
 import messageIcon from "../../../assets/icons/Messages.svg";
 
-const Modal = ({ subjectId, setIsModalOpen, handleSubmitSuccess }) => {
+const Modal = ({ subjectId, setIsModalOpen, handleSubmitSuccess, data }) => {
   const modalBg = useRef();
 
   const handleBGCloseClick = (event) => {
@@ -27,6 +27,12 @@ const Modal = ({ subjectId, setIsModalOpen, handleSubmitSuccess }) => {
     if (event.key === "Escape") {
       setIsModalOpen(false);
     }
+  };
+
+  const handleSubmitSuccess = (value) => {
+    setQuestionData((prevData) => ({
+      data: [value, ...prevData.data],
+    }));
   };
 
   useEffect(() => {
@@ -56,17 +62,13 @@ const Modal = ({ subjectId, setIsModalOpen, handleSubmitSuccess }) => {
             <img src={closeIcon} />
           </CloseButton>
         </FlexDiv>
-        <ModalForm
-          setIsModalOpen={setIsModalOpen}
-          subjectId={subjectId}
-          onSubmitSuccess={onSubmitSuccess}
-        />
+        <ModalForm setIsModalOpen={setIsModalOpen} subjectId={subjectId} />
       </ContentsBox>
     </DimDiv>
   );
 };
 
-const Modalsection = ({ subjectId, onSubmitSuccess }) => {
+const Modalsection = ({ subjectId }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenClick = () => {
@@ -78,11 +80,7 @@ const Modalsection = ({ subjectId, onSubmitSuccess }) => {
       <MobileButton onClick={handleOpenClick}>질문 작성</MobileButton>
       <TabletButton onClick={handleOpenClick}>질문 작성하기</TabletButton>
       {isModalOpen && (
-        <Modal
-          setIsModalOpen={setIsModalOpen}
-          subjectId={subjectId}
-          onSubmitSuccess={onSubmitSuccess}
-        />
+        <Modal setIsModalOpen={setIsModalOpen} subjectId={subjectId} />
       )}
     </Footer>
   );

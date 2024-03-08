@@ -25,23 +25,16 @@ const FeedPage = () => {
     method: "GET",
   });
 
-  const handleSubmitSuccess = (value) => {
-    setQuestionData((prevData) => ({
-      data: [value, ...prevData.data],
-    }));
-  };
-
   useEffect(() => {
     request();
   }, []);
+
   useEffect(() => {
     if (apiQuestionData) {
-      // apiQuestionData가 존재할 때만 처리
       const { count, results } = apiQuestionData;
       setQuestionData((prevData) => ({
         data: [...prevData.data, ...results],
       }));
-      // setListAll(count); // 이 부분에서 setListAll은 어디서 왔는지 명시되어 있지 않습니다.
     }
   }, [apiQuestionData]);
 
@@ -58,7 +51,7 @@ const FeedPage = () => {
         error={error}
         count={apiQuestionData?.count}
       />
-      <Modalsection subjectId={id} onSubmitSuccess={handleSubmitSuccess} />
+      <Modalsection subjectId={id} />
     </div>
   );
 };

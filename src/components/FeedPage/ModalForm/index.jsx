@@ -35,7 +35,6 @@ const BasicModalForm = ({
     BASIC_QUESTION.subjectId = subjectId;
     BASIC_QUESTION.content = value;
     postRequest(BASIC_QUESTION);
-    onSubmitSuccess(value);
   };
 
   const onFormSubmit = (event) => {
