@@ -30,6 +30,25 @@ const boxStyles = {
     "display: inline-flex; flex-direction: row; justify-content: center; align-items: center",
   flexColumnCenter:
     "display: flex; flex-direction: Column; align-items: center;",
+
+  /* skeleton Style */
+  skeletonAnimation: `
+    @keyframes load {
+      100% {
+        background-position: -100% 0;
+      }
+    }
+    background: linear-gradient(
+      120deg,
+      #e5e5e5 30%,
+      #f0f0f0 38%,
+      #f0f0f0 40%,
+      #e5e5e5 48%
+    );
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    animation: load 1s infinite;       
+  `,
 };
 
 export default boxStyles;

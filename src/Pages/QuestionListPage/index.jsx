@@ -4,13 +4,13 @@ import styled from "styled-components";
 import ListHeaderComponent from "../../components/QuestionListPage/ListHeaderComponent";
 import SortDropdownComponent from "../../components/QuestionListPage/SortDropdownComponent";
 import { useSearchParams } from "react-router-dom";
-import { colors, fontStyles } from "@styles/styleVariables";
+import { colors, fontStyles, devices } from "@styles/styleVariables";
 import ListPagination from "../../components/QuestionListPage/ListPagination";
 import UserCardComponent from "../../components/QuestionListPage/UserCardComponent";
 import { debounce } from "lodash";
 
 const QuestionListPage = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, _setSearchParams] = useSearchParams();
   const [pageLimit, setPageLimit] = useState(8);
 
   const handleResize = debounce(() => {
@@ -51,9 +51,16 @@ const QuestionListPage = () => {
   return (
     <QuestionListSection>
       <ListHeaderComponent />
-      <MainText>누구에게 질문할까요?</MainText>
-      <SortDropdownComponent />
-      <UserCardComponent list={questionListData} />
+      <div className="question_title">
+        <MainText>누구에게 질문할까요?</MainText>
+        <SortDropdownComponent />
+      </div>
+      <UserCardComponent
+        list={questionListData}
+        isLoading={isLoading}
+        error={error}
+        pageLimit={pageLimit}
+      />
       <ListPagination
         totalCount={questionListData?.count ?? 0}
         pageLimit={pageLimit}
@@ -67,10 +74,28 @@ const QuestionListSection = styled.section`
   background-color: ${colors.gray20};
   margin: 0;
   height: 100vh;
+  .question_title {
+    display: flex;
+    @media ${devices.mobile} {
+      flex-direction: row;
+      padding: 0 24px 18px 24px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    @media ${devices.tablet} {
+      flex-direction: column;
+    }
+  }
 `;
 const MainText = styled.div`
   color: ${colors.gray60};
   text-align: center;
-  ${fontStyles.h1};
-  ${fontStyles.regular};
+  @media ${devices.mobile} {
+    ${fontStyles.h3};
+    ${fontStyles.regular};
+  }
+  @media ${devices.tablet} {
+    ${fontStyles.h1};
+    ${fontStyles.regular};
+  }
 `;
