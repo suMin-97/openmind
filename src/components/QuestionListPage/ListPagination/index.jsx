@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { colors, fontStyles } from "@styles/styleVariables";
 
 const ListPagination = ({ totalCount, pageLimit }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [curPage, setCurPage] = useState({ page: 1, size: 0 });
   const [pageList, setPageList] = useState([]);
 
   const range = (start, end) => {
@@ -16,29 +15,32 @@ const ListPagination = ({ totalCount, pageLimit }) => {
     return array;
   };
 
-  useEffect(() => {
-    setCurPage({
-      ...curPage,
-      size: Math.ceil(totalCount / pageLimit),
-    });
-  }, [totalCount, pageLimit]);
+  const currentSize = useMemo(
+    () => Math.ceil(totalCount / pageLimit),
+    [totalCount, pageLimit]
+  );
+
+  const currentPage = useMemo(() => {
+    return Number(searchParams.get("page")) ?? 1;
+  }, [searchParams, currentSize]);
 
   useEffect(() => {
-    setCurPage({
-      ...curPage,
-      page: Number(searchParams.get("page")) ?? 1,
-    });
-  }, [searchParams]);
-
-  useEffect(() => {
-    if (curPage.page <= 3) {
-      setPageList(range(1, Math.min(5, curPage.size)));
-    } else if (curPage.page >= curPage.size - 2) {
-      setPageList(range(curPage.size - 4, curPage.size));
-    } else {
-      setPageList(range(curPage.page - 2, curPage.page + 2));
+    const pageNum = Number(searchParams.get("page")) ?? 1;
+    if (currentSize !== 0 && pageNum > currentSize) {
+      searchParams.set("page", currentSize);
+      setSearchParams(searchParams, { replace: true });
     }
-  }, [curPage]);
+  }, [searchParams, currentSize]);
+
+  useEffect(() => {
+    if (currentPage <= 3) {
+      setPageList(range(1, Math.min(5, currentSize)));
+    } else if (currentPage >= currentSize - 2) {
+      setPageList(range(currentSize - 4, currentSize));
+    } else {
+      setPageList(range(currentPage - 2, currentPage + 2));
+    }
+  }, [currentPage, currentSize]);
 
   const setPage = (num) => {
     searchParams.set("page", num);
@@ -47,37 +49,43 @@ const ListPagination = ({ totalCount, pageLimit }) => {
 
   return (
     <PaginationDiv>
-      <PageButton
-        onClick={() =>
-          setPage(curPage?.page && curPage?.page > 1 ? curPage.page - 1 : 1)
-        }
-        disabled={curPage?.page === 1}
-      >
-        {"<"}
-      </PageButton>
-      {pageList?.map((e) => {
-        return (
+      {pageList.length > 0 ? (
+        <>
           <PageButton
-            onClick={() => setPage(e)}
-            key={e}
-            $active={curPage?.page === e}
+            onClick={() =>
+              setPage(currentPage && currentPage > 1 ? currentPage - 1 : 1)
+            }
+            disabled={currentPage === 1}
           >
-            {e}
+            {"<"}
           </PageButton>
-        );
-      })}
-      <PageButton
-        onClick={() =>
-          setPage(
-            curPage?.page && curPage?.page < curPage.size
-              ? curPage.page + 1
-              : curPage.size
-          )
-        }
-        disabled={curPage.page === curPage.size}
-      >
-        {">"}
-      </PageButton>
+          {pageList?.map((e) => {
+            return (
+              <PageButton
+                onClick={() => setPage(e)}
+                key={e}
+                $active={currentPage === e}
+              >
+                {e}
+              </PageButton>
+            );
+          })}
+          <PageButton
+            onClick={() =>
+              setPage(
+                currentPage && currentPage < currentSize
+                  ? currentPage + 1
+                  : currentSize
+              )
+            }
+            disabled={currentPage === currentSize}
+          >
+            {">"}
+          </PageButton>
+        </>
+      ) : (
+        <></>
+      )}
     </PaginationDiv>
   );
 };
