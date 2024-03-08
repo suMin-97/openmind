@@ -7,24 +7,33 @@ import NoFeedCard from "@components/common/NoFeedCard";
 import AnswerFeedCard from "@components/AnswerPage/AnswerFeedCard";
 import FeedCard from "@components/common/FeedCard";
 import LoadingFeedCard from "@components/common/LoadingFeedCard";
+import { useState } from "react";
 
 const BasicFeedContainer = ({
   className,
   subjectId,
+  feedCardList,
   cardType = "basicFeed",
+  count,
+  isLoading,
+  error,
 }) => {
-  const {
-    data: feedCardData,
-    isLoading,
-    error,
-    request: getFeedCardData,
-  } = useRequest({ method: "GET", url: `subjects/${subjectId}/questions` });
+  // const {
+  //   data: feedCardData,
+  //   isLoading,
+  //   error,
+  //   request: getFeedCardData,
+  // } = useRequest({ method: "GET", url: `subjects/${subjectId}/questions` });
 
-  useEffect(() => {
-    getFeedCardData();
-  }, []);
+  // useEffect(() => {
+  //   getFeedCardData();
+  // }, []);
 
-  const { count, results: feedCardList } = feedCardData ?? {};
+  // const { count, results: feedCardList } = feedCardData ?? {};
+
+  // useEffect(() => {
+  //   setFeedDataList((prevDataList) => [feedCardList, ...prevDataList]);
+  // }, [feedCardData]);
 
   const feedContent = () => {
     // 상태 관리 정리 필요합니다!!
@@ -47,13 +56,11 @@ const BasicFeedContainer = ({
     }
 
     if (count === 0) {
-      // 추후 NoFeedCard 컴포넌트로 대체합니다.
       return <NoFeedCard />;
     }
 
     if (feedCardList?.length > 0) {
       return (
-        // 추후 FeedCardList 컴포넌트로 대체합니다.
         <ul>
           {feedCardList?.map((data) => (
             <li key={data?.id}>
@@ -67,7 +74,6 @@ const BasicFeedContainer = ({
               ) : (
                 <AnswerFeedCard feedCardData={data} isLoading={isLoading} />
               )}
-              {/* <FeedCard feedCardData={data} isLoading={isLoading} /> */}
             </li>
           ))}
         </ul>
