@@ -16,7 +16,7 @@ const LoadingProfileImg = styled.div`
   width: 104px;
   height: 104px;
   ${boxStyles.radiusC};
-  background-color: ${colors.gray30};
+  background-color: ${colors.loading};
 
   @media ${devices.tablet} {
     width: 136px;
