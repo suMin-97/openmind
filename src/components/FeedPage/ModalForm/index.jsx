@@ -12,7 +12,12 @@ import {
 } from "../../../styles/styleVariables";
 import LoadingModalForm from "./LoadingModalForm";
 
-const BasicModalForm = ({ className, subjectId, setIsModalOpen }) => {
+const BasicModalForm = ({
+  className,
+  subjectId,
+  setIsModalOpen,
+  handleQuestionSubmit,
+}) => {
   const {
     data: profileData,
     error: profileError,
@@ -22,24 +27,24 @@ const BasicModalForm = ({ className, subjectId, setIsModalOpen }) => {
     url: `subjects/${subjectId}`,
     method: "GET",
   });
-  const { request: postRequest } = useRequest({
-    url: `subjects/${subjectId}/questions`,
-    method: "POST",
-  });
+  // const { request: postRequest } = useRequest({
+  //   url: `subjects/${subjectId}/questions`,
+  //   method: "POST",
+  // });
   const [isDisabled, setIsDisabled] = useState(true);
   const [value, setValue] = useState("");
   const regex = /^[\s\S]*\S[\s\S]*$/; // 스페이스,엔터만 입력한 경우 같이 값은 있지만 사실상 내용이 없는 공란을 검사하는 정규식, false이면 공란임
 
-  const handleSubmit = (value) => {
-    BASIC_QUESTION.subjectId = subjectId;
-    BASIC_QUESTION.content = value;
-    postRequest(BASIC_QUESTION);
-  };
+  // const questionFormValidation = (value) => {
+  //   BASIC_QUESTION.subjectId = subjectId;
+  //   BASIC_QUESTION.content = value;
+  //   postRequest(BASIC_QUESTION);
+  // };
 
-  const handleFormSubmit = (event) => {
+  const onQuestionSubmit = (event) => {
     event.preventDefault();
     if (regex.test(value)) {
-      handleSubmit(value);
+      handleQuestionSubmit(value);
       setValue("");
       setIsModalOpen(false);
     }
@@ -70,7 +75,7 @@ const BasicModalForm = ({ className, subjectId, setIsModalOpen }) => {
   }, []);
 
   return (
-    <form onSubmit={handleFormSubmit} className={className}>
+    <form onSubmit={onQuestionSubmit} className={className}>
       <label htmlFor="question">
         {profileIsLoading && (
           <ProfileDiv>

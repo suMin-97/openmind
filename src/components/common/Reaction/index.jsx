@@ -1,11 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
-import boxStyles from "@styles/boxStyles";
-import colors from "@styles/colors";
 import { ReactComponent as LikeIcon } from "@icons/Like.svg";
 import { ReactComponent as DislikeIcon } from "@icons/Dislike.svg";
+import useRequest from "@hooks/useRequest";
 import IconTextButton from "@components/common/IconTextButton";
-import useRequest from "../../../hooks/useRequest";
 
 const BasicReaction = ({ className, like = 0, dislike = 0, questionId }) => {
   const [likeCount, setLikeCount] = useState(like);
@@ -57,7 +55,7 @@ const BasicReaction = ({ className, like = 0, dislike = 0, questionId }) => {
           imageSource={<LikeIcon width="16" height="16" />}
           text={`좋아요${likeCount !== 0 ? ` ${likeCount}` : ""}`}
           onClick={handleLikeClick}
-          disabled={likeClick}
+          isActive={likeClick}
         />
       </li>
       <li>
@@ -65,7 +63,7 @@ const BasicReaction = ({ className, like = 0, dislike = 0, questionId }) => {
           imageSource={<DislikeIcon width="16" height="16" />}
           text={`싫어요${dislikeCount !== 0 ? ` ${dislikeCount}` : ""}`}
           onClick={handleDislikeClick}
-          disabled={dislikeClick}
+          isActive={dislikeClick}
         />
       </li>
     </ul>

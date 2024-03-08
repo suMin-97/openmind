@@ -6,6 +6,7 @@ import MainPage from "./Pages/MainPage";
 import QuestionListPage from "./Pages/QuestionListPage";
 import FeedPage from "./Pages/FeedPage";
 import AnswerPage from "./Pages/AnswerPage";
+import NoPage from "./Pages/NoPage";
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
           <Route index element={<FeedPage />} />
           <Route path="answer" element={<AnswerPage />} />
         </Route>
-        <Route path="*" element={<MainPage />} />
+        <Route path="*" element={<NoPage />} />
       </Routes>
     </BrowserRouter>
   );

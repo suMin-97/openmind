@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import useDropdown from "../../../hooks/useDropdown";
 import DropdownComponent from "../../common/DropdownComponent";
-import { colors, fontStyles } from "@styles/styleVariables";
+import { colors, fontStyles, devices } from "@styles/styleVariables";
 import { useSearchParams } from "react-router-dom";
 import up from "@icons/Up.svg";
 import down from "@icons/Down.svg";
@@ -70,8 +70,10 @@ const SortDropdownComponent = () => {
 export default SortDropdownComponent;
 const SortDiv = styled.div`
   display: block;
-  margin: 12px auto 30px auto;
   width: fit-content;
+  @media ${devices.tablet} {
+    margin: 12px auto 30px auto;
+  }
   .sort_button {
     display: flex;
     align-items: center;
@@ -87,6 +89,7 @@ const SortDiv = styled.div`
     height: 36px;
     ${fontStyles.medium};
     ${fontStyles.caption};
+    white-space: nowrap;
     img {
       width: 14px;
       height: 14px;
