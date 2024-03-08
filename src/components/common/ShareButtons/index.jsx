@@ -16,7 +16,7 @@ const ShareButtons = ({ id }) => {
         <KakaoShareButton url={url} />
         <FacebookShareButton url={url}>
           <StyledDiv>
-            <img src={FacebookIcon} />
+            <img src={FacebookIcon} draggable="false" />
           </StyledDiv>
         </FacebookShareButton>
       </ContainDiv>

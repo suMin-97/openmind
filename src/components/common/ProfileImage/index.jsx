@@ -9,7 +9,7 @@ import { devices, boxStyles } from "@styles/styleVariables";
 function ProfileImage({ src, size }) {
   return (
     <Container $size={size}>
-      <Img src={src} />
+      <Img src={src} draggable="false" />
     </Container>
   );
 }

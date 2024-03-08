@@ -80,7 +80,7 @@ const BasicModalForm = ({ className, subjectId, setIsModalOpen }) => {
         {profileData && (
           <ProfileDiv>
             <P>To.</P>
-            <img src={profileData?.imageSource} />
+            <img src={profileData?.imageSource} draggable="false" />
             <p>{profileData?.name}</p>
           </ProfileDiv>
         )}

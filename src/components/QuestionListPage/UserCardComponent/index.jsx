@@ -11,7 +11,11 @@ const UserCardComponent = ({ list }) => {
         return (
           <Link to={`/post/${e.id}`}>
             <UserCard>
-              <img className={"cardImg"} src={e.imageSource} />
+              <img
+                className={"cardImg"}
+                src={e.imageSource}
+                draggable="false"
+              />
               <h2 className="cardName">{e.name}</h2>
               <div className="cardInfo">
                 <p className="qCountText">

@@ -20,7 +20,7 @@ const ListHeaderComponent = () => {
   return (
     <ListHeader>
       <Link to="/">
-        <img className="logo_image" src={logo} />
+        <img className="logo_image" src={logo} draggable="false" />
       </Link>
 
       <button className="go_answer_button" onClick={() => handleButton()}>

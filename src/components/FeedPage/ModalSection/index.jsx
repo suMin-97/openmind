@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { colors, boxStyles, fontStyles, devices } from "@styles/styleVariables";
 import ModalForm from "../ModalForm";
 import closeIcon from "@icons/Close.svg";
-import messageIcon from "@icons/Messages.svg";
+import { ReactComponent as MessageIcon } from "@icons/Messages.svg";
 
 const Modal = ({ subjectId, setIsModalOpen }) => {
   const modalBg = useRef();
@@ -44,7 +44,7 @@ const Modal = ({ subjectId, setIsModalOpen }) => {
       <ContentsBox>
         <FlexDiv>
           <FlexMessageDiv>
-            <img src={messageIcon} />
+            <MessageIcon width="28" height="28" />
             <p>질문을 작성하세요</p>
           </FlexMessageDiv>
           <CloseButton onClick={handleBtnCloseClick}>
@@ -222,9 +222,8 @@ const FlexMessageDiv = styled.div`
   ${fontStyles.regular};
   ${fontStyles.body1};
 
-  img {
-    width: 28px;
-    height: 28px;
+  svg {
+    fill: ${colors.gray60};
   }
 
   @media ${devices.tablet} {

@@ -41,7 +41,7 @@ const KakaoShareButton = ({ url }) => {
 
   return (
     <StyledButton onClick={handlebuttonClick}>
-      <img src={Kakaotalk} />
+      <img src={Kakaotalk} draggable="false" />
     </StyledButton>
   );
 };
