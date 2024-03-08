@@ -7,7 +7,6 @@ import ModalSection from "@components/FeedPage/ModalSection";
 import FeedContainer from "@components/common/FeedContainer";
 
 const FeedPage = () => {
-  const [feedDataList, setFeedDataList] = useState([]);
   const { id } = useParams();
 
   const {
@@ -35,20 +34,15 @@ const FeedPage = () => {
   const { count, results: feedCardList } = feedCardData ?? {};
 
   useEffect(() => {
-    if (!postQuestionResponse) {
-      setFeedDataList(feedCardList);
-    } else {
-      setFeedDataList((prevDataList) => [
-        postQuestionResponse,
-        ...prevDataList,
-      ]);
+    if (postQuestionResponse) {
+      getFeedCardData();
     }
-  }, [feedCardData, postQuestionResponse]);
+  }, [postQuestionResponse]);
 
   return (
     <FeedLayout id={id} $feedType="question">
       <FeedContainer
-        feedCardList={feedDataList}
+        feedCardList={feedCardList}
         count={count}
         isLoading={isLoading}
         error={error}
