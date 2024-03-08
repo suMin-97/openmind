@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { colors, boxStyles, fontStyles, devices } from "@styles/styleVariables";
-import ModalForm from "../ModalForm";
 import closeIcon from "@icons/Close.svg";
 import { ReactComponent as MessageIcon } from "@icons/Messages.svg";
+import ModalForm from "../ModalForm";
 
-const Modal = ({ subjectId, setIsModalOpen }) => {
+const Modal = ({ subjectId, setIsModalOpen, handleQuestionSubmit }) => {
   const modalBg = useRef();
 
   const handleBGCloseClick = (event) => {
@@ -51,13 +51,17 @@ const Modal = ({ subjectId, setIsModalOpen }) => {
             <img src={closeIcon} />
           </CloseButton>
         </FlexDiv>
-        <ModalForm setIsModalOpen={setIsModalOpen} subjectId={subjectId} />
+        <ModalForm
+          setIsModalOpen={setIsModalOpen}
+          subjectId={subjectId}
+          handleQuestionSubmit={handleQuestionSubmit}
+        />
       </ContentsBox>
     </DimDiv>
   );
 };
 
-const Modalsection = ({ subjectId }) => {
+const ModalSection = ({ subjectId, handleQuestionSubmit }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenClick = () => {
@@ -69,7 +73,11 @@ const Modalsection = ({ subjectId }) => {
       <MobileButton onClick={handleOpenClick}>질문 작성</MobileButton>
       <TabletButton onClick={handleOpenClick}>질문 작성하기</TabletButton>
       {isModalOpen && (
-        <Modal setIsModalOpen={setIsModalOpen} subjectId={subjectId} />
+        <Modal
+          setIsModalOpen={setIsModalOpen}
+          subjectId={subjectId}
+          handleQuestionSubmit={handleQuestionSubmit}
+        />
       )}
     </Footer>
   );
@@ -231,4 +239,4 @@ const FlexMessageDiv = styled.div`
   }
 `;
 
-export default Modalsection;
+export default ModalSection;
