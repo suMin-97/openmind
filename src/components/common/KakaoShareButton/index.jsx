@@ -15,7 +15,8 @@ const KakaoShareButton = ({ url, subjectName }) => {
         description: subjectName
           ? `${subjectName}님에게 질문해보세요!`
           : "솔직한 질문을 통해 상대와 더 가까워지세요!",
-        imageUrl: "../../../assets/images/KakaoShareImg.png",
+        imageUrl:
+          "https://openmind-life.vercel.app/src/assets/images/KakaoShareImg.png",
         link: {
           mobileWebUrl: url,
           webUrl: url,
