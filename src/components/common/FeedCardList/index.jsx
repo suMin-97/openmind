@@ -1,49 +1,22 @@
-import { useEffect } from "react";
-import useRequest from "../../../hooks/useRequest.js";
-import FeedCard from "../FeedCard";
-import NoFeedCard from "../NoFeedCard";
+import FeedCard from "@components/common/FeedCard";
+import LoadingFeedCard from "@components/common/LoadingFeedCard";
+import AnswerFeedCard from "@components/AnswerPage/AnswerFeedCard";
 
-const FeedCardList = ({ subjectId }) => {
-  const FeedCardsUrl = `subjects/${subjectId}/questions`;
-  const {
-    data: feedCards,
-    error,
-    isLoading,
-    request: getFeedCardsRequest,
-  } = useRequest({ url: FeedCardsUrl, method: "GET" });
-
-  useEffect(() => {
-    getFeedCardsRequest();
-  }, []);
-
+const FeedCardList = ({ feedCardList, isLoading, cardType, className }) => {
   return (
-    <div>
-      {isLoading && <p>로딩중</p>}
-      {feedCards && feedCards?.count ? (
-        <>
-          <h1>{`${feedCards?.count}개의 질문이 있습니다`}</h1>
-          <ul>
-            <li>
-              {feedCards &&
-                feedCards?.results.map((feedCard) => (
-                  <FeedCard
-                    key={feedCard?.id}
-                    feedCard={feedCard}
-                    error={error}
-                    isLoading={isLoading}
-                  />
-                ))}
-            </li>
-          </ul>
-        </>
-      ) : (
-        <>
-          <p>아직 질문이 없습니다</p>
-          <NoFeedCard />
-        </>
-      )}
-      {error && <p>삐빅 에러 입니다</p>}
-    </div>
+    <ul className={className}>
+      {feedCardList?.map((data) => (
+        <li key={data?.id}>
+          {isLoading ? (
+            <LoadingFeedCard />
+          ) : cardType === "basicFeed" ? (
+            <FeedCard key={data?.id} feedCard={data} isLoading={isLoading} />
+          ) : (
+            <AnswerFeedCard feedCardData={data} isLoading={isLoading} />
+          )}
+        </li>
+      ))}
+    </ul>
   );
 };
 
