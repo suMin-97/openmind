@@ -3,10 +3,11 @@ import { useParams } from "react-router-dom";
 import FeedLayout from "@layout/FeedLayout";
 import useRequest from "@hooks/useRequest";
 import useIntersectionObserver from "@hooks/useIntersectionObserver";
-import useRequestWithoutSlash from "@hooks/useRequestWithoutSlash";
 import BASIC_QUESTION from "@components/FeedPage/ModalForm/constant";
 import ModalSection from "@components/FeedPage/ModalSection";
 import FeedContainer from "@components/common/FeedContainer";
+
+const PAGE_LIMIT = 8;
 
 const FeedPage = () => {
   const [page, setPage] = useState(1);
@@ -23,9 +24,9 @@ const FeedPage = () => {
     isLoading,
     error,
     request: getFeedCardData,
-  } = useRequestWithoutSlash({
+  } = useRequest({
     method: "GET",
-    url: `subjects/${id}/questions/?limit=8&offset=${(page - 1) * 8}`,
+    url: `subjects/${id}/questions`,
   });
 
   const { data: postQuestionResponse, request: postQuestion } = useRequest({
@@ -42,13 +43,7 @@ const FeedPage = () => {
   const { count, next, results: feedCardList } = feedCardData ?? {};
 
   useEffect(() => {
-    getFeedCardData();
-  }, []);
-
-  useEffect(() => {
-    if (feedDataList.length < count) {
-      getFeedCardData();
-    }
+    getFeedCardData({ limit: PAGE_LIMIT, offset: (page - 1) * PAGE_LIMIT });
   }, [page]);
 
   useEffect(() => {
@@ -56,22 +51,19 @@ const FeedPage = () => {
       ...(prevDataList ?? []),
       ...(feedCardList ?? []),
     ]);
-  }, [feedCardList]);
 
-  useEffect(() => {
     if (page === 1) observe(target.current);
 
     if (!next || feedDataList.length >= count) {
       unobserve(target.current);
     }
-  }, [feedDataList, count, next]);
+  }, [feedCardList, count, next]);
 
   useEffect(() => {
     if (postQuestionResponse) {
       window.scrollTo({ top: 0, behavior: "smooth" });
       setPage(1);
-      setFeedDataList((prevDataList) => []);
-      getFeedCardData();
+      setFeedDataList([]);
     }
   }, [postQuestionResponse]);
 
