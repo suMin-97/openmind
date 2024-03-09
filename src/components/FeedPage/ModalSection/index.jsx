@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { colors, boxStyles, fontStyles, devices } from "@styles/styleVariables";
-import closeIcon from "@icons/Close.svg";
+import { ReactComponent as CloseIcon } from "@icons/Close.svg";
 import { ReactComponent as MessageIcon } from "@icons/Messages.svg";
 import ModalForm from "../ModalForm";
 
@@ -48,7 +48,7 @@ const Modal = ({ subjectId, setIsModalOpen, handleQuestionSubmit }) => {
             <p>질문을 작성하세요</p>
           </FlexMessageDiv>
           <CloseButton onClick={handleBtnCloseClick}>
-            <img src={closeIcon} />
+            <CloseIcon width="22" height="22" />
           </CloseButton>
         </FlexDiv>
         <ModalForm
@@ -182,15 +182,15 @@ const ContentsBox = styled.div`
 `;
 
 const CloseButton = styled.button`
-  width: 22px;
-  height: 22px;
+  ${boxStyles.flexRowCenter};
   flex-shrink: 0;
   border: none;
   background: ${colors.gray10};
 
-  img {
+  svg {
     width: 22px;
     height: 22px;
+    fill: ${colors.gray60};
   }
 
   &: hover {
@@ -198,10 +198,7 @@ const CloseButton = styled.button`
   }
 
   @media ${devices.tablet} {
-    width: 28px;
-    height: 28px;
-
-    img {
+    svg {
       width: 28px;
       height: 28px;
     }

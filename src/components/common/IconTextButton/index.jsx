@@ -35,6 +35,14 @@ const IconTextButton = styled(basicIconTextButton)`
       fill: ${(props) => (props.isActive ? colors.blue : colors.gray60)};
     }
   }
+
+  &:active {
+    color: ${colors.blue};
+
+    & svg {
+      fill: ${colors.blue};
+    }
+  }
 `;
 
 export default IconTextButton;

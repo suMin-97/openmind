@@ -1,58 +1,20 @@
-import { useEffect } from "react";
 import styled from "styled-components";
-import useRequest from "@hooks/useRequest";
 import { boxStyles, colors } from "@styles/styleVariables";
 import FeedCountMessage from "@components/common/FeedCountMessage";
 import NoFeedCard from "@components/common/NoFeedCard";
-import AnswerFeedCard from "@components/AnswerPage/AnswerFeedCard";
-import FeedCard from "@components/common/FeedCard";
-import LoadingFeedCard from "@components/common/LoadingFeedCard";
-import { useState } from "react";
+import FeedCardList from "@components/common/FeedCardList";
 
 const BasicFeedContainer = ({
   className,
-  subjectId,
   feedCardList,
   cardType = "basicFeed",
   count,
   isLoading,
   error,
 }) => {
-  // const {
-  //   data: feedCardData,
-  //   isLoading,
-  //   error,
-  //   request: getFeedCardData,
-  // } = useRequest({ method: "GET", url: `subjects/${subjectId}/questions` });
-
-  // useEffect(() => {
-  //   getFeedCardData();
-  // }, []);
-
-  // const { count, results: feedCardList } = feedCardData ?? {};
-
-  // useEffect(() => {
-  //   setFeedDataList((prevDataList) => [feedCardList, ...prevDataList]);
-  // }, [feedCardData]);
-
   const feedContent = () => {
-    // 상태 관리 정리 필요합니다!!
-    // 일단 이렇게 만들어두었어요
-    if (isLoading) {
-      // 로딩중일 때 노출될 컴포넌트 (추후 수정)
-      return (
-        <>
-          <LoadingFeedCard />
-          <LoadingFeedCard />
-          <LoadingFeedCard />
-          <LoadingFeedCard />
-        </>
-      );
-    }
-
     if (error) {
-      // 에러 상태일 때 노출될 컴포넌트 (추후 수정)
-      return <div>error</div>;
+      return <div>질문을 불러오는데 실패했습니다.</div>;
     }
 
     if (count === 0) {
@@ -61,22 +23,11 @@ const BasicFeedContainer = ({
 
     if (feedCardList?.length > 0) {
       return (
-        <ul>
-          {feedCardList?.map((data) => (
-            <li key={data?.id}>
-              {cardType === "basicFeed" ? (
-                <FeedCard
-                  key={data?.id}
-                  feedCard={data}
-                  error={error}
-                  isLoading={isLoading}
-                />
-              ) : (
-                <AnswerFeedCard feedCardData={data} isLoading={isLoading} />
-              )}
-            </li>
-          ))}
-        </ul>
+        <FeedCardList
+          feedCardList={feedCardList}
+          isLoading={isLoading}
+          cardType={cardType}
+        />
       );
     }
   };

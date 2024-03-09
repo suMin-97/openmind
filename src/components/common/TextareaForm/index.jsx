@@ -1,15 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { inputText } from "./constant";
 import { boxStyles, colors, fontStyles } from "@styles/styleVariables";
-import SubmitButton from "../SubmitButton";
-import { useEffect } from "react";
+import { inputText } from "./constant";
+import SubmitButton from "@components/common/SubmitButton";
 
 const BasicTextareaForm = ({
   className,
   formType,
   handleSubmit,
-  id,
   prevValue,
 }) => {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -28,7 +26,6 @@ const BasicTextareaForm = ({
   const onFormSubmit = (event) => {
     event.preventDefault();
     handleSubmit(value);
-    console.log(value);
     setValue("");
   };
 
