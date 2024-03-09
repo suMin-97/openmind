@@ -16,7 +16,7 @@ const KakaoShareButton = ({ url, subjectName }) => {
           ? `${subjectName}님에게 질문해보세요!`
           : "솔직한 질문을 통해 상대와 더 가까워지세요!",
         imageUrl:
-          "https://openmind-life.vercel.app/src/assets/images/KakaoShareImg.png",
+          "https://s3-alpha-sig.figma.com/img/e5e8/dc33/694abe44ca2384222acde718b169156b?Expires=1710720000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=JNz-z9uKwqS~K6QDbgM3RMDA92QdY2~NW0Wco7Qj~Wn1iQnw1EX89QEi3hU58AirtikukJI6xDaE9amZZhdWENfi-kIM79aO2XJyk0spaP6RiWNJoj0MmQiVcwaGI-iBUDw2tE8xjCo~39Ad-6rQ0xo2vSK63O6T29eAlcIE6rdpUs22AvMc8bsumGcvtfH4Ub8Tb3nZWwdZAmtoQeMgyN-7QATOPIOISM6oUZS5RL3xCB2L63depmRDK6~8Bl-yBBOZdMMPKdVfd35lwCoHOP019QklC8y8qdSmRDNcPkcEirU~nLTP2SQA8b~6tZTUM52pzn3GTHIT4XIoHkkf4g__",
         link: {
           mobileWebUrl: url,
           webUrl: url,
