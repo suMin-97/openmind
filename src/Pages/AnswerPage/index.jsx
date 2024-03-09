@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import useRequest from "@hooks/useRequest";
 import useDelete from "@components/AnswerPage/MoreDropdown/useDelete";
 import FeedLayout from "@layout/FeedLayout";
 import FeedContainer from "@components/common/FeedContainer";
@@ -10,11 +11,13 @@ const AnswerPage = () => {
   const { id } = useParams();
 
   const {
-    data: FeedDeleteResponse,
-    error,
+    data: feedCardData,
     isLoading,
-    request: useFeedDelete,
-  } = useDelete({
+    error,
+    request: getFeedCardData,
+  } = useRequest({ method: "GET", url: `subjects/${id}/questions` });
+
+  const { data: FeedDeleteResponse, request: useFeedDelete } = useDelete({
     url: `subjects/${id}`,
   });
 
@@ -26,18 +29,30 @@ const AnswerPage = () => {
   };
 
   useEffect(() => {
+    getFeedCardData();
+  }, []);
+
+  const { count, results: feedCardList } = feedCardData ?? {};
+
+  useEffect(() => {
     const status = FeedDeleteResponse?.status;
     if (status && status >= 200 && status < 300) {
       localStorage.removeItem("id");
       navigate("/");
     }
-    // 로컬스토리지에 저장되어있던 Id 생성 정보를 삭제하는 로직 추가 필요
   }, [FeedDeleteResponse]);
 
   return (
     <FeedLayout id={id} $feedType="answer">
       <DeleteFloatingButton handleDelete={handleFeedDelete} />
-      <FeedContainer subjectId={id} cardType="answerFeed" />
+      <FeedContainer
+        subjectId={id}
+        cardType="answerFeed"
+        feedCardList={feedCardList}
+        count={count}
+        isLoading={isLoading}
+        error={error}
+      />
     </FeedLayout>
   );
 };

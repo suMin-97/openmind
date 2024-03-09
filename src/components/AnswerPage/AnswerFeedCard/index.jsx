@@ -9,7 +9,7 @@ import TextareaForm from "@components/common/TextareaForm";
 import MoreDropdown from "@components/AnswerPage/MoreDropdown";
 import ProfileImage from "@components/common/ProfileImage";
 
-const BasicAnswerFeedCard = ({ feedCardData, isLoading, className }) => {
+const BasicAnswerFeedCard = ({ feedCardData, className }) => {
   const [answerContent, setAnswerContent] = useState(null);
   const [isModify, setIsModify] = useState(false);
 
@@ -76,7 +76,6 @@ const BasicAnswerFeedCard = ({ feedCardData, isLoading, className }) => {
 
   let feedAnswer;
   if (isModify) {
-    console.log(answerContent);
     feedAnswer = (
       <TextareaForm
         formType="modify"
