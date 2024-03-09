@@ -10,6 +10,7 @@ import {
   fontStyles,
   devices,
 } from "../../../styles/styleVariables";
+import LoadingModalForm from "./LoadingModalForm";
 
 const BasicModalForm = ({
   className,
@@ -79,7 +80,7 @@ const BasicModalForm = ({
         {profileIsLoading && (
           <ProfileDiv>
             <P>To.</P>
-            <p>로딩중</p>
+            <LoadingModalForm />
           </ProfileDiv>
         )}
         {profileData && (

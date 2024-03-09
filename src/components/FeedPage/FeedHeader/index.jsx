@@ -6,6 +6,7 @@ import logoImg from "@images/logo.svg";
 import useRequest from "@hooks/useRequest";
 import ProfileImage from "@components/common/ProfileImage";
 import { colors, devices, fontStyles } from "@styles/styleVariables";
+import LoadingHeader from "../../common/LoadingHeader";
 
 const FeedHeader = ({ id }) => {
   const {
@@ -31,12 +32,18 @@ const FeedHeader = ({ id }) => {
             <Link to={"/"}>
               <Logo src={logoImg} draggable="false" />
             </Link>
-            <ProfileImage src={ProfileData?.imageSource} size="xLarge" />
-            <Name>
-              {ProfileData?.name ?? (
-                <span>정보를 불러오는데 실패했습니다.</span>
-              )}
-            </Name>
+            {isLoading ? (
+              <LoadingHeader />
+            ) : (
+              <>
+                <ProfileImage src={ProfileData?.imageSource} size="xLarge" />
+                <Name>
+                  {ProfileData?.name ?? (
+                    <span>정보를 불러오는데 실패했습니다.</span>
+                  )}
+                </Name>
+              </>
+            )}
           </HeaderContent>
         </Container>
       </Header>
