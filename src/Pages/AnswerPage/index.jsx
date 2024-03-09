@@ -1,21 +1,32 @@
-import { useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import useRequest from "@hooks/useRequest";
+import useIntersectionObserver from "@hooks/useIntersectionObserver";
+import useRequestWithoutSlash from "@hooks/useRequestWithoutSlash";
 import useDelete from "@components/AnswerPage/MoreDropdown/useDelete";
 import FeedLayout from "@layout/FeedLayout";
 import FeedContainer from "@components/common/FeedContainer";
 import DeleteFloatingButton from "@components/AnswerPage/DeleteFloatingButton";
 
 const AnswerPage = () => {
+  const [page, setPage] = useState(1);
+  const [feedDataList, setFeedDataList] = useState([]);
+  const target = useRef();
   const navigate = useNavigate();
   const { id } = useParams();
+
+  const [observe, unobserve] = useIntersectionObserver(() => {
+    setPage((prevPage) => prevPage + 1);
+  });
 
   const {
     data: feedCardData,
     isLoading,
     error,
     request: getFeedCardData,
-  } = useRequest({ method: "GET", url: `subjects/${id}/questions` });
+  } = useRequestWithoutSlash({
+    method: "GET",
+    url: `subjects/${id}/questions/?limit=8&offset=${(page - 1) * 8}`,
+  });
 
   const { data: FeedDeleteResponse, request: useFeedDelete } = useDelete({
     url: `subjects/${id}`,
@@ -28,11 +39,32 @@ const AnswerPage = () => {
     }
   };
 
+  const { count, next, results: feedCardList } = feedCardData ?? {};
+
   useEffect(() => {
     getFeedCardData();
   }, []);
 
-  const { count, results: feedCardList } = feedCardData ?? {};
+  useEffect(() => {
+    if (feedDataList.length < count) {
+      getFeedCardData();
+    }
+  }, [page]);
+
+  useEffect(() => {
+    setFeedDataList((prevDataList) => [
+      ...(prevDataList ?? []),
+      ...(feedCardList ?? []),
+    ]);
+  }, [feedCardList]);
+
+  useEffect(() => {
+    if (page === 1) observe(target.current);
+
+    if (!next || feedDataList.length >= count) {
+      unobserve(target.current);
+    }
+  }, [feedDataList, count, next]);
 
   useEffect(() => {
     const status = FeedDeleteResponse?.status;
@@ -48,11 +80,12 @@ const AnswerPage = () => {
       <FeedContainer
         subjectId={id}
         cardType="answerFeed"
-        feedCardList={feedCardList}
+        feedCardList={feedDataList}
         count={count}
         isLoading={isLoading}
         error={error}
       />
+      <div ref={target} style={{ width: "100%", height: 30 }} />
     </FeedLayout>
   );
 };
