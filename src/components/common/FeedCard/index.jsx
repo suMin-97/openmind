@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import styled from "styled-components";
 import { fontStyles, boxStyles, colors, devices } from "@styles/styleVariables";
-import useRequest from "../../../hooks/useRequest";
+import useRequest from "@hooks/useRequest";
 import getTimeDiff from "./getTimeDiff";
-import Reaction from "../Reaction";
+import Reaction from "@components/common/Reaction";
 import Badge from "@components/common/Badge";
 import ProfileImage from "@components/common/ProfileImage";
 
-const BasicFeedCard = ({ feedCard, isLoading, error, className }) => {
+const BasicFeedCard = ({ feedCard, className }) => {
   const {
     id: questionId,
     content: questionContent,
@@ -36,7 +36,6 @@ const BasicFeedCard = ({ feedCard, isLoading, error, className }) => {
       </CardHeader>
 
       {/* 질문 */}
-      {isLoading && <p>로딩중입니다</p>}
       {feedCard && (
         <CardQuestion>
           <span className="span_gray">질문 · {getTimeDiff(createdAt)}</span>
@@ -45,8 +44,6 @@ const BasicFeedCard = ({ feedCard, isLoading, error, className }) => {
       )}
 
       {/* 답변 */}
-      {isLoading && <p>로딩중입니다</p>}
-
       {feedCard && feedCard?.answer && (
         <ContentDiv>
           {subjectData && <ProfileImage src={imageSource} size="medium" />}
@@ -66,7 +63,6 @@ const BasicFeedCard = ({ feedCard, isLoading, error, className }) => {
         </ContentDiv>
       )}
 
-      {error && <p>삐빅 에러 입니다</p>}
       {feedCard && (
         <Reaction questionId={questionId} like={like} dislike={dislike} />
       )}

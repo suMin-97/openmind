@@ -97,7 +97,6 @@ const BasicMoreDropdown = ({
 
   useEffect(() => {
     if (rejectResponse) {
-      console.log(rejectResponse);
       setAnswerContent(rejectResponse);
     }
   }, [rejectResponse]);
