@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import FeedLayout from "@layout/FeedLayout";
 import useRequest from "@hooks/useRequest";
@@ -10,13 +10,13 @@ import FeedContainer from "@components/common/FeedContainer";
 const PAGE_LIMIT = 8;
 
 const FeedPage = () => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState({ curPage: 1 });
   const [feedDataList, setFeedDataList] = useState([]);
   const { id } = useParams();
   const target = useRef();
 
   const [observe, unobserve] = useIntersectionObserver(() => {
-    setPage((prevPage) => prevPage + 1);
+    setPage((prevPage) => ({ curPage: prevPage.curPage + 1 }));
   });
 
   const {
@@ -43,7 +43,10 @@ const FeedPage = () => {
   const { count, next, results: feedCardList } = feedCardData ?? {};
 
   useEffect(() => {
-    getFeedCardData({ limit: PAGE_LIMIT, offset: (page - 1) * PAGE_LIMIT });
+    getFeedCardData({
+      limit: PAGE_LIMIT,
+      offset: (page.curPage - 1) * PAGE_LIMIT,
+    });
   }, [page]);
 
   useEffect(() => {
@@ -52,7 +55,9 @@ const FeedPage = () => {
       ...(feedCardList ?? []),
     ]);
 
-    if (page === 1) observe(target.current);
+    if (page.curPage === 1) {
+      observe(target.current);
+    }
 
     if (!next || feedDataList.length >= count) {
       unobserve(target.current);
@@ -62,8 +67,9 @@ const FeedPage = () => {
   useEffect(() => {
     if (postQuestionResponse) {
       window.scrollTo({ top: 0, behavior: "smooth" });
-      setPage(1);
+      setPage({ curPage: 1 });
       setFeedDataList([]);
+      unobserve(target.current);
     }
   }, [postQuestionResponse]);
 
