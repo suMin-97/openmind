@@ -4,17 +4,17 @@ import { boxStyles, colors, devices } from "@styles/styleVariables";
 const BasicLoadingFeedCard = ({ className }) => {
   return (
     <div className={className}>
-      <LoadingBadgeBox />
+      <LoadingBadgeBox className="skeleton" />
       <TextBox>
-        <LoadingBox />
+        <LoadingBox className="skeleton" />
       </TextBox>
       <ContentDiv>
-        <LoadingImageBox />
+        <LoadingImageBox className="skeleton" />
         <ContentRightBox>
-          <LoadingBox />
+          <LoadingBox className="skeleton" />
           <TextBox>
-            <LoadingBox />
-            <LoadingBox />
+            <LoadingBox className="skeleton" />
+            <LoadingBox className="skeleton" />
           </TextBox>
         </ContentRightBox>
       </ContentDiv>
@@ -26,6 +26,10 @@ const LoadingBox = styled.div`
   background-color: ${colors.loading};
   width: 75px;
   height: 18px;
+
+  &.skeleton {
+    ${boxStyles.skeletonAnimation};
+  }
 `;
 
 const LoadingImageBox = styled(LoadingBox)`

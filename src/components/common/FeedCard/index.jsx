@@ -1,32 +1,19 @@
-import { useEffect } from "react";
 import styled from "styled-components";
 import { fontStyles, boxStyles, colors, devices } from "@styles/styleVariables";
-import useRequest from "@hooks/useRequest";
 import getTimeDiff from "./getTimeDiff";
 import Reaction from "@components/common/Reaction";
 import Badge from "@components/common/Badge";
 import ProfileImage from "@components/common/ProfileImage";
 
-const BasicFeedCard = ({ feedCard, className }) => {
+const BasicFeedCard = ({ feedCard, className, imageSource, name }) => {
   const {
     id: questionId,
     content: questionContent,
-    subjectId,
     like,
     dislike,
     createdAt,
     answer,
   } = feedCard ?? null;
-
-  const { data: subjectData, request: getSubjectData } = useRequest({
-    url: `subjects/${subjectId}`,
-  });
-
-  const { imageSource, name } = subjectData ?? {};
-
-  useEffect(() => {
-    getSubjectData();
-  }, []);
 
   return (
     <div className={className}>
@@ -46,7 +33,7 @@ const BasicFeedCard = ({ feedCard, className }) => {
       {/* 답변 */}
       {feedCard && feedCard?.answer && (
         <ContentDiv>
-          {subjectData && <ProfileImage src={imageSource} size="medium" />}
+          {imageSource && <ProfileImage src={imageSource} size="medium" />}
           <AnswerTextDiv>
             <AnswerDescDiv>
               <p>{name}</p>
@@ -55,7 +42,7 @@ const BasicFeedCard = ({ feedCard, className }) => {
               </span>
             </AnswerDescDiv>
             {answer?.isRejected ? (
-              <p style={{ color: `${colors.red}` }}>답변거절</p>
+              <p style={{ color: `${colors.red}` }}>답변 거절</p>
             ) : (
               <p>{answer && answer?.content}</p>
             )}

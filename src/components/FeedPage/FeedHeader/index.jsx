@@ -21,7 +21,7 @@ const FeedHeader = ({ id }) => {
 
   useEffect(() => {
     request();
-  }, []);
+  }, [id]);
 
   return (
     <>

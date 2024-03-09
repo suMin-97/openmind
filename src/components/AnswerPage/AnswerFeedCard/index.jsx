@@ -9,25 +9,23 @@ import TextareaForm from "@components/common/TextareaForm";
 import MoreDropdown from "@components/AnswerPage/MoreDropdown";
 import ProfileImage from "@components/common/ProfileImage";
 
-const BasicAnswerFeedCard = ({ feedCardData, className }) => {
+const BasicAnswerFeedCard = ({
+  feedCardData,
+  imageSource,
+  name,
+  className,
+}) => {
   const [answerContent, setAnswerContent] = useState(null);
   const [isModify, setIsModify] = useState(false);
 
   const {
     id: questionId,
     content: questionContent,
-    subjectId,
     like,
     dislike,
     createdAt,
     answer,
   } = feedCardData ?? null;
-
-  const { data: subjectData, request: getSubjectData } = useRequest({
-    url: `subjects/${subjectId}`,
-  });
-
-  const { imageSource, name } = subjectData ?? {};
 
   const {
     data: submitAnswerResponse,
@@ -56,10 +54,6 @@ const BasicAnswerFeedCard = ({ feedCardData, className }) => {
     useModifyAnswer({ content: value, isRejected: false });
     setIsModify((prevState) => !prevState);
   };
-
-  useEffect(() => {
-    getSubjectData();
-  }, []);
 
   useEffect(() => {
     setAnswerContent(answer);
@@ -113,7 +107,7 @@ const BasicAnswerFeedCard = ({ feedCardData, className }) => {
 
       {feedCardData && answerContent ? (
         <ContentDiv>
-          {subjectData && <ProfileImage src={imageSource} size="medium" />}
+          {imageSource && <ProfileImage src={imageSource} size="medium" />}
           <AnswerTextDiv>
             <AnswerDescDiv>
               <p>{name}</p>
