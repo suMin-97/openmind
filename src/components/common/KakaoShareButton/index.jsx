@@ -16,7 +16,7 @@ const KakaoShareButton = ({ url, subjectName }) => {
           ? `${subjectName}님에게 질문해보세요!`
           : "솔직한 질문을 통해 상대와 더 가까워지세요!",
         imageUrl:
-          "https://drive.google.com/file/d/16MRF8XguWoaQhUsDj-YoR9-iSZbnnUEo/view?usp=drive_link",
+          "https://postfiles.pstatic.net/MjAyNDAzMDlfMTU4/MDAxNzA5OTg4NTM1NTY2.SseBLSmwDAswgpjrHT5PHZwnrPwAap1u3HVxnfBCMfcg.WlEhaYdLOMz5KGIsgWsKuc_ENwG11sK2lf8Oz8C7FBgg.PNG/kakaotalk.png?type=w966",
         link: {
           mobileWebUrl: url,
           webUrl: url,
