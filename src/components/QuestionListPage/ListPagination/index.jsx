@@ -33,7 +33,9 @@ const ListPagination = ({ totalCount, pageLimit }) => {
   }, [searchParams, currentSize]);
 
   useEffect(() => {
-    if (currentPage <= 3) {
+    if (currentPage > currentSize) {
+      setPageList([]);
+    } else if (currentPage <= 3) {
       setPageList(range(1, Math.min(5, currentSize)));
     } else if (currentPage >= currentSize - 2) {
       setPageList(range(currentSize - 4, currentSize));
