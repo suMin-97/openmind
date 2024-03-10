@@ -1,30 +1,21 @@
 import { FacebookShareButton } from "react-share";
+import styled from "styled-components";
+import { colors } from "@styles/styleVariables";
+import { BASIC_DEPLOY_URL } from "@constants/constants";
 import UrlShareButton from "../UrlShareButton";
 import KakaoShareButton from "../KakaoShareButton";
-import { BASIC_DEPLOY_URL } from "../../../constants/constants";
-import styled from "styled-components";
-import FacebookIcon from "../../../assets/icons/Facebook.svg";
-import { colors } from "../../../styles/styleVariables";
-import { useEffect } from "react";
-import useRequest from "../../../hooks/useRequest";
+import FacebookIcon from "@icons/Facebook.svg";
 
-const ShareButtons = ({ id }) => {
+const ShareButtons = ({ id, subjectData }) => {
   const url = `${BASIC_DEPLOY_URL}/post/${id}`;
-  const NAME_URL = `subjects/${id}`;
-  const { data, request: getName } = useRequest({
-    url: NAME_URL,
-    method: "GET",
-  });
 
-  useEffect(() => {
-    getName();
-  }, []);
+  const { name } = subjectData ?? {};
 
   return (
     <WrappedDiv>
       <ContainDiv>
         <UrlShareButton url={url} />
-        <KakaoShareButton url={url} subjectName={data?.name} />
+        <KakaoShareButton url={url} subjectName={name} />
         <FacebookShareButton url={url}>
           <StyledDiv>
             <img src={FacebookIcon} draggable="false" />

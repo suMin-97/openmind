@@ -22,6 +22,13 @@ const AnswerPage = () => {
   });
 
   const {
+    data: subjectData,
+    error: subjectError,
+    isLoading: subjectDataLoading,
+    request: getSubjectData,
+  } = useRequest({ method: "GET", url: `subjects/${id}` });
+
+  const {
     data: feedCardData,
     isLoading,
     error,
@@ -47,11 +54,14 @@ const AnswerPage = () => {
   const { count, next, results: feedCardList } = feedCardData ?? {};
 
   useEffect(() => {
+    getSubjectData();
+  }, []);
+
+  useEffect(() => {
     getFeedCardData({
       limit: PAGE_LIMIT,
       offset: (page.curPage - 1) * PAGE_LIMIT,
     });
-    console.log(status);
     if (status === 404) {
       navigate("/not-found");
     }
@@ -78,7 +88,13 @@ const AnswerPage = () => {
   }, [deleteResponseStatus]);
 
   return (
-    <FeedLayout id={id} $feedType="answer">
+    <FeedLayout
+      id={id}
+      $feedType="answer"
+      subjectData={subjectData}
+      isLoading={subjectDataLoading}
+      error={subjectError}
+    >
       <DeleteFloatingButton handleDelete={handleFeedDelete} />
       <FeedContainer
         subjectId={id}
@@ -87,6 +103,7 @@ const AnswerPage = () => {
         count={count}
         isLoading={isLoading}
         error={error}
+        subjectData={subjectData}
       />
       <div ref={target} style={{ width: "100%", height: 30 }} />
     </FeedLayout>
