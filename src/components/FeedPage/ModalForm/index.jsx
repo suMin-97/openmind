@@ -54,7 +54,7 @@ const BasicModalForm = ({
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
       if (regex.test(event.target.value)) {
-        handleSubmit(value);
+        handleQuestionSubmit(value);
         setValue("");
         setIsModalOpen(false);
       }

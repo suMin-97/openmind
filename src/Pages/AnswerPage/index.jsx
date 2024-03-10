@@ -1,21 +1,25 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useIntersectionObserver from "@hooks/useIntersectionObserver";
-import useRequestWithoutSlash from "@hooks/useRequestWithoutSlash";
 import useDelete from "@components/AnswerPage/MoreDropdown/useDelete";
 import FeedLayout from "@layout/FeedLayout";
 import FeedContainer from "@components/common/FeedContainer";
 import DeleteFloatingButton from "@components/AnswerPage/DeleteFloatingButton";
+import useRequest from "../../hooks/useRequest";
+
+const PAGE_LIMIT = 8;
 
 const AnswerPage = () => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState({ curPage: 1 });
   const [feedDataList, setFeedDataList] = useState([]);
   const target = useRef();
   const navigate = useNavigate();
   const { id } = useParams();
 
   const [observe, unobserve] = useIntersectionObserver(() => {
-    setPage((prevPage) => prevPage + 1);
+    setPage((prevPage) => ({
+      curPage: prevPage.curPage + 1,
+    }));
   });
 
   const {
@@ -23,9 +27,9 @@ const AnswerPage = () => {
     isLoading,
     error,
     request: getFeedCardData,
-  } = useRequestWithoutSlash({
+  } = useRequest({
     method: "GET",
-    url: `subjects/${id}/questions/?limit=8&offset=${(page - 1) * 8}`,
+    url: `subjects/${id}/questions`,
   });
 
   const { data: FeedDeleteResponse, request: useFeedDelete } = useDelete({
@@ -42,13 +46,10 @@ const AnswerPage = () => {
   const { count, next, results: feedCardList } = feedCardData ?? {};
 
   useEffect(() => {
-    getFeedCardData();
-  }, []);
-
-  useEffect(() => {
-    if (feedDataList.length < count) {
-      getFeedCardData();
-    }
+    getFeedCardData({
+      limit: PAGE_LIMIT,
+      offset: (page.curPage - 1) * PAGE_LIMIT,
+    });
   }, [page]);
 
   useEffect(() => {
@@ -56,15 +57,12 @@ const AnswerPage = () => {
       ...(prevDataList ?? []),
       ...(feedCardList ?? []),
     ]);
-  }, [feedCardList]);
-
-  useEffect(() => {
-    if (page === 1) observe(target.current);
+    if (page.curPage === 1) observe(target.current);
 
     if (!next || feedDataList.length >= count) {
       unobserve(target.current);
     }
-  }, [feedDataList, count, next]);
+  }, [feedCardList, count, next]);
 
   useEffect(() => {
     const status = FeedDeleteResponse?.status;
