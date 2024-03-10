@@ -26,7 +26,8 @@ const ListPagination = ({ totalCount, pageLimit }) => {
 
   useEffect(() => {
     const pageNum = Number(searchParams.get("page")) ?? 1;
-    if (currentSize !== 0 && pageNum > currentSize) {
+    console.log(pageNum, currentSize);
+    if (currentSize !== 0 && (pageNum > currentSize || isNaN(pageNum))) {
       searchParams.set("page", currentSize);
       setSearchParams(searchParams, { replace: true });
     }
@@ -96,7 +97,8 @@ export default ListPagination;
 
 const PaginationDiv = styled.div`
   display: flex;
-  margin: 40px auto 97px auto;
+  margin-inline: auto;
+  padding: 40px 0 97px;
   width: fit-content;
   height: 40px;
 `;
