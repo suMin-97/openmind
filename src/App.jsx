@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import GlobalStyle from "./styles/GlobalStyle";
 import GlobalFont from "./styles/fonts/fonts";
 import MainPage from "./Pages/MainPage";
@@ -20,7 +20,8 @@ function App() {
           <Route index element={<FeedPage />} />
           <Route path="answer" element={<AnswerPage />} />
         </Route>
-        <Route path="*" element={<NoPage />} />
+        <Route path="/not-found" element={<NoPage />} />
+        <Route path="*" element={<Navigate replace to="/not-found" />} />
       </Routes>
     </BrowserRouter>
   );

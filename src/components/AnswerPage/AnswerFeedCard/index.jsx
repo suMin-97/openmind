@@ -17,6 +17,7 @@ const BasicAnswerFeedCard = ({
 }) => {
   const [answerContent, setAnswerContent] = useState(null);
   const [isModify, setIsModify] = useState(false);
+  const [isAnswered, setIsAnswered] = useState(false);
 
   const {
     id: questionId,
@@ -26,6 +27,12 @@ const BasicAnswerFeedCard = ({
     createdAt,
     answer,
   } = feedCardData ?? null;
+
+  useEffect(() => {
+    if (answer) {
+      setIsAnswered(true);
+    }
+  }, [answer, isAnswered]);
 
   const {
     data: submitAnswerResponse,
@@ -48,6 +55,7 @@ const BasicAnswerFeedCard = ({
 
   const handleSubmitAnswer = (value) => {
     useSubmitAnswer({ content: value, isRejected: false });
+    setIsAnswered(true);
   };
 
   const handleModifyAnswer = (value) => {
@@ -88,8 +96,9 @@ const BasicAnswerFeedCard = ({
   return (
     <div className={className}>
       <CardHeader>
-        {feedCardData?.answer ? <Badge isAnswered /> : <Badge />}
+        {isAnswered ? <Badge isAnswered /> : <Badge />}
         <MoreDropdown
+          setIsAnswered={setIsAnswered}
           isAnswered={answerContent}
           answerId={answerContent?.id}
           questionId={questionId}
@@ -150,7 +159,7 @@ const AnswerTextDiv = styled.div`
 
 const AnswerDescDiv = styled.div`
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: 8px;
 
   & > p {
@@ -202,11 +211,16 @@ const AnswerFeedCard = styled(BasicAnswerFeedCard)`
   & .span_gray {
     color: ${colors.gray40};
     ${fontStyles.caption};
+    line-height: 1.375;
   }
 
   & ${Reaction} {
     border-top: 1px solid ${colors.gray30};
     padding-top: 24px;
+  }
+
+  & p {
+    word-break: break-all;
   }
 `;
 
