@@ -26,7 +26,7 @@ const ListPagination = ({ totalCount, pageLimit }) => {
 
   useEffect(() => {
     const pageNum = Number(searchParams.get("page")) ?? 1;
-    console.log(pageNum, currentSize);
+
     if (currentSize !== 0 && (pageNum > currentSize || isNaN(pageNum))) {
       searchParams.set("page", currentSize);
       setSearchParams(searchParams, { replace: true });
