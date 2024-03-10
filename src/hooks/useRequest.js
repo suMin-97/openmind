@@ -10,6 +10,7 @@ const useRequest = ({ url, method }) => {
   const [data, setData] = useState(null); // request후 data 상태 관리
   const [error, setError] = useState(null); // request 후 error 상태 관리 - status, message ...
   const [isLoading, setIsLoading] = useState(false); // request 비동기 호출 관련 loading 상태 관리
+  const [status, setStatus] = useState(null);
 
   const request = useCallback(
     (body) => {
@@ -29,15 +30,21 @@ const useRequest = ({ url, method }) => {
           method,
           data: apiBody,
         })
-        .then((response) => setData(response.data))
-        .catch((error) => setError(error))
+        .then((response) => {
+          setData(response.data);
+          setStatus(response.status);
+        })
+        .catch((error) => {
+          setError(error);
+          setStatus(error.response.status);
+        })
         .finally(() => {
           setIsLoading(false); // 호출 후 loading 상태 - false
         });
     },
     [url, method] // useCallback DependencyList
   );
-  return { data, error, isLoading, request: (body) => request(body) };
+  return { data, error, isLoading, status, request: (body) => request(body) };
 };
 
 export default useRequest;
