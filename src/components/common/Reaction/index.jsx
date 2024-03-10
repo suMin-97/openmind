@@ -65,6 +65,7 @@ const BasicReaction = ({ className, like = 0, dislike = 0, questionId }) => {
           text={`싫어요${dislikeCount !== 0 ? ` ${dislikeCount}` : ""}`}
           onClick={handleDislikeClick}
           isActive={dislikeClick}
+          isDislike
         />
       </li>
     </ul>

@@ -7,6 +7,7 @@ const basicIconTextButton = ({
   className,
   onClick,
   isActive = false,
+  isDislike,
 }) => {
   return (
     <div className={className} onClick={onClick}>
@@ -23,24 +24,26 @@ const IconTextButton = styled(basicIconTextButton)`
   line-height: 1rem; // 설정대로 하면 위치가 이상해져서 재조정
   cursor: pointer;
   gap: 0.375rem;
-  color: ${(props) => (props.isActive ? colors.blue : colors.gray40)};
+  color: ${({ isActive, isDislike }) =>
+    isActive ? (isDislike ? colors.gray60 : colors.blue) : colors.gray40};
   & svg {
-    fill: ${(props) => (props.isActive ? colors.blue : colors.gray40)};
+    fill: ${({ isActive, isDislike }) =>
+      isActive ? (isDislike ? colors.gray60 : colors.blue) : colors.gray40};
   }
 
   &:hover {
-    color: ${(props) => (props.isActive ? colors.blue : colors.gray60)};
+    color: ${({ isDislike }) => (isDislike ? colors.gray60 : colors.blue)};
 
     & svg {
-      fill: ${(props) => (props.isActive ? colors.blue : colors.gray60)};
+      fill: ${({ isDislike }) => (isDislike ? colors.gray60 : colors.blue)};
     }
   }
 
   &:active {
-    color: ${colors.blue};
+    color: ${(props) => (props.isDislike ? colors.gray60 : colors.blue)};
 
     & svg {
-      fill: ${colors.blue};
+      fill: ${(props) => (props.isDislike ? colors.gray60 : colors.blue)};
     }
   }
 `;
