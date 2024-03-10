@@ -33,6 +33,7 @@ const FeedCountMessage = styled(BasicFeedCountMessage)`
   ${fontStyles.body2};
   ${fontStyles.regular};
   color: ${colors.brown40};
+  line-height: 1;
 
   & svg {
     width: 22px;
@@ -42,6 +43,7 @@ const FeedCountMessage = styled(BasicFeedCountMessage)`
 
   @media ${devices.tablet} {
     ${fontStyles.body1};
+    line-height: 1;
 
     & svg {
       width: 24px;

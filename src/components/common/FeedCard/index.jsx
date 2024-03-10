@@ -121,6 +121,7 @@ const FeedCard = styled(BasicFeedCard)`
   & .span_gray {
     color: ${colors.gray40};
     ${fontStyles.caption};
+    line-height: 1.375;
   }
 
   & ${Reaction} {
