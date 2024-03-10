@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import useDropdown from "@hooks/useDropdown";
 import useRequest from "@hooks/useRequest";
-import useDelete from "./useDelete";
 import { ReactComponent as MoreIcon } from "@icons/More.svg";
 import { ReactComponent as EditIcon } from "@icons/Edit.svg";
 import { ReactComponent as DeleteIcon } from "@icons/Close.svg";
@@ -28,8 +27,9 @@ const BasicMoreDropdown = ({
     method: "POST",
   });
 
-  const { data: deleteResponse, request: useDeleteAnswer } = useDelete({
+  const { status: deleteResponse, request: useDeleteAnswer } = useRequest({
     url: `answers/${answerId}`,
+    method: "DELETE",
   });
 
   const moreDeleteOptions = [
@@ -96,8 +96,7 @@ const BasicMoreDropdown = ({
   ];
 
   useEffect(() => {
-    const status = deleteResponse?.status;
-    if (status >= 200 && status < 300) {
+    if (deleteResponse >= 200 && deleteResponse < 300) {
       setAnswerContent(null);
       setIsAnswered((prevState) => !prevState);
     }
