@@ -14,7 +14,7 @@ const QuestionListPage = () => {
   const [pageLimit, setPageLimit] = useState(8);
 
   const handleResize = debounce(() => {
-    if (window.innerWidth > 949) {
+    if (window.innerWidth > 855) {
       setPageLimit(8);
     } else {
       setPageLimit(6);
@@ -73,27 +73,25 @@ export default QuestionListPage;
 const QuestionListSection = styled.section`
   background-color: ${colors.gray20};
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   .question_title {
     display: flex;
-    @media ${devices.mobile} {
-      flex-direction: row;
-      padding: 0 24px 18px 24px;
-      justify-content: space-between;
-      align-items: center;
-    }
+    flex-direction: row;
+    padding: 0 24px 18px 24px;
+    justify-content: space-between;
+    align-items: center;
     @media ${devices.tablet} {
       flex-direction: column;
+      padding: 0;
     }
   }
 `;
 const MainText = styled.div`
   color: ${colors.gray60};
   text-align: center;
-  @media ${devices.mobile} {
-    ${fontStyles.h3};
-    ${fontStyles.regular};
-  }
+  ${fontStyles.h3};
+  ${fontStyles.regular};
   @media ${devices.tablet} {
     ${fontStyles.h1};
     ${fontStyles.regular};

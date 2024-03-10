@@ -61,34 +61,35 @@ const UserCardWrapper = styled.div`
   a {
     text-decoration-line: none;
   }
-  @media ${devices.mobile} {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    overflow: hidden;
-    row-gap: 16px;
-    column-gap: 16px;
-    width: 330px;
-    height: 536px;
-  }
-  @media (min-width: 768px) and (max-width: 949px) {
+  grid-template-columns: repeat(2, minmax(155.5px, 50%));
+  grid-template-rows: 1fr 1fr 1fr;
+  overflow: hidden;
+  row-gap: 16px;
+  column-gap: 16px;
+  height: 536px;
+  padding: 0 24px 0 24px;
+  @media (min-width: 768px) and (max-width: 855px) {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 0;
     width: 700px;
     height: 394px;
     overflow: hidden;
+    padding: 0;
   }
-  @media (min-width: 949px) {
+  @media (min-width: 856px) {
     grid-template-columns: repeat(4, minmax(186px, 25%));
     width: calc(100% - 64px);
     height: 394px;
     margin: 0 32px;
     overflow: hidden;
+    padding: 0;
   }
   @media ${devices.desktop} {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     width: 940px;
     height: 394px;
     margin: 0 auto;
+    padding: 0;
   }
 `;
 const UserCard = styled.div`
@@ -99,18 +100,14 @@ const UserCard = styled.div`
   border-radius: 16px;
   border: 1px solid ${colors.gray40};
   background: ${colors.gray10};
-
-  @media ${devices.mobile} {
-    width: 156px;
-    height: 168px;
-    padding: 16px;
-  }
-  @media (min-width: 768px) and (max-width: 949px) {
+  height: 168px;
+  padding: 16px;
+  @media (min-width: 768px) and (max-width: 855px) {
     width: 220px;
     height: 187px;
     padding: 20px;
   }
-  @media (min-width: 949px) {
+  @media (min-width: 856px) {
     width: 100%;
     height: 187px;
     padding: 20px;
@@ -122,11 +119,9 @@ const UserCard = styled.div`
     &.skeleton {
       ${boxStyles.skeletonAnimation}
     }
-    @media ${devices.mobile} {
-      width: 48px;
-      height: 48px;
-      border-radius: 48px;
-    }
+    width: 48px;
+    height: 48px;
+    border-radius: 48px;
     @media ${devices.tablet} {
       width: 60px;
       height: 60px;
@@ -148,10 +143,8 @@ const UserCard = styled.div`
       color: transparent;
       border-radius: 15px;
     }
-    @media ${devices.mobile} {
-      margin: 12px 0 32px 0;
-      ${fontStyles.body2};
-    }
+    margin: 12px 0 32px 0;
+    ${fontStyles.body2};
     @media ${devices.tablet} {
       margin: 12px 0 28px 0;
       ${fontStyles.body1};
@@ -174,9 +167,7 @@ const UserCard = styled.div`
       gap: 4px;
       align-items: center;
     }
-    @media ${devices.mobile} {
-      ${fontStyles.caption};
-    }
+    ${fontStyles.caption};
     @media ${devices.tablet} {
       ${fontStyles.body3};
     }

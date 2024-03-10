@@ -36,20 +36,20 @@ export default ListHeaderComponent;
 const ListHeader = styled.header`
   display: flex;
   justify-content: space-between;
-  @media ${devices.mobile} {
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    padding-top: 40px;
-    padding-bottom: 54px;
-  }
+  max-width: 940px;
+  margin: auto;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 54px;
   @media ${devices.tablet} {
     flex-direction: row;
     padding: 45px 50px;
   }
   @media ${devices.desktop} {
     flex-direction: row;
-    padding: 45px 130px;
+    padding: 45px 0;
   }
   .logo_image {
     display: flex;
@@ -68,21 +68,25 @@ const ListHeader = styled.header`
     background: ${colors.brown10};
     color: ${colors.brown40};
     cursor: pointer;
+    width: 128px;
+    height: 34px;
+    padding: 8px 12px;
+    gap: 4px;
+    &:hover {
+      border: 2px solid ${colors.brown40};
+    }
+    &:active {
+      border: 2px solid ${colors.brown40};
+      background: ${colors.brown20};
+    }
     img {
       width: 18px;
       height: 18px;
     }
     p {
       white-space: nowrap;
-    }
-    @media ${devices.mobile} {
-      width: 128px;
-      height: 34px;
-      padding: 8px 12px;
-      gap: 4px;
-      p {
-        ${fontStyles.caption};
-      }
+      ${fontStyles.caption};
+      line-height: 18px;
     }
     @media ${devices.tablet} {
       gap: 8px;
