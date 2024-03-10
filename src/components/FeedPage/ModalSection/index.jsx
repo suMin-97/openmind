@@ -5,7 +5,13 @@ import { ReactComponent as CloseIcon } from "@icons/Close.svg";
 import { ReactComponent as MessageIcon } from "@icons/Messages.svg";
 import ModalForm from "../ModalForm";
 
-const Modal = ({ subjectId, setIsModalOpen, handleQuestionSubmit }) => {
+const Modal = ({
+  setIsModalOpen,
+  handleQuestionSubmit,
+  subjectData,
+  isLoading,
+  error,
+}) => {
   const modalBg = useRef();
 
   const handleBGCloseClick = (event) => {
@@ -53,15 +59,22 @@ const Modal = ({ subjectId, setIsModalOpen, handleQuestionSubmit }) => {
         </FlexDiv>
         <ModalForm
           setIsModalOpen={setIsModalOpen}
-          subjectId={subjectId}
           handleQuestionSubmit={handleQuestionSubmit}
+          subjectData={subjectData}
+          isLoading={isLoading}
+          error={error}
         />
       </ContentsBox>
     </DimDiv>
   );
 };
 
-const ModalSection = ({ subjectId, handleQuestionSubmit }) => {
+const ModalSection = ({
+  handleQuestionSubmit,
+  subjectData,
+  isLoading,
+  error,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenClick = () => {
@@ -75,8 +88,10 @@ const ModalSection = ({ subjectId, handleQuestionSubmit }) => {
       {isModalOpen && (
         <Modal
           setIsModalOpen={setIsModalOpen}
-          subjectId={subjectId}
           handleQuestionSubmit={handleQuestionSubmit}
+          subjectData={subjectData}
+          isLoading={isLoading}
+          error={error}
         />
       )}
     </Footer>
