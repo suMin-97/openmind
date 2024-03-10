@@ -32,6 +32,7 @@ const BasicReaction = ({ className, like = 0, dislike = 0, questionId }) => {
       setDislikeClick(false);
     }
   };
+  ``;
 
   const handleDislikeClick = () => {
     if (!dislikeClick) {

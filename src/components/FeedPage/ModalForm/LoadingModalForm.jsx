@@ -20,6 +20,7 @@ const LoadingModalProfile = styled.div`
 
 const ImgBox = styled.div`
   ${boxStyles.radiusC};
+  ${boxStyles.skeletonAnimation}
   background-color: ${colors.loading};
   width: 28px;
   height: 28px;
@@ -27,6 +28,7 @@ const ImgBox = styled.div`
 
 const TextBox = styled.div`
   background-color: ${colors.loading};
+  ${boxStyles.skeletonAnimation}
   width: 90px;
   height: 22px;
 `;
