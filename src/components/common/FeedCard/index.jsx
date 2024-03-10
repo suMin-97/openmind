@@ -127,6 +127,10 @@ const FeedCard = styled(BasicFeedCard)`
     border-top: 1px solid ${colors.gray30};
     padding-top: 24px;
   }
+
+  & p {
+    word-break: break-all;
+  }
 `;
 
 export default FeedCard;
