@@ -2,15 +2,11 @@ import { BASIC_DEPLOY_URL } from "../../../constants/constants";
 import styled from "styled-components";
 import Kakaotalk from "../../../assets/icons/Kakaotalk.svg";
 import { colors } from "../../../styles/styleVariables";
-import { useState } from "react";
 
 const KakaoShareButton = ({ url, subjectName }) => {
-  const [initialInstall, setInitialInstall] = useState(false);
-
   const handlebuttonClick = () => {
-    if (!initialInstall) {
+    if (!window.Kakao?.isInitialized()) {
       Kakao.init("83c8ec896557d0007b7c120c91c368c8");
-      setInitialInstall(true);
     }
 
     Kakao.Share.sendDefault({
