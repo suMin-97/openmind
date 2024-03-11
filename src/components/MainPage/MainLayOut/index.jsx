@@ -9,7 +9,7 @@ const MainLayout = ({ children, isOpenToast }) => {
       <Container>
         <ContainHeader>{children}</ContainHeader>
       </Container>
-      {isOpenToast && <Toast>2-8 글자 내 작성해주세요</Toast>}
+      {isOpenToast && <Toast>특수문자를 제외한 2-8 글자 내 작성해주세요</Toast>}
     </ContainDiv>
   );
 };

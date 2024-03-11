@@ -25,10 +25,6 @@ const MainPage = () => {
     navigate(`/post/${id}/answer`);
   };
 
-  const navigateFeedPage = (id) => {
-    navigate(`/post/${id}`);
-  };
-
   const navigateQuestionPage = () => {
     navigate("list");
   };
@@ -45,9 +41,17 @@ const MainPage = () => {
     if (event.key === "Enter") {
       event.preventDefault();
       if (emptyCheckRegex.test(event.target.value) && isLengthCheckRegex) {
-        BASIC_SUBJECT.name = event.target.value;
-        const newSubject = { ...BASIC_SUBJECT };
-        postSubjectRequest(newSubject);
+        if (
+          confirm(
+            "기존에 생성한 피드가 존재합니다. 새로운 피드를 생성하시겠습니까?\n새로운 피드를 생성하면 기존 피드를 이용하실 수 없습니다."
+          )
+        ) {
+          BASIC_SUBJECT.name = event.target.value;
+          const newSubject = { ...BASIC_SUBJECT };
+          postSubjectRequest(newSubject);
+        } else {
+          navigateAnswerPage(localStorage.getItem("id"));
+        }
       } else {
         handleToast();
       }
@@ -57,9 +61,17 @@ const MainPage = () => {
   const handleSubmitClick = (event) => {
     event.preventDefault();
     if (emptyCheckRegex.test(value) && isLengthCheckRegex) {
-      BASIC_SUBJECT.name = value;
-      const newSubject = { ...BASIC_SUBJECT };
-      postSubjectRequest(newSubject);
+      if (
+        confirm(
+          "기존에 생성한 피드가 존재합니다. 새로운 피드를 생성하시겠습니까?\n새로운 피드를 생성하면 기존 피드를 이용하실 수 없습니다."
+        )
+      ) {
+        BASIC_SUBJECT.name = value;
+        const newSubject = { ...BASIC_SUBJECT };
+        postSubjectRequest(newSubject);
+      } else {
+        navigateAnswerPage(localStorage.getItem("id"));
+      }
     } else {
       handleToast();
     }
@@ -73,18 +85,6 @@ const MainPage = () => {
       alert("다시 시도해주세요"); // 에러처리 정해야함
     }
   }, [isLoading]);
-
-  useEffect(() => {
-    if (localStorage.getItem("id")) {
-      setTimeout(() => {
-        confirm(
-          "이전에 가입한 이력이 있습니다. 해당 피드 페이지로 이동하시겠습니까?"
-        )
-          ? navigateFeedPage(localStorage.getItem("id"))
-          : null;
-      }, 1);
-    }
-  }, []);
 
   return (
     <MainLayout isOpenToast={isOpenToast}>
