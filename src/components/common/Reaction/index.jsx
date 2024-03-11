@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
+import useRequest from "@hooks/useRequest";
 import { ReactComponent as LikeIcon } from "@icons/Like.svg";
 import { ReactComponent as DislikeIcon } from "@icons/Dislike.svg";
-import useRequest from "@hooks/useRequest";
 import IconTextButton from "@components/common/IconTextButton";
 
 const BasicReaction = ({ className, like = 0, dislike = 0, questionId }) => {

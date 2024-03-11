@@ -1,14 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
-import SubmitButton from "@components/common/SubmitButton";
-import {
-  colors,
-  boxStyles,
-  fontStyles,
-  devices,
-} from "../../../styles/styleVariables";
+import { colors, boxStyles, fontStyles, devices } from "@styles/styleVariables";
 import LoadingModalForm from "./LoadingModalForm";
-import DisabledButton from "../../common/DisabledButton";
+import SubmitButton from "@components/common/SubmitButton";
+import DisabledButton from "@components/common/DisabledButton";
 
 const BasicModalForm = ({
   className,

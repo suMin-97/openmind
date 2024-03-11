@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useRequest from "@hooks/useRequest";
 import { BASIC_SUBJECT, POST_URL } from "./constants";
-import MainLayout from "../../components/MainPage/MainLayOut";
-import MainPageHeader from "../../components/MainPage/MainPageHeader";
-import MainForm from "../../components/MainPage/MainForm";
+import MainLayout from "@components/MainPage/MainLayOut";
+import MainPageHeader from "@components/MainPage/MainPageHeader";
+import MainForm from "@components/MainPage/MainForm";
 
 const MainPage = () => {
   const [value, setValue] = useState("");

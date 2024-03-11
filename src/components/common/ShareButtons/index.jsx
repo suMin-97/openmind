@@ -1,10 +1,10 @@
 import { FacebookShareButton } from "react-share";
 import styled from "styled-components";
 import { colors } from "@styles/styleVariables";
+import FacebookIcon from "@icons/Facebook.svg";
 import { BASIC_DEPLOY_URL } from "@constants/constants";
 import UrlShareButton from "../UrlShareButton";
 import KakaoShareButton from "../KakaoShareButton";
-import FacebookIcon from "@icons/Facebook.svg";
 
 const ShareButtons = ({ id, subjectData }) => {
   const url = `${BASIC_DEPLOY_URL}/post/${id}`;

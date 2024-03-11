@@ -1,7 +1,7 @@
-import { BASIC_DEPLOY_URL } from "../../../constants/constants";
 import styled from "styled-components";
-import Kakaotalk from "../../../assets/icons/Kakaotalk.svg";
-import { colors } from "../../../styles/styleVariables";
+import { BASIC_DEPLOY_URL } from "@constants/constants";
+import Kakaotalk from "@icons/Kakaotalk.svg";
+import { colors } from "@styles/styleVariables";
 
 const KakaoShareButton = ({ url, subjectName }) => {
   const handlebuttonClick = () => {

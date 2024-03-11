@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { boxStyles, colors, fontStyles } from "@styles/styleVariables";
 import { inputText } from "./constant";
 import SubmitButton from "@components/common/SubmitButton";
-import { useRef } from "react";
 
 const BasicTextareaForm = ({
   className,
