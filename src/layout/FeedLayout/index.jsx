@@ -3,11 +3,23 @@ import { colors, devices, boxStyles } from "@styles/styleVariables";
 import FeedHeader from "@components/FeedPage/FeedHeader";
 import ShareButtons from "@components/common/ShareButtons";
 
-const FeedBasicLayout = ({ children, id, className, $feedType }) => {
+const FeedBasicLayout = ({
+  children,
+  id,
+  subjectData,
+  className,
+  $feedType,
+  isLoading,
+  error,
+}) => {
   return (
     <Container className={className} $feedType={$feedType}>
-      <FeedHeader id={id} />
-      <ShareButtons id={id} />
+      <FeedHeader
+        subjectData={subjectData}
+        isLoading={isLoading}
+        error={error}
+      />
+      <ShareButtons id={id} subjectData={subjectData} />
       <ContainerWrap>{children}</ContainerWrap>
     </Container>
   );

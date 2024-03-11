@@ -121,11 +121,16 @@ const FeedCard = styled(BasicFeedCard)`
   & .span_gray {
     color: ${colors.gray40};
     ${fontStyles.caption};
+    line-height: 1.375;
   }
 
   & ${Reaction} {
     border-top: 1px solid ${colors.gray30};
     padding-top: 24px;
+  }
+
+  & p {
+    word-break: break-all;
   }
 `;
 

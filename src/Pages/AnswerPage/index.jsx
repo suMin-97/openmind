@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import useRequest from "@hooks/useRequest";
 import useIntersectionObserver from "@hooks/useIntersectionObserver";
-import useDelete from "@components/AnswerPage/MoreDropdown/useDelete";
 import FeedLayout from "@layout/FeedLayout";
 import FeedContainer from "@components/common/FeedContainer";
 import DeleteFloatingButton from "@components/AnswerPage/DeleteFloatingButton";
-import useRequest from "../../hooks/useRequest";
 
 const PAGE_LIMIT = 8;
 
@@ -23,17 +22,26 @@ const AnswerPage = () => {
   });
 
   const {
+    data: subjectData,
+    error: subjectError,
+    isLoading: subjectDataLoading,
+    request: getSubjectData,
+  } = useRequest({ method: "GET", url: `subjects/${id}` });
+
+  const {
     data: feedCardData,
     isLoading,
     error,
+    status,
     request: getFeedCardData,
   } = useRequest({
     method: "GET",
     url: `subjects/${id}/questions`,
   });
 
-  const { data: FeedDeleteResponse, request: useFeedDelete } = useDelete({
+  const { status: deleteResponseStatus, request: useFeedDelete } = useRequest({
     url: `subjects/${id}`,
+    method: "DELETE",
   });
 
   const handleFeedDelete = () => {
@@ -46,10 +54,17 @@ const AnswerPage = () => {
   const { count, next, results: feedCardList } = feedCardData ?? {};
 
   useEffect(() => {
+    getSubjectData();
+  }, []);
+
+  useEffect(() => {
     getFeedCardData({
       limit: PAGE_LIMIT,
       offset: (page.curPage - 1) * PAGE_LIMIT,
     });
+    if (status === 404) {
+      navigate("/not-found");
+    }
   }, [page]);
 
   useEffect(() => {
@@ -65,15 +80,21 @@ const AnswerPage = () => {
   }, [feedCardList, count, next]);
 
   useEffect(() => {
-    const status = FeedDeleteResponse?.status;
+    const status = deleteResponseStatus;
     if (status && status >= 200 && status < 300) {
       localStorage.removeItem("id");
       navigate("/");
     }
-  }, [FeedDeleteResponse]);
+  }, [deleteResponseStatus]);
 
   return (
-    <FeedLayout id={id} $feedType="answer">
+    <FeedLayout
+      id={id}
+      $feedType="answer"
+      subjectData={subjectData}
+      isLoading={subjectDataLoading}
+      error={subjectError}
+    >
       <DeleteFloatingButton handleDelete={handleFeedDelete} />
       <FeedContainer
         subjectId={id}
@@ -82,6 +103,7 @@ const AnswerPage = () => {
         count={count}
         isLoading={isLoading}
         error={error}
+        subjectData={subjectData}
       />
       <div ref={target} style={{ width: "100%", height: 30 }} />
     </FeedLayout>

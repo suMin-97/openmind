@@ -20,6 +20,13 @@ const FeedPage = () => {
   });
 
   const {
+    data: subjectData,
+    error: subjectError,
+    isLoading: subjectDataLoading,
+    request: getSubjectData,
+  } = useRequest({ method: "GET", url: `subjects/${id}` });
+
+  const {
     data: feedCardData,
     isLoading,
     error,
@@ -41,6 +48,10 @@ const FeedPage = () => {
   };
 
   const { count, next, results: feedCardList } = feedCardData ?? {};
+
+  useEffect(() => {
+    getSubjectData();
+  }, []);
 
   useEffect(() => {
     getFeedCardData({
@@ -74,16 +85,25 @@ const FeedPage = () => {
   }, [postQuestionResponse]);
 
   return (
-    <FeedLayout id={id} $feedType="question">
+    <FeedLayout
+      id={id}
+      $feedType="question"
+      subjectData={subjectData}
+      isLoading={subjectDataLoading}
+      error={subjectError}
+    >
       <FeedContainer
         feedCardList={feedDataList}
         count={count}
         isLoading={isLoading}
         error={error}
+        subjectData={subjectData}
       />
       <div ref={target} style={{ width: "100%", height: 30 }} />
       <ModalSection
-        subjectId={id}
+        subjectData={subjectData}
+        isLoading={subjectDataLoading}
+        error={subjectError}
         handleQuestionSubmit={handleQuestionSubmit}
       />
     </FeedLayout>

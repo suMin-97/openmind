@@ -11,6 +11,7 @@ const BasicFeedContainer = ({
   count,
   isLoading,
   error,
+  subjectData,
 }) => {
   const feedContent = () => {
     if (error) {
@@ -27,6 +28,7 @@ const BasicFeedContainer = ({
           feedCardList={feedCardList}
           isLoading={isLoading}
           cardType={cardType}
+          subjectData={subjectData}
         />
       );
     }

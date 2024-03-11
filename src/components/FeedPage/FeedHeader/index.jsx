@@ -1,27 +1,13 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { colors, devices, fontStyles } from "@styles/styleVariables";
 import HeaderImg from "@images/header-image.png";
 import logoImg from "@images/logo.svg";
-import useRequest from "@hooks/useRequest";
 import ProfileImage from "@components/common/ProfileImage";
-import { colors, devices, fontStyles } from "@styles/styleVariables";
-import LoadingHeader from "../../common/LoadingHeader";
+import LoadingHeader from "@components/common/LoadingHeader";
 
-const FeedHeader = ({ id }) => {
-  const {
-    data: ProfileData,
-    error,
-    isLoading,
-    request,
-  } = useRequest({
-    method: "GET",
-    url: `subjects/${id}`,
-  });
-
-  useEffect(() => {
-    request();
-  }, [id]);
+const FeedHeader = ({ subjectData, error, isLoading }) => {
+  const { imageSource, name } = subjectData ?? {};
 
   return (
     <>
@@ -36,11 +22,9 @@ const FeedHeader = ({ id }) => {
               <LoadingHeader />
             ) : (
               <>
-                <ProfileImage src={ProfileData?.imageSource} size="xLarge" />
+                <ProfileImage src={imageSource} size="xLarge" />
                 <Name>
-                  {ProfileData?.name ?? (
-                    <span>정보를 불러오는데 실패했습니다.</span>
-                  )}
+                  {error ? <span>정보를 불러오는데 실패했습니다.</span> : name}
                 </Name>
               </>
             )}

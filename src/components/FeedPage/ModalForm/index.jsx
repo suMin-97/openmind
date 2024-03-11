@@ -1,8 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import SubmitButton from "../../common/SubmitButton";
-import useRequest from "../../../hooks/useRequest";
-import { useEffect } from "react";
+import SubmitButton from "@components/common/SubmitButton";
 import BASIC_QUESTION from "./constant";
 import {
   colors,
@@ -14,19 +12,12 @@ import LoadingModalForm from "./LoadingModalForm";
 
 const BasicModalForm = ({
   className,
-  subjectId,
   setIsModalOpen,
   handleQuestionSubmit,
+  subjectData,
+  isLoading,
+  error,
 }) => {
-  const {
-    data: profileData,
-    error: profileError,
-    isLoading: profileIsLoading,
-    request: getRequest,
-  } = useRequest({
-    url: `subjects/${subjectId}`,
-    method: "GET",
-  });
   // const { request: postRequest } = useRequest({
   //   url: `subjects/${subjectId}/questions`,
   //   method: "POST",
@@ -34,6 +25,8 @@ const BasicModalForm = ({
   const [isDisabled, setIsDisabled] = useState(true);
   const [value, setValue] = useState("");
   const regex = /^[\s\S]*\S[\s\S]*$/; // 스페이스,엔터만 입력한 경우 같이 값은 있지만 사실상 내용이 없는 공란을 검사하는 정규식, false이면 공란임
+
+  const { imageSource, name } = subjectData ?? {};
 
   // const questionFormValidation = (value) => {
   //   BASIC_QUESTION.subjectId = subjectId;
@@ -70,27 +63,23 @@ const BasicModalForm = ({
     }
   };
 
-  useEffect(() => {
-    getRequest();
-  }, []);
-
   return (
     <form onSubmit={onQuestionSubmit} className={className}>
       <label htmlFor="question">
-        {profileIsLoading && (
+        {isLoading && (
           <ProfileDiv>
             <P>To.</P>
             <LoadingModalForm />
           </ProfileDiv>
         )}
-        {profileData && (
+        {subjectData && (
           <ProfileDiv>
             <P>To.</P>
-            <img src={profileData?.imageSource} draggable="false" />
-            <p>{profileData?.name}</p>
+            <img src={imageSource} draggable="false" />
+            <p>{name}</p>
           </ProfileDiv>
         )}
-        {profileError && (
+        {error && (
           <ProfileDiv>
             <P>To.</P>
             <p>삐빅 에러입니다</p>

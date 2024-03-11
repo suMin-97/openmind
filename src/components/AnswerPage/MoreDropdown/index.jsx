@@ -1,14 +1,13 @@
-import DropdownComponent from "../../common/DropdownComponent";
-import useDropdown from "../../../hooks/useDropdown";
+import { useEffect } from "react";
+import styled from "styled-components";
+import useDropdown from "@hooks/useDropdown";
+import useRequest from "@hooks/useRequest";
 import { ReactComponent as MoreIcon } from "@icons/More.svg";
 import { ReactComponent as EditIcon } from "@icons/Edit.svg";
 import { ReactComponent as DeleteIcon } from "@icons/Close.svg";
 import { ReactComponent as RejectionIcon } from "@icons/Rejection.svg";
-import IconTextButton from "../../common/IconTextButton";
-import styled from "styled-components";
-import useRequest from "@hooks/useRequest";
-import { useEffect } from "react";
-import useDelete from "./useDelete";
+import IconTextButton from "@components/common/IconTextButton";
+import DropdownComponent from "@components/common/DropdownComponent";
 
 const BasicMoreDropdown = ({
   className,
@@ -17,6 +16,7 @@ const BasicMoreDropdown = ({
   answerId,
   setIsModify,
   setAnswerContent,
+  setIsAnswered,
 }) => {
   const { btnRef, isOpen, clickHandler } = useDropdown();
 
@@ -27,8 +27,9 @@ const BasicMoreDropdown = ({
     method: "POST",
   });
 
-  const { data: deleteResponse, request: useDeleteAnswer } = useDelete({
+  const { status: deleteResponse, request: useDeleteAnswer } = useRequest({
     url: `answers/${answerId}`,
+    method: "DELETE",
   });
 
   const moreDeleteOptions = [
@@ -40,7 +41,10 @@ const BasicMoreDropdown = ({
         />
       ),
       event: () => {
-        useDeleteAnswer();
+        const removeAnswer = window.confirm("답변을 삭제할까요?");
+        if (removeAnswer) {
+          useDeleteAnswer();
+        }
       },
       active: false,
     },
@@ -67,7 +71,10 @@ const BasicMoreDropdown = ({
         />
       ),
       event: () => {
-        useDeleteAnswer();
+        const removeAnswer = window.confirm("답변을 삭제할까요?");
+        if (removeAnswer) {
+          useDeleteAnswer();
+        }
       },
       active: false,
     },
@@ -89,15 +96,16 @@ const BasicMoreDropdown = ({
   ];
 
   useEffect(() => {
-    const status = deleteResponse?.status;
-    if (status >= 200 && status < 300) {
+    if (deleteResponse >= 200 && deleteResponse < 300) {
       setAnswerContent(null);
+      setIsAnswered((prevState) => !prevState);
     }
   }, [deleteResponse]);
 
   useEffect(() => {
     if (rejectResponse) {
       setAnswerContent(rejectResponse);
+      setIsAnswered((prevState) => !prevState);
     }
   }, [rejectResponse]);
 

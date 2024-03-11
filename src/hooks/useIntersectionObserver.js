@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useRef } from "react";
+import { useRef, useCallback, useEffect } from "react";
 
 const useIntersectionObserver = (callbackFn) => {
   const observer = useRef(
@@ -15,13 +14,19 @@ const useIntersectionObserver = (callbackFn) => {
     )
   );
 
-  const observe = (element) => {
+  const observe = useCallback((element) => {
     observer.current.observe(element);
-  };
+  }, []);
 
   const unobserve = (element) => {
     observer.current.unobserve(element);
   };
+
+  useEffect(() => {
+    return () => {
+      observer.current.disconnect();
+    };
+  }, []);
 
   return [observe, unobserve];
 };
