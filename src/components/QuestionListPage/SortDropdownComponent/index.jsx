@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import styled from "styled-components";
-import useDropdown from "../../../hooks/useDropdown";
-import DropdownComponent from "../../common/DropdownComponent";
-import { colors, fontStyles, devices } from "@styles/styleVariables";
 import { useSearchParams } from "react-router-dom";
+import styled from "styled-components";
+import useDropdown from "@hooks/useDropdown";
+import { colors, fontStyles, devices } from "@styles/styleVariables";
 import up from "@icons/Up.svg";
 import down from "@icons/Down.svg";
+import DropdownComponent from "@components/common/DropdownComponent";
 
 const SortDropdownComponent = () => {
   // useDropdown hook 선언

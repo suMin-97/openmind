@@ -1,16 +1,11 @@
-import { useParams } from "react-router-dom";
-import useRequest from "../../../hooks/useRequest";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import useRequest from "@hooks/useRequest";
 
 const FeedPageProfile = () => {
   const { id } = useParams();
 
-  const {
-    data: feedProfileData,
-    error,
-    isLoading,
-    request,
-  } = useRequest({
+  const { data: feedProfileData, request } = useRequest({
     method: "GET",
     url: `subjects/${id}`,
   });

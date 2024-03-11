@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import useRequest from "../../hooks/useRequest";
-import styled from "styled-components";
-import ListHeaderComponent from "../../components/QuestionListPage/ListHeaderComponent";
-import SortDropdownComponent from "../../components/QuestionListPage/SortDropdownComponent";
 import { useSearchParams } from "react-router-dom";
-import { colors, fontStyles, devices } from "@styles/styleVariables";
-import ListPagination from "../../components/QuestionListPage/ListPagination";
-import UserCardComponent from "../../components/QuestionListPage/UserCardComponent";
 import { debounce } from "lodash";
+import styled from "styled-components";
+import { colors, fontStyles, devices } from "@styles/styleVariables";
+import useRequest from "@hooks/useRequest";
+import ListHeaderComponent from "@components/QuestionListPage/ListHeaderComponent";
+import SortDropdownComponent from "@components/QuestionListPage/SortDropdownComponent";
+import ListPagination from "@components/QuestionListPage/ListPagination";
+import UserCardComponent from "@components/QuestionListPage/UserCardComponent";
 
 const QuestionListPage = () => {
   const [searchParams, _setSearchParams] = useSearchParams();

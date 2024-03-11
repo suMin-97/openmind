@@ -3,9 +3,14 @@ import boxStyles from "@styles/boxStyles";
 import colors from "@styles/colors";
 import fontStyles from "@styles/fontStyles";
 
-const BasicSubmitButton = ({ children, isDisabled, className }) => {
+const BasicSubmitButton = ({
+  children,
+  isDisabled,
+  className,
+  handleClick,
+}) => {
   return (
-    <button className={className} type="submit" disabled={isDisabled}>
+    <button className={className} type="submit" onClick={handleClick}>
       {children}
     </button>
   );
@@ -15,7 +20,8 @@ const SubmitButton = styled(BasicSubmitButton)`
   ${boxStyles.flexRowCenter};
   ${boxStyles.paddingButtonM};
   ${boxStyles.radius8};
-  border: 1px solid ${colors.brown40};
+  border: 2px solid
+    ${(props) => (props.isDisabled ? colors.brown30 : colors.brown40)};
   background-color: ${(props) =>
     props.isDisabled ? colors.brown30 : colors.brown40};
   color: ${colors.gray10};

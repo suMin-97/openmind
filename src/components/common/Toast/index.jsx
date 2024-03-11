@@ -1,10 +1,5 @@
 import styled from "styled-components";
-import {
-  colors,
-  boxStyles,
-  fontStyles,
-  devices,
-} from "../../../styles/styleVariables";
+import { colors, boxStyles, fontStyles, devices } from "@styles/styleVariables";
 
 // 재사용성을 위해 children props 사용함
 const Toast = ({ className, children }) => {

@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useRequest from "@hooks/useRequest";
 import { BASIC_SUBJECT, POST_URL } from "./constants";
-import MainLayout from "../../components/MainPage/MainLayOut";
-import MainPageHeader from "../../components/MainPage/MainPageHeader";
-import MainForm from "../../components/MainPage/MainForm";
+import MainLayout from "@components/MainPage/MainLayOut";
+import MainPageHeader from "@components/MainPage/MainPageHeader";
+import MainForm from "@components/MainPage/MainForm";
 
 const MainPage = () => {
   const [value, setValue] = useState("");
@@ -36,41 +36,36 @@ const MainPage = () => {
     }, 2000);
   };
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
-    if (event.key === "Enter") {
-      event.preventDefault();
-      if (emptyCheckRegex.test(event.target.value) && isLengthCheckRegex) {
-        if (
-          confirm(
-            "기존에 생성한 피드가 존재합니다. 새로운 피드를 생성하시겠습니까?\n새로운 피드를 생성하면 기존 피드를 이용하실 수 없습니다."
-          )
-        ) {
-          BASIC_SUBJECT.name = event.target.value;
-          const newSubject = { ...BASIC_SUBJECT };
-          postSubjectRequest(newSubject);
-        } else {
-          navigateAnswerPage(localStorage.getItem("id"));
-        }
-      } else {
-        handleToast();
-      }
-    }
+  const createFeed = () => {
+    BASIC_SUBJECT.name = value;
+    const newSubject = { ...BASIC_SUBJECT };
+    postSubjectRequest(newSubject);
+  };
+
+  const handleChange = ({ target }) => {
+    setValue(target.value);
   };
 
   const handleSubmitClick = (event) => {
     event.preventDefault();
+    const createFeedId = localStorage.getItem("id") ?? null;
+
     if (emptyCheckRegex.test(value) && isLengthCheckRegex) {
-      if (
-        confirm(
+      if (!createFeedId) {
+        createFeed();
+        return;
+      }
+
+      if (createFeedId) {
+        const createFeedConfirm = window.confirm(
           "기존에 생성한 피드가 존재합니다. 새로운 피드를 생성하시겠습니까?\n새로운 피드를 생성하면 기존 피드를 이용하실 수 없습니다."
-        )
-      ) {
-        BASIC_SUBJECT.name = value;
-        const newSubject = { ...BASIC_SUBJECT };
-        postSubjectRequest(newSubject);
-      } else {
-        navigateAnswerPage(localStorage.getItem("id"));
+        );
+
+        if (createFeedConfirm) {
+          createFeed();
+        } else {
+          navigateAnswerPage(localStorage.getItem("id"));
+        }
       }
     } else {
       handleToast();

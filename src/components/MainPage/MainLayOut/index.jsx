@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { colors, boxStyles, fontStyles, devices } from "@styles/styleVariables";
+import { colors, boxStyles, devices } from "@styles/styleVariables";
 import backgroundImg from "@images/background-image.png";
-import Toast from "../../common/Toast";
+import Toast from "@components/common/Toast";
 
 const MainLayout = ({ children, isOpenToast }) => {
   return (

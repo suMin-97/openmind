@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { colors, boxStyles, fontStyles, devices } from "@styles/styleVariables";
 import personIcon from "@icons/Person.svg";
-import DisabledButton from "../../common/DisabledButton";
-import SubmitButton from "../../common/SubmitButton";
+import DisabledButton from "@components/common/DisabledButton";
+import SubmitButton from "@components/common/SubmitButton";
 
 const MainForm = ({ isEmptyValue, handleChange, handleSubmitClick }) => {
   return (

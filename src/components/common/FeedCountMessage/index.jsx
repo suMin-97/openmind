@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import { ReactComponent as MessagesIcon } from "@icons/Messages.svg";
 import { fontStyles, boxStyles, colors, devices } from "@styles/styleVariables";
+import { ReactComponent as MessagesIcon } from "@icons/Messages.svg";
 
 const BasicFeedCountMessage = ({ className, count, isLoading, error }) => {
   const countMessage = () => {
-    // 상태 관리 정리 필요
     if (isLoading) {
       return <span>질문을 읽어오는 중입니다.</span>;
     }

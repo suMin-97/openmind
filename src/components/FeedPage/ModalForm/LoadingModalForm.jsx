@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { boxStyles, colors, devices } from "@styles/styleVariables";
+import { boxStyles, colors } from "@styles/styleVariables";
 
 const LoadingModalForm = () => {
   return (

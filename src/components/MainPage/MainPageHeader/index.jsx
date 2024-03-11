@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { colors, boxStyles, devices } from "@styles/styleVariables";
-import ArrowButton from "../../common/ArrowButton";
 import logo from "@images/logo.svg";
+import ArrowButton from "@components/common/ArrowButton";
 
 const MainPageHeader = ({ navigateQuestionPage }) => {
   return (
