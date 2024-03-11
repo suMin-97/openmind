@@ -10,6 +10,7 @@ import SubmitButton from "@components/common/SubmitButton";
 import { BASIC_SUBJECT, POST_URL } from "./constants";
 import Toast from "../../components/common/Toast";
 import ArrowButton from "../../components/common/ArrowButton";
+import DisabledButton from "../../components/common/DisabledButton";
 
 const MainPage = () => {
   const [value, setValue] = useState("");
@@ -114,7 +115,7 @@ const MainPage = () => {
               {isEmptyValue ? (
                 <SubmitButton>질문 받기</SubmitButton>
               ) : (
-                <DisabledButton htmlFor="name">질문 받기</DisabledButton>
+                <DisabledButton id="name">질문 받기</DisabledButton>
               )}
             </StyledForm>
           </StyledDiv>
@@ -259,20 +260,6 @@ const InputDiv = styled.div`
     ${fontStyles.body3};
     ${fontStyles.regular};
   }
-`;
-
-const DisabledButton = styled.label`
-  ${boxStyles.flexRowCenter};
-  ${boxStyles.paddingButtonM};
-  ${boxStyles.radius8};
-  border: 1px solid ${colors.brown30};
-  background-color: ${colors.brown30};
-  color: ${colors.gray10};
-  cursor: pointer;
-  ${fontStyles.body3};
-  ${fontStyles.regular};
-  width: 100%;
-  height: 46px;
 `;
 
 export default MainPage;
