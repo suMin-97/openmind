@@ -54,6 +54,12 @@ const AnswerPage = () => {
   const { count, next, results: feedCardList } = feedCardData ?? {};
 
   useEffect(() => {
+    if (localStorage.getItem("id") != id) {
+      navigate(`/post/${id}`);
+    }
+  }, []);
+
+  useEffect(() => {
     getSubjectData();
   }, []);
 
