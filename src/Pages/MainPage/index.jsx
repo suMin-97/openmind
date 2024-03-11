@@ -9,10 +9,15 @@ import personIcon from "@icons/Person.svg";
 import arrowRightBrown from "@icons/arrow-right-brown.svg";
 import SubmitButton from "@components/common/SubmitButton";
 import { BASIC_SUBJECT, POST_URL } from "./constants";
+import Toast from "../../components/common/Toast";
 
 const MainPage = () => {
   const [value, setValue] = useState("");
-  const regex = /^[\s\S]*\S[\s\S]*$/; // 스페이스,엔터만 입력한 경우 같이 값은 있지만 사실상 내용이 없는 공란을 검사하는 정규식, false이면 공란임
+  const [isOpenToast, setIsOpenToast] = useState(false);
+  const emptyCheckRegex = /^[\s\S]*\S[\s\S]*$/; // 스페이스,엔터만 입력한 경우 같이 값은 있지만 사실상 내용이 없는 공란을 검사하는 정규식, false이면 공란임
+  const lengthCheckRegex = /^[a-zA-Z가-힣0-9\s]{2,8}$/;
+  const isEmptyValue = emptyCheckRegex.test(value);
+  const isLengthCheckRegex = lengthCheckRegex.test(value);
   const {
     data,
     isLoading,
@@ -25,24 +30,39 @@ const MainPage = () => {
     navigate(`/post/${id}/answer`);
   };
 
+  const navigateFeedPage = (id) => {
+    navigate(`/post/${id}`);
+  };
+
+  const handleToast = () => {
+    setIsOpenToast(true);
+    setTimeout(() => {
+      setIsOpenToast(false);
+    }, 2000);
+  };
+
   const handleChange = (event) => {
     setValue(event.target.value);
     if (event.key === "Enter") {
       event.preventDefault();
-      if (regex.test(event.target.value)) {
+      if (emptyCheckRegex.test(event.target.value) && isLengthCheckRegex) {
         BASIC_SUBJECT.name = event.target.value;
         const newSubject = { ...BASIC_SUBJECT };
         postSubjectRequest(newSubject);
+      } else {
+        handleToast();
       }
     }
   };
 
   const handleSubmitClick = (event) => {
     event.preventDefault();
-    if (regex.test(value)) {
+    if (emptyCheckRegex.test(value) && isLengthCheckRegex) {
       BASIC_SUBJECT.name = value;
       const newSubject = { ...BASIC_SUBJECT };
       postSubjectRequest(newSubject);
+    } else {
+      handleToast();
     }
   };
 
@@ -52,6 +72,16 @@ const MainPage = () => {
       localStorage.setItem("id", data?.id);
     } else if (error) {
       alert("다시 시도해주세요"); // 에러처리 정해야함
+    }
+
+    if (localStorage.getItem("id")) {
+      setTimeout(() => {
+        confirm(
+          "이전에 가입한 이력이 있습니다. 해당 피드 페이지로 이동하시겠습니까?"
+        )
+          ? navigateFeedPage(localStorage.getItem("id"))
+          : null;
+      }, 1000);
     }
   }, [isLoading]);
 
@@ -71,7 +101,7 @@ const MainPage = () => {
           <StyledForm onSubmit={handleSubmitClick}>
             <InputDiv>
               <label htmlFor="name">
-                <img src={personIcon} />
+                <img draggable="false" src={personIcon} />
               </label>
               <input
                 id="name"
@@ -79,10 +109,15 @@ const MainPage = () => {
                 onChange={handleChange}
               />
             </InputDiv>
-            <SubmitButton>질문 받기</SubmitButton>
+            {isEmptyValue ? (
+              <SubmitButton>질문 받기</SubmitButton>
+            ) : (
+              <DisabledButton htmlFor="name">질문 받기</DisabledButton>
+            )}
           </StyledForm>
         </StyledDiv>
       </Container>
+      {isOpenToast && <Toast>2-8 글자 내 작성해주세요</Toast>}
     </ContainDiv>
   );
 };
@@ -214,6 +249,12 @@ const InputDiv = styled.div`
   border: 1px solid ${colors.gray40};
   background: ${colors.gray10};
 
+  label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   img {
     width: 20px;
     height: 20px;
@@ -224,6 +265,9 @@ const InputDiv = styled.div`
     flex: 1 0 0;
     border: none;
     outline: none;
+
+    ${fontStyles.body3};
+    ${fontStyles.regular};
   }
 
   &:focus-within {
@@ -235,6 +279,20 @@ const InputDiv = styled.div`
     ${fontStyles.body3};
     ${fontStyles.regular};
   }
+`;
+
+const DisabledButton = styled.label`
+  ${boxStyles.flexRowCenter};
+  ${boxStyles.paddingButtonM};
+  ${boxStyles.radius8};
+  border: 1px solid ${colors.brown30};
+  background-color: ${colors.brown30};
+  color: ${colors.gray10};
+  cursor: pointer;
+  ${fontStyles.body3};
+  ${fontStyles.regular};
+  width: 100%;
+  height: 46px;
 `;
 
 export default MainPage;

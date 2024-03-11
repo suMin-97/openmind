@@ -7,8 +7,8 @@ import {
 } from "../../../styles/styleVariables";
 
 // 재사용성을 위해 children props 사용함
-const Toast = ({ children }) => {
-  return <ContainDiv>{children}</ContainDiv>;
+const Toast = ({ className, children }) => {
+  return <ContainDiv className={className}>{children}</ContainDiv>;
 };
 
 const ContainDiv = styled.div`
