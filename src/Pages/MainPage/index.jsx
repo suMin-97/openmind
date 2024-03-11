@@ -1,16 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { colors, boxStyles, fontStyles, devices } from "@styles/styleVariables";
 import useRequest from "@hooks/useRequest";
-import logo from "@images/logo.svg";
-import backgroundImg from "@images/background-image.png";
-import personIcon from "@icons/Person.svg";
-import SubmitButton from "@components/common/SubmitButton";
 import { BASIC_SUBJECT, POST_URL } from "./constants";
-import Toast from "../../components/common/Toast";
-import ArrowButton from "../../components/common/ArrowButton";
-import DisabledButton from "../../components/common/DisabledButton";
+import MainLayout from "../../components/MainPage/MainLayOut";
+import MainPageHeader from "../../components/MainPage/MainPageHeader";
+import MainForm from "../../components/MainPage/MainForm";
 
 const MainPage = () => {
   const [value, setValue] = useState("");
@@ -78,7 +72,9 @@ const MainPage = () => {
     } else if (error) {
       alert("다시 시도해주세요"); // 에러처리 정해야함
     }
+  }, [isLoading]);
 
+  useEffect(() => {
     if (localStorage.getItem("id")) {
       setTimeout(() => {
         confirm(
@@ -86,180 +82,20 @@ const MainPage = () => {
         )
           ? navigateFeedPage(localStorage.getItem("id"))
           : null;
-      }, 1000);
+      }, 1);
     }
-  }, [isLoading]);
+  }, []);
 
   return (
-    <ContainDiv>
-      <Container>
-        <ContainHeader>
-          <Header>
-            <img className="main-logo" src={logo} draggable="false" />
-            <ArrowButton onClick={navigateQuestionPage}>
-              질문하러 가기
-            </ArrowButton>
-          </Header>
-          <StyledDiv>
-            <StyledForm onSubmit={handleSubmitClick}>
-              <InputDiv>
-                <label htmlFor="name">
-                  <img draggable="false" src={personIcon} />
-                </label>
-                <input
-                  id="name"
-                  placeholder="이름을 입력하세요"
-                  onChange={handleChange}
-                />
-              </InputDiv>
-              {isEmptyValue ? (
-                <SubmitButton>질문 받기</SubmitButton>
-              ) : (
-                <DisabledButton id="name">질문 받기</DisabledButton>
-              )}
-            </StyledForm>
-          </StyledDiv>
-        </ContainHeader>
-      </Container>
-      {isOpenToast && <Toast>2-8 글자 내 작성해주세요</Toast>}
-    </ContainDiv>
+    <MainLayout isOpenToast={isOpenToast}>
+      <MainPageHeader navigateQuestionPage={navigateQuestionPage} />
+      <MainForm
+        handleSubmitClick={handleSubmitClick}
+        handleChange={handleChange}
+        isEmptyValue={isEmptyValue}
+      />
+    </MainLayout>
   );
 };
-
-const ContainDiv = styled.div`
-  background: ${colors.gray20};
-  width: 100%;
-  height: 100vh;
-  ${boxStyles.flexColumnCenter};
-`;
-
-const Container = styled.div`
-  background-image: url(${backgroundImg});
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center bottom;
-  width: 100%;
-  height: 100vh;
-
-  ${boxStyles.flexColumnCenter};
-  justify-content: center;
-  @media ${devices.desktop} {
-    max-width: 1200px;
-  }
-`;
-
-const ContainHeader = styled.div`
-  width: 100%;
-  height: 100vh;
-  max-width: 940px;
-  position: relative;
-  ${boxStyles.flexColumnCenter};
-  justify-content: center;
-`;
-
-const Header = styled.div`
-  ${boxStyles.flexColumnCenter}
-  margin-bottom: 24px;
-  gap: 24px;
-  background: ${colors.gray20};
-
-  .main-logo {
-    width: 248px;
-    height: 98px;
-    flex-shrink: 0;
-  }
-
-  @media ${devices.tablet} {
-    .main-logo {
-      width: 456px;
-      height: 180px;
-      flex-shrink: 0;
-    }
-
-    button {
-      position: absolute;
-      top: 49.5px;
-      right: 50px;
-    }
-  }
-  @media ${devices.desktop} {
-    button {
-      position: absolute;
-      top: 49.5px;
-      right: 0px;
-    }
-  }
-`;
-
-const StyledDiv = styled.div`
-  ${boxStyles.flexRowCenter};
-  padding-bottom: 64px;
-
-  @media ${devices.tablet} {
-    padding-bottom: 100px;
-  }
-`;
-
-const StyledForm = styled.form`
-  display: inline-flex;
-  width: 305px;
-  padding: 24px;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-
-  ${boxStyles.radius16};
-  background: ${colors.gray10};
-
-  @media ${devices.tablet} {
-    width: 400px;
-    padding: 32px;
-  }
-`;
-
-const InputDiv = styled.div`
-  width: 100%;
-  display: flex;
-  padding: 12px 16px;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  align-self: stretch;
-
-  ${boxStyles.radius8};
-  border: 1px solid ${colors.gray40};
-  background: ${colors.gray10};
-
-  label {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  img {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-  }
-
-  input {
-    flex: 1 0 0;
-    border: none;
-    outline: none;
-
-    ${fontStyles.body3};
-    ${fontStyles.regular};
-  }
-
-  &:focus-within {
-    border: 1px solid ${colors.brown40};
-  }
-
-  ::placeholder {
-    color: ${colors.gray40};
-    ${fontStyles.body3};
-    ${fontStyles.regular};
-  }
-`;
 
 export default MainPage;
