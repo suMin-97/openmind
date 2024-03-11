@@ -104,6 +104,7 @@ const Footer = styled.div`
 
 const MobileButton = styled.button`
   display: inline-flex;
+  width: 125px;
   height: 54px;
   padding: 12px 24px;
   justify-content: center;
@@ -126,6 +127,11 @@ const MobileButton = styled.button`
 
   &: hover {
     cursor: pointer;
+    border: 1px solid ${colors.brown50};
+  }
+
+  &: active {
+    background-color: ${colors.brown50};
   }
 
   @media ${devices.tablet} {
@@ -158,6 +164,11 @@ const TabletButton = styled.button`
 
   &: hover {
     cursor: pointer;
+    border: 1px solid ${colors.brown50};
+  }
+
+  &: active {
+    background-color: ${colors.brown50};
   }
 
   @media ${devices.tablet} {
