@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { colors, boxStyles, fontStyles, devices } from "@styles/styleVariables";
 import useRequest from "@hooks/useRequest";
 import logo from "@images/logo.svg";
 import backgroundImg from "@images/background-image.png";
 import personIcon from "@icons/Person.svg";
-import arrowRightBrown from "@icons/arrow-right-brown.svg";
 import SubmitButton from "@components/common/SubmitButton";
 import { BASIC_SUBJECT, POST_URL } from "./constants";
 import Toast from "../../components/common/Toast";
+import ArrowButton from "../../components/common/ArrowButton";
 
 const MainPage = () => {
   const [value, setValue] = useState("");
@@ -32,6 +32,10 @@ const MainPage = () => {
 
   const navigateFeedPage = (id) => {
     navigate(`/post/${id}`);
+  };
+
+  const navigateQuestionPage = () => {
+    navigate("list");
   };
 
   const handleToast = () => {
@@ -88,34 +92,33 @@ const MainPage = () => {
   return (
     <ContainDiv>
       <Container>
-        <Header>
-          <img src={logo} draggable="false" />
-          <Link to="/list">
-            <button>
-              <p>질문하러 가기</p>
-              <img src={arrowRightBrown} />
-            </button>
-          </Link>
-        </Header>
-        <StyledDiv>
-          <StyledForm onSubmit={handleSubmitClick}>
-            <InputDiv>
-              <label htmlFor="name">
-                <img draggable="false" src={personIcon} />
-              </label>
-              <input
-                id="name"
-                placeholder="이름을 입력하세요"
-                onChange={handleChange}
-              />
-            </InputDiv>
-            {isEmptyValue ? (
-              <SubmitButton>질문 받기</SubmitButton>
-            ) : (
-              <DisabledButton htmlFor="name">질문 받기</DisabledButton>
-            )}
-          </StyledForm>
-        </StyledDiv>
+        <ContainHeader>
+          <Header>
+            <img className="main-logo" src={logo} draggable="false" />
+            <ArrowButton onClick={navigateQuestionPage}>
+              질문하러 가기
+            </ArrowButton>
+          </Header>
+          <StyledDiv>
+            <StyledForm onSubmit={handleSubmitClick}>
+              <InputDiv>
+                <label htmlFor="name">
+                  <img draggable="false" src={personIcon} />
+                </label>
+                <input
+                  id="name"
+                  placeholder="이름을 입력하세요"
+                  onChange={handleChange}
+                />
+              </InputDiv>
+              {isEmptyValue ? (
+                <SubmitButton>질문 받기</SubmitButton>
+              ) : (
+                <DisabledButton htmlFor="name">질문 받기</DisabledButton>
+              )}
+            </StyledForm>
+          </StyledDiv>
+        </ContainHeader>
       </Container>
       {isOpenToast && <Toast>2-8 글자 내 작성해주세요</Toast>}
     </ContainDiv>
@@ -136,11 +139,21 @@ const Container = styled.div`
   background-position: center bottom;
   width: 100%;
   height: 100vh;
+
   ${boxStyles.flexColumnCenter};
   justify-content: center;
   @media ${devices.desktop} {
     max-width: 1200px;
   }
+`;
+
+const ContainHeader = styled.div`
+  width: 100%;
+  height: 100vh;
+  max-width: 940px;
+  position: relative;
+  ${boxStyles.flexColumnCenter};
+  justify-content: center;
 `;
 
 const Header = styled.div`
@@ -149,63 +162,30 @@ const Header = styled.div`
   gap: 24px;
   background: ${colors.gray20};
 
-  img {
+  .main-logo {
     width: 248px;
     height: 98px;
     flex-shrink: 0;
   }
 
-  button {
-    display: inline-flex;
-    padding: 8px 12px;
-    justify-content: center;
-    align-items: center;
-    gap: 4px;
-    ${boxStyles.radius8};
-    border: 1px solid ${colors.brown40};
-    background: ${colors.brown10};
-    :hover {
-      cursor: pointer;
-    }
-
-    img {
-      width: 18px;
-      height: 18px;
-    }
-
-    p {
-      color: ${colors.brown40};
-      ${fontStyles.caption};
-      ${fontStyles.regular};
-    }
-  }
-
   @media ${devices.tablet} {
-    gap: 0px;
-    button {
-      position: absolute;
-      top: 44px;
-      right: 50px;
-      padding: 12px 24px;
-      gap: 8px;
-
-      p {
-        ${fontStyles.body3};
-      }
-    }
-
-    img {
+    .main-logo {
       width: 456px;
       height: 180px;
       flex-shrink: 0;
     }
-  }
 
+    button {
+      position: absolute;
+      top: 49.5px;
+      right: 50px;
+    }
+  }
   @media ${devices.desktop} {
     button {
       position: absolute;
-      top: 45px;
-      right: 130px;
+      top: 49.5px;
+      right: 0px;
     }
   }
 `;
